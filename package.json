@@ -10,11 +10,13 @@
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "turbo run format",
+    "stylelint": "turbo run stylelint"
   },
   "devDependencies": {
     "eslint-config-custom": "workspace:*",
-    "prettier": "latest",
+    "prettier-config-custom": "workspace:*",
+    "stylelint-config-custom": "workspace:*",
     "turbo": "latest"
   },
   "engines": {

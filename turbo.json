@@ -8,6 +8,12 @@
     "lint": {
       "outputs": []
     },
+    "format": {
+      "outputs": []
+    },
+    "stylelint": {
+      "outputs": []
+    },
     "dev": {
       "cache": false
     }
