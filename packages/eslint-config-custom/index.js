@@ -16,9 +16,7 @@ module.exports = {
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
-    "plugin:prettier/recommended",
     "turbo",
-    "prettier",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -143,7 +141,6 @@ module.exports = {
     "react/jsx-no-useless-fragment": "error",
     // React Hooks
     // Accesibility
-    // Prettier
   },
   settings: {
     react: {
@@ -164,4 +161,4 @@ module.exports = {
       },
     },
   },
-};
+}
