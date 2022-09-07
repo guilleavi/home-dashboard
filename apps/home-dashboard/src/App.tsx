@@ -1,5 +1,5 @@
 import "./App.css"
-import { Button } from "ui/components/Button/Button"
+import { Button } from "ui/src/components/Button/Button"
 
 const App = () => (
   <div className="App">
