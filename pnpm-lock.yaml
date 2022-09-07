@@ -40,6 +40,8 @@ importers:
       '@vitejs/plugin-react': ^2.0.1
       eslint: ^8.23.0
       eslint-config-custom: workspace:*
+      prettier: ^2.7.1
+      prettier-config-custom: workspace:*
       react: ^18.2.0
       react-dom: ^18.2.0
       tsconfig: workspace:*
@@ -56,6 +58,8 @@ importers:
       '@vitejs/plugin-react': 2.0.1_vite@3.0.9
       eslint: 8.23.0
       eslint-config-custom: link:../../packages/eslint-config-custom
+      prettier: 2.7.1
+      prettier-config-custom: link:../../packages/prettier-config-custom
       tsconfig: link:../../packages/tsconfig
       typescript: 4.8.2
       vite: 3.0.9
@@ -2577,7 +2581,6 @@ packages:
     resolution: {integrity: sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==}
     engines: {node: '>=10.13.0'}
     hasBin: true
-    dev: false
 
   /prop-types/15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
@@ -2624,7 +2627,10 @@ packages:
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
+<<<<<<< HEAD
     dev: true
+=======
+>>>>>>> dfc3bf3bab3db4431902dec96b4f85d199af7815
 
   /react/18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
