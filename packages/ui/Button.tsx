@@ -1,4 +1,9 @@
 import * as React from "react";
 export const Button = () => {
-  return <button>Boop</button>;
+  
+  const handleOnClick = () => {
+    console.log('boo ooping the snoot!!--> ');
+  }
+  return <button onClick={handleOnClick}>Boop the snoot🐶.</button>;
+
 };
