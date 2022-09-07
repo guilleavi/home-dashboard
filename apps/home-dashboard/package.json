@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "lint": "eslint \"src/**/*.{ts,tsx}\" ",
     "format": "npx prettier --write .",
-    "stylelint": ""
+    "stylelint": "npx stylelint \"src/**/*.{css,scss}\" --fix"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -24,6 +24,8 @@
     "eslint-config-custom": "workspace:*",
     "prettier": "^2.7.1",
     "prettier-config-custom": "workspace:*",
+    "stylelint": "^14.11.0",
+    "stylelint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^4.8.2",
     "vite": "^3.1.0"
