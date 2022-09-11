@@ -24,6 +24,7 @@ importers:
       next: 12.3.0
       react: ^18.2.0
       react-dom: ^18.2.0
+      tsconfig: workspace:*
       typescript: ^4.8.2
     dependencies:
       next: 12.3.0_biqbaboplfbrettd7655fr4n2y
@@ -35,6 +36,7 @@ importers:
       '@types/react-dom': 18.0.6
       eslint: 8.23.0
       eslint-config-next: 12.3.0_yqf6kl63nyoq5megxukfnom5rm
+      tsconfig: link:../../packages/tsconfig
       typescript: 4.8.2
 
   apps/home-dashboard:

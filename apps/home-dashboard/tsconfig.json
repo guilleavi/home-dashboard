@@ -1,7 +1,13 @@
 {
-  "extends": "tsconfig/vite-react.json",
-  "include": ["src/vite-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"],
+  "extends": "tsconfig/react.json",
+  "include": [
+    "src/vite-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
   "references": [
     {
       "path": "./tsconfig.node.json"

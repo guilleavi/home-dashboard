@@ -6,6 +6,6 @@
   "files": [
     "base.json",
     "react-library.json",
-    "vite-react.json"
+    "react.json"
   ]
 }
