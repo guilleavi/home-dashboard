@@ -22,8 +22,12 @@ importers:
       eslint: ^8.23.0
       eslint-config-next: 12.3.0
       next: 12.3.0
+      prettier: ^2.7.1
+      prettier-config-custom: workspace:*
       react: ^18.2.0
       react-dom: ^18.2.0
+      stylelint: ^14.11.0
+      stylelint-config-custom: workspace:*
       tsconfig: workspace:*
       typescript: ^4.8.2
     dependencies:
@@ -36,6 +40,10 @@ importers:
       '@types/react-dom': 18.0.6
       eslint: 8.23.0
       eslint-config-next: 12.3.0_yqf6kl63nyoq5megxukfnom5rm
+      prettier: 2.7.1
+      prettier-config-custom: link:../../packages/prettier-config-custom
+      stylelint: 14.11.0
+      stylelint-config-custom: link:../../packages/stylelint-config-custom
       tsconfig: link:../../packages/tsconfig
       typescript: 4.8.2
 

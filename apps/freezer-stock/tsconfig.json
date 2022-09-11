@@ -1,10 +1,6 @@
 {
   "extends": "tsconfig/react.json",
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "compilerOptions": {
     "incremental": true,
     "jsx": "preserve"
