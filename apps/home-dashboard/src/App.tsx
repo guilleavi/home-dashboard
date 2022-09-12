@@ -1,4 +1,4 @@
-import "./App.css"
+import "./App.scss"
 import { Button } from "ui/src/components/Button/Button"
 
 const App = () => (
