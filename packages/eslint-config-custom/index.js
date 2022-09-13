@@ -24,7 +24,10 @@ module.exports = {
       jsx: true,
     },
     ecmaVersion: 2022,
-    project: ["../../apps/home-dashboard/tsconfig.json"],
+    project: [
+      "../../apps/home-dashboard/tsconfig.json",
+      "../../apps/freezer-stock/tsconfig.json",
+    ],
     sourceType: "module",
     tsconfigRootDir: __dirname,
   },
@@ -157,8 +160,11 @@ module.exports = {
     "import/resolver": {
       typescript: {
         alwaysTryTypes: true,
-        project: ["../../apps/home-dashboard/tsconfig.json"],
+        project: [
+          "../../apps/home-dashboard/tsconfig.json",
+          "../../apps/freezer-stock/tsconfig.json",
+        ],
       },
     },
   },
-}
+};
