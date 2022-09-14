@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "npx prettier --write .",
+    "format": "npx prettier --write ./src",
     "stylelint": "npx stylelint \"src/**/*.{css,scss}\" --fix"
   },
   "dependencies": {
@@ -22,8 +22,8 @@
     "@types/node": "18.7.16",
     "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",
-    "eslint": "^8.23.0",
-    "eslint-config-next": "12.3.0",
+    "eslint": "^8.23.1",
+    "eslint-config-next": "^12.3.0",
     "prettier": "^2.7.1",
     "prettier-config-custom": "workspace:*",
     "sass": "^1.54.9",
