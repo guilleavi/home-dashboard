@@ -1,13 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { PrismaClient } from "@prisma/client"
-import { assertIsString } from "../../../asserts/primitives"
-import { Product } from "../../../types/product"
+import { ProductSummary } from "@custom-types/product"
+import { assertIsString } from "@asserts/primitives"
 
 const prisma = new PrismaClient()
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Product>,
+  res: NextApiResponse<ProductSummary | null>,
 ) {
   const { name } = req.query
 
@@ -28,10 +28,8 @@ export default async function handler(
     let nextToExpireDate = ""
     let nextToExpireUnits = 0
 
-    console.log(product.instances)
-
     if (product.instances?.length) {
-      nextToExpireDate = product.instances[0].expirationDate
+      nextToExpireDate = product.instances[0].expirationDate // asc order
       nextToExpireUnits = product.instances
         .filter((instance) => instance.expirationDate === nextToExpireDate)
         .reduce((p, c) => p + c.units, 0)
@@ -44,8 +42,8 @@ export default async function handler(
       nextToExpireUnits,
     }
 
-    res.send(productResponse, { depth: null })
+    res.send(productResponse)
   }
 
-  res.send(product, { depth: null })
+  res.send(null)
 }
