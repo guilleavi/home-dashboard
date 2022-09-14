@@ -1,8 +1,22 @@
 {
-  "extends": "tsconfig/react.json",
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "extends": "tsconfig/nextjs.json",
   "compilerOptions": {
-    "incremental": true,
-    "jsx": "preserve"
-  }
+    "baseUrl": "src",
+    "paths": {
+      "@custom-types/*": [
+        "types/*"
+      ],
+      "@asserts/*": [
+        "asserts/*"
+      ]
+    },
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
