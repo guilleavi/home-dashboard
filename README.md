@@ -7,4 +7,4 @@ pnpm install
 
 
 #create new app
-pnpm create next-app --ts
+cd /home-dashboard/home-dashboard/apps && pnpm create next-app --ts
