@@ -22,7 +22,7 @@ const getProduct = async ({
     >({
       abortSignal,
       defaultValue: new NewProduct(name),
-      url: `https://localhost:3000/api/products/${name}`,
+      url: `http://localhost:3000/api/products/${name}`,
     })
     : new NewProduct("")
 }
@@ -31,13 +31,13 @@ const getProductDetails = async ({
   abortSignal,
   name,
 }: GetProduct): Promise<Array<ProductDetails>> =>
-  await axios.get(`https://localhost:3000/api/products/intances/${name}`, {
+  await axios.get(`http://localhost:3000/api/products/intances/${name}`, {
     signal: abortSignal,
   })
 
 const saveProduct = async (newProductItem: ProductToSave) => {
   const postStatus = await axios.post(
-    `https://localhost:3000/api/products/${newProductItem.name}`,
+    `http://localhost:3000/api/products/${newProductItem.name}`,
     newProductItem,
   )
 }
