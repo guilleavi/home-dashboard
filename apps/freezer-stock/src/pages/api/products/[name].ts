@@ -43,7 +43,8 @@ export default async function handler(
     }
 
     res.send(productResponse)
+    return
   }
 
-  res.send(null)
+  res.send(product)
 }
