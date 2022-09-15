@@ -8,6 +8,7 @@ import { useContext, useCallback, useEffect } from "react"
 import { getProduct } from "services/products"
 
 const HomePage: NextPage = () => {
+  
   const {
     state: {
       newProductItem: { name: selectedProductName },
