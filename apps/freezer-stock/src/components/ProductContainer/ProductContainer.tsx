@@ -1,4 +1,5 @@
 import FrozenProductInfo from "components/FrozenProductInfo/FrozenProductInfo"
+import SaveButton from "components/SaveButton/SaveButton"
 import StorageDate from "components/StorageDate/StorageDate"
 import UnitsController from "components/UnitsController/UnitsController"
 import { ProductContext } from "contexts/ProductProvider"
@@ -8,6 +9,7 @@ const ProductContainer = () => {
   const {
     state: {
       storagedProduct: { name },
+      newProductItem: { name: selectedProductName },
     },
   } = useContext(ProductContext)
   if (!name) {
@@ -19,6 +21,7 @@ const ProductContainer = () => {
       <FrozenProductInfo />
       <StorageDate />
       <UnitsController />
+      {selectedProductName ? <SaveButton /> : null}
     </>
   )
 }
