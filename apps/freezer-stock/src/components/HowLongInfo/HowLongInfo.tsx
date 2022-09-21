@@ -22,8 +22,8 @@ const HowLongInfo = () => {
     })
   }
 
-  const handleKeyDown = (e: React.FormEvent<HTMLInputElement>) => {
-    dispatchHowLong(Number(e.currentTarget.value))
+  const handleKeyDown = (event: React.FormEvent<HTMLInputElement>) => {
+    dispatchHowLong(Number(event.currentTarget.value))
   }
 
   const handleOnClickEdit = (event: React.MouseEvent<HTMLElement>) => {

@@ -7,6 +7,7 @@ const HomePage = () => {
       <h1>Freezer Stock</h1>
       <SearchInput />
       <ProductContainer />
+      {/* TODO: add see all button to see the full stock */}
     </>
   )
 }

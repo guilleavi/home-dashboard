@@ -3,8 +3,7 @@ import React, { useContext, useEffect, useState } from "react"
 import { ProductActionType } from "types/state"
 
 const StorageDate = () => {
-  const DATE_LENGTH = 10
-  const today = new Date().toISOString().slice(0, DATE_LENGTH)
+  const today = new Date().toISOString().slice(0, 10)
 
   const { dispatch } = useContext(ProductContext)
   const [hasCustomDate, setHasCustomDate] = useState(false)
@@ -44,7 +43,7 @@ const StorageDate = () => {
           checked={hasCustomDate}
           onChange={handleCheckboxOnClick}
         />
-        {`Custom date`}
+        {`Custom date `}
         {hasCustomDate ? (
           <input
             type="date"
