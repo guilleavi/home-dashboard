@@ -8,11 +8,13 @@ import { useContext } from "react"
 const ProductContainer = () => {
   const {
     state: {
-      storagedProduct: { name },
+      storagedProduct: { name: storagedProductName },
       newProductItem: { name: selectedProductName },
     },
   } = useContext(ProductContext)
-  if (!name) {
+
+  // Nothing has been searched yet
+  if (!storagedProductName) {
     return null
   }
 
