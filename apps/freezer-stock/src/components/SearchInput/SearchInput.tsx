@@ -1,42 +1,36 @@
 import { ProductContext } from "contexts/ProductProvider"
-import React, { useCallback, useContext, useEffect, useRef } from "react"
+import React, { useContext, useEffect, useRef, useState } from "react"
 import { getProduct } from "services/products"
 import { ProductActionType } from "types/state"
 
 const SearchInput = () => {
-  const {
-    state: {
-      newProductItem: { name: selectedProductName },
-    },
-    dispatch,
-  } = useContext(ProductContext)
+  const [name, setName] = useState("")
+  const { dispatch } = useContext(ProductContext)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  // DO NOT REMOVE THE useCallback. Without it, this function will be recreated with every re-render
-  // and that will trigger the useEffect
-  const fetchProduct = useCallback(
-    async (signal: AbortSignal) => {
+  useEffect(() => {
+    const abortController = new AbortController()
+
+    const fetchProduct = async (name: string, abortSignal: AbortSignal) => {
       const fetchedProduct = await getProduct({
-        name: selectedProductName,
-        abortSignal: signal,
+        name,
+        abortSignal,
       })
       dispatch({
         type: ProductActionType.GET_PRODUCT,
         payload: fetchedProduct,
       })
-    },
-    [dispatch, selectedProductName],
-  )
+    }
 
-  useEffect(() => {
-    const abortController = new AbortController()
-    fetchProduct(abortController.signal).catch((err) => console.error(err))
+    fetchProduct(name, abortController.signal).catch((err) =>
+      console.error(err),
+    )
 
     return () => {
       // make sure that the previous call gets canceled before doing a new fetch
       abortController.abort()
     }
-  }, [fetchProduct, selectedProductName])
+  }, [dispatch, name])
 
   const handleKeyDown = (
     event: React.KeyboardEvent<HTMLInputElement> & {
@@ -44,10 +38,8 @@ const SearchInput = () => {
     },
   ) => {
     if (event.key === "Enter") {
-      dispatch({
-        type: ProductActionType.UPDATE_PRODUCT,
-        payload: { key: "name", value: event.target.value },
-      })
+      setName(event.target.value)
+      // clean input
       if (inputRef.current) {
         inputRef.current.value = ""
       }
