@@ -3,7 +3,7 @@ import type { AppProps } from "next/app"
 import Head from "next/head"
 import { ProductProvider } from "contexts/ProductProvider"
 
-const MyApp = ({ Component, pageProps }: AppProps) => (
+const FreezerStockApp = ({ Component, pageProps }: AppProps) => (
   <div>
     <Head>
       <title>Freezer stock</title>
@@ -16,4 +16,4 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
   </div>
 )
 
-export default MyApp
+export default FreezerStockApp
