@@ -1,18 +1,33 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { PrismaClient } from "@prisma/client"
-import { ProductSummary } from "@custom-types/product"
+import { PrismaClient, Product, ProductInstance } from "@prisma/client"
+import { ProductSummary, ProductToSave } from "@custom-types/product"
 import { assertIsString } from "@asserts/primitives"
 
 const prisma = new PrismaClient()
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ProductSummary | null>,
+  res: NextApiResponse,
 ) {
-  const { name } = req.query
+  const { query: { name }, body, method } = req
 
   assertIsString(name)
 
+  switch (method) {
+    case 'GET':
+      res.send(await getProduct(name))
+      break
+    case 'POST':
+      await saveProduct(body)
+      res.status(200)
+      break
+    default:
+      res.setHeader('Allow', ['GET', 'POST'])
+      res.status(405).end(`Method ${method} Not Allowed`)
+  }
+}
+
+const getProduct = async (name: string): Promise<ProductSummary | null> => {
   const product = await prisma.product.findUnique({
     where: { name: name },
     include: {
@@ -42,9 +57,50 @@ export default async function handler(
       nextToExpireUnits,
     }
 
-    res.send(productResponse)
-    return
+    return productResponse
   }
 
-  res.send(product)
+  return product
+}
+
+const saveProduct = async (body: ProductToSave) => {
+  const { name, howLongToFreeze, storageDate, units } = body
+
+  const product = await prisma.product.findUnique({
+    where: { name: name }
+  })
+
+  // Check if the product is new, in that case, insert a new product
+  if (!product) {
+    await prisma.product.create({
+      data: {
+        name: name as string,
+        monthsToExpire: howLongToFreeze as number,
+      } as Product
+    })
+  } else {
+    // If the product already exists, update the howLongToFreeze value if it changes
+    if (product.monthsToExpire !== howLongToFreeze) {
+      await prisma.product.update({
+        data: {
+          monthsToExpire: howLongToFreeze
+        },
+        where: { name: name }
+      })
+    }
+  }
+
+  if (units) {
+    // Create a new product instance
+    const storageDateToDate = new Date(storageDate)
+    storageDateToDate.setMonth(storageDateToDate.getMonth() + howLongToFreeze)
+
+    await prisma.productInstance.create({
+      data: {
+        name: name as string,
+        units: units as number,
+        expirationDate: storageDateToDate.toLocaleDateString()
+      } as ProductInstance
+    })
+  }
 }
