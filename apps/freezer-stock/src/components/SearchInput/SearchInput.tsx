@@ -1,6 +1,6 @@
 import { ProductContext } from "contexts/ProductProvider"
 import React, { useContext, useRef } from "react"
-import { ProductActions } from "types/state"
+import { ProductActionType } from "types/state"
 
 const SearchInput = () => {
   const { dispatch } = useContext(ProductContext)
@@ -13,8 +13,8 @@ const SearchInput = () => {
   ) => {
     if (event.key === "Enter") {
       dispatch({
-        type: ProductActions.TYPE_PRODUCT,
-        payload: event.target.value,
+        type: ProductActionType.UPDATE_PRODUCT,
+        payload: { key: "name", value: event.target.value },
       })
       if (inputRef.current) {
         inputRef.current.value = ""

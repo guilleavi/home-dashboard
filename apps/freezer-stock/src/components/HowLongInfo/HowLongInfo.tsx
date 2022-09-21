@@ -1,6 +1,6 @@
 import { ProductContext } from "contexts/ProductProvider"
 import { useContext, useEffect, useState } from "react"
-import { ProductActions } from "types/state"
+import { ProductActionType } from "types/state"
 
 const HowLongInfo = ({ howLongToFreeze }: { howLongToFreeze: number }) => {
   const { dispatch } = useContext(ProductContext)
@@ -12,8 +12,8 @@ const HowLongInfo = ({ howLongToFreeze }: { howLongToFreeze: number }) => {
 
   const handleOnChange = (e: React.FormEvent<HTMLInputElement>) => {
     dispatch({
-      type: ProductActions.UPDATE_HOW_MANY_MONTHS_FREEZE,
-      payload: Number(e.currentTarget.value),
+      type: ProductActionType.UPDATE_PRODUCT,
+      payload: { key: "howLongToFreeze", value: Number(e.currentTarget.value) },
     })
   }
 

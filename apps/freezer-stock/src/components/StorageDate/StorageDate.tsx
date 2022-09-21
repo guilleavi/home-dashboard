@@ -1,6 +1,6 @@
 import { ProductContext } from "contexts/ProductProvider"
 import React, { useContext, useEffect, useState } from "react"
-import { ProductActions } from "types/state"
+import { ProductActionType } from "types/state"
 
 const StorageDate = () => {
   const DATE_LENGTH = 10
@@ -16,8 +16,8 @@ const StorageDate = () => {
        * but you can force a custom one in the case you forget to update the freezer stock at the moment
        */
       dispatch({
-        type: ProductActions.UPDATE_STORAGE_DATE,
-        payload: today,
+        type: ProductActionType.UPDATE_PRODUCT,
+        payload: { key: "storageDate", value: today },
       })
     }
   }, [dispatch, hasCustomDate, today])
@@ -30,8 +30,8 @@ const StorageDate = () => {
     event: React.ChangeEvent<HTMLInputElement> & { target: HTMLInputElement },
   ) => {
     dispatch({
-      type: ProductActions.UPDATE_STORAGE_DATE,
-      payload: event.target.value,
+      type: ProductActionType.UPDATE_PRODUCT,
+      payload: { key: "storageDate", value: event.target.value },
     })
   }
 

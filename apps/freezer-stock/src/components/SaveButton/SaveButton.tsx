@@ -1,7 +1,7 @@
 import { ProductContext } from "contexts/ProductProvider"
 import { useContext } from "react"
 import { saveProduct } from "services/products"
-import { ProductActions } from "types/state"
+import { ProductActionType } from "types/state"
 
 const SaveButton = () => {
   const { state, dispatch } = useContext(ProductContext)
@@ -10,8 +10,11 @@ const SaveButton = () => {
     event.preventDefault()
     if (!state.newProductItem.howLongToFreeze) {
       dispatch({
-        type: ProductActions.UPDATE_HOW_MANY_MONTHS_FREEZE,
-        payload: state.storagedProduct.howLongToFreeze,
+        type: ProductActionType.UPDATE_PRODUCT,
+        payload: {
+          key: "howLongToFreeze",
+          value: state.storagedProduct.howLongToFreeze,
+        },
       })
     }
     await saveProduct(state.newProductItem)

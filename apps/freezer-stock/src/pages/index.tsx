@@ -1,4 +1,4 @@
-import { ProductActions } from "@custom-types/state"
+import { ProductActionType } from "@custom-types/state"
 import ProductContainer from "components/ProductContainer/ProductContainer"
 import SaveButton from "components/SaveButton/SaveButton"
 import SearchInput from "components/SearchInput/SearchInput"
@@ -22,7 +22,7 @@ const HomePage: NextPage = () => {
         abortSignal: signal,
       })
       dispatch({
-        type: ProductActions.GET_PRODUCT,
+        type: ProductActionType.GET_PRODUCT,
         payload: fetchedProduct,
       })
     },
