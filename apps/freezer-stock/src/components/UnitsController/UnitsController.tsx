@@ -20,7 +20,7 @@ const UnitsController = () => {
   }
 
   return (
-    <div>
+    <>
       <button type="button" onClick={() => handleUpdateQuatity(-1)}>
         -
       </button>
@@ -28,7 +28,7 @@ const UnitsController = () => {
       <button type="button" onClick={() => handleUpdateQuatity(1)}>
         +
       </button>
-    </div>
+    </>
   )
 }
 

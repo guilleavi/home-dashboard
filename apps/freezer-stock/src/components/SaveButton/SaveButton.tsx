@@ -8,6 +8,8 @@ const SaveButton = () => {
 
   const handleOnClick = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
+
+    // add missing information to newProductItem
     if (!state.newProductItem.howLongToFreeze) {
       dispatch({
         type: ProductActionType.UPDATE_PRODUCT,
@@ -21,12 +23,13 @@ const SaveButton = () => {
   }
 
   return (
-    <div>
+    <>
       <button type="button" onClick={handleOnClick}>
         Save
       </button>
+      {/* TODO: remove next line */}
       <pre>{JSON.stringify(state.newProductItem)}</pre>
-    </div>
+    </>
   )
 }
 

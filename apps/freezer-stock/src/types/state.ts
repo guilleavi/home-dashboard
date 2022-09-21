@@ -18,7 +18,7 @@ type GetProductAction = {
 type UpdateProductAction = {
   type: ProductActionType.UPDATE_PRODUCT
   payload: {
-    key: string,
+    key: keyof ProductToSave,
     value: string | number
   }
 }
