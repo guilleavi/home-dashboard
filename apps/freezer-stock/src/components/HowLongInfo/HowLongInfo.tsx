@@ -2,53 +2,64 @@ import { ProductContext } from "contexts/ProductProvider"
 import { useContext, useEffect, useState } from "react"
 import { ProductActionType } from "types/state"
 
-const HowLongInfo = ({ howLongToFreeze }: { howLongToFreeze: number }) => {
-  const { dispatch } = useContext(ProductContext)
-  const [localHowLong, setLocalHowLong] = useState<number>(0)
+const HowLongInfo = () => {
+  const {
+    state: {
+      storagedProduct: { howLongToFreeze: originalHowLongToFreeze },
+    },
+    dispatch,
+  } = useContext(ProductContext)
+  const [updatedHowLong, setUpdatedHowLong] = useState(0)
 
   useEffect(() => {
-    setLocalHowLong(howLongToFreeze)
-  }, [howLongToFreeze])
+    setUpdatedHowLong(originalHowLongToFreeze)
+  }, [originalHowLongToFreeze])
 
-  const handleOnChange = (e: React.FormEvent<HTMLInputElement>) => {
+  const dispatchHowLong = (value: number) => {
     dispatch({
       type: ProductActionType.UPDATE_PRODUCT,
-      payload: { key: "howLongToFreeze", value: Number(e.currentTarget.value) },
+      payload: { key: "howLongToFreeze", value },
     })
+  }
+
+  const handleKeyDown = (e: React.FormEvent<HTMLInputElement>) => {
+    dispatchHowLong(Number(e.currentTarget.value))
   }
 
   const handleOnClickEdit = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
-    setLocalHowLong(0)
+    setUpdatedHowLong(0)
   }
 
   const handleOnClickUndo = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
-    setLocalHowLong(howLongToFreeze)
+    setUpdatedHowLong(originalHowLongToFreeze)
+    dispatchHowLong(originalHowLongToFreeze)
   }
 
   return (
     <div>
-      <h2>How long can you freeze it? </h2>
-      {localHowLong ? (
+      <h3>How long can you freeze it? </h3>
+      {updatedHowLong ? (
         <p>
-          {howLongToFreeze} months{" "}
+          {originalHowLongToFreeze} months{" "}
           <button type="button" onClick={handleOnClickEdit}>
+            {/* TODO: replace with icon */}
             Edit
           </button>
         </p>
       ) : (
         <>
-          {" "}
           <input
-            type="number"
+            type="text"
             placeholder="How long...?"
             aria-label="How long the product can be freezed"
-            onChange={handleOnChange}
+            onKeyDown={handleKeyDown}
           />{" "}
-          <span>months</span>
-          {howLongToFreeze ? (
+          <span>months</span>{" "}
+          {originalHowLongToFreeze ? (
             <button type="button" onClick={handleOnClickUndo}>
+              {/* TODO: replace with icon */}
               Undo
             </button>
           ) : null}

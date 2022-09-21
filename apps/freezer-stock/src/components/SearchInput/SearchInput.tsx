@@ -4,9 +4,9 @@ import { getProduct } from "services/products"
 import { ProductActionType } from "types/state"
 
 const SearchInput = () => {
-  const [name, setName] = useState("")
   const { dispatch } = useContext(ProductContext)
   const inputRef = useRef<HTMLInputElement>(null)
+  const [name, setName] = useState("")
 
   useEffect(() => {
     const abortController = new AbortController()

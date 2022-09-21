@@ -7,30 +7,18 @@ import { useContext } from "react"
 const FrozenProductInfo = () => {
   const {
     state: {
-      storagedProduct: {
-        howLongToFreeze,
-        name,
-        nextToExpireDate,
-        nextToExpireUnits,
-      },
+      storagedProduct: { name, nextToExpireUnits },
     },
   } = useContext(ProductContext)
 
+  // TODO: remove inline style, I added just to make this card easier to see
   return (
-    <div
-      className="current-status"
-      style={{ border: "1px solid gray", padding: "5px" }}
-    >
+    <div style={{ border: "1px solid gray", padding: "5px" }}>
       <h2>{name}</h2>
-      <HowLongInfo howLongToFreeze={howLongToFreeze} />
+      <HowLongInfo />
       {nextToExpireUnits ? (
         <>
-          {" "}
-          <ExpiringNextInfo
-            name={name}
-            nextToExpireDate={nextToExpireDate}
-            nextToExpireUnits={nextToExpireUnits}
-          />
+          <ExpiringNextInfo />
           <Link href="/details">See Stock Details</Link>{" "}
         </>
       ) : null}
