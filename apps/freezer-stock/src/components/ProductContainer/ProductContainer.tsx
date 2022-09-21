@@ -8,13 +8,12 @@ import { useContext } from "react"
 const ProductContainer = () => {
   const {
     state: {
-      storagedProduct: { name: storagedProductName },
-      newProductItem: { name: selectedProductName },
+      storagedProduct: { name },
     },
   } = useContext(ProductContext)
 
   // Nothing has been searched yet
-  if (!storagedProductName) {
+  if (!name) {
     return null
   }
 
@@ -23,7 +22,7 @@ const ProductContainer = () => {
       <FrozenProductInfo />
       <StorageDate />
       <UnitsController />
-      {selectedProductName ? <SaveButton /> : null}
+      {name ? <SaveButton /> : null}
     </>
   )
 }
