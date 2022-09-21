@@ -4,9 +4,14 @@ import { getProduct } from "services/products"
 import { ProductActionType } from "types/state"
 
 const SearchInput = () => {
-  const { dispatch } = useContext(ProductContext)
+  const {
+    state: {
+      storagedProduct: { name },
+    },
+    dispatch,
+  } = useContext(ProductContext)
   const inputRef = useRef<HTMLInputElement>(null)
-  const [name, setName] = useState("")
+  const [typedName, setTypedName] = useState("")
 
   useEffect(() => {
     const abortController = new AbortController()
@@ -22,7 +27,7 @@ const SearchInput = () => {
       })
     }
 
-    fetchProduct(name, abortController.signal).catch((err) =>
+    fetchProduct(typedName, abortController.signal).catch((err) =>
       console.error(err),
     )
 
@@ -30,7 +35,14 @@ const SearchInput = () => {
       // make sure that the previous call gets canceled before doing a new fetch
       abortController.abort()
     }
-  }, [dispatch, name])
+  }, [dispatch, typedName])
+
+  useEffect(() => {
+    setTypedName(name)
+    if (inputRef.current) {
+      inputRef.current.value = name
+    }
+  }, [name])
 
   const handleKeyDown = (
     event: React.KeyboardEvent<HTMLInputElement> & {
@@ -38,7 +50,7 @@ const SearchInput = () => {
     },
   ) => {
     if (event.key === "Enter") {
-      setName(event.target.value)
+      setTypedName(event.target.value)
       // clean input
       if (inputRef.current) {
         inputRef.current.value = ""

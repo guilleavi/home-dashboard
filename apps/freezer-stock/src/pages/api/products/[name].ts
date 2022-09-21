@@ -19,7 +19,7 @@ export default async function handler(
       break
     case 'POST':
       await saveProduct(body)
-      res.status(200)
+      res.send({})
       break
     default:
       res.setHeader('Allow', ['GET', 'POST'])
@@ -93,7 +93,7 @@ const saveProduct = async (body: ProductToSave) => {
   if (units) {
     // Create a new product instance
     const storageDateToDate = new Date(storageDate)
-    storageDateToDate.setMonth(storageDateToDate.getMonth() + howLongToFreeze)
+    storageDateToDate.setDate(storageDateToDate.getDate() + 1)
 
     await prisma.productInstance.create({
       data: {

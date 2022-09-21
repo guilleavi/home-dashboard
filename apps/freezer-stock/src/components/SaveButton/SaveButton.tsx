@@ -1,25 +1,40 @@
 import { ProductContext } from "contexts/ProductProvider"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { saveProduct } from "services/products"
 import { ProductActionType } from "types/state"
 
 const SaveButton = () => {
   const { state, dispatch } = useContext(ProductContext)
+  const [errorMessage, setErrorMessage] = useState("")
+
+  const validateData = () => {
+    if (
+      !state.newProductItem.howLongToFreeze &&
+      !state.storagedProduct.howLongToFreeze
+    ) {
+      setErrorMessage("'How long to freeze value' is mandatory!")
+      return false
+    }
+    setErrorMessage("")
+
+    return true
+  }
 
   const handleOnClick = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
 
-    // add missing information to newProductItem
-    if (!state.newProductItem.howLongToFreeze) {
+    if (validateData()) {
+      // add missing information to newProductItem
       dispatch({
-        type: ProductActionType.UPDATE_PRODUCT,
-        payload: {
-          key: "howLongToFreeze",
-          value: state.storagedProduct.howLongToFreeze,
-        },
+        type: ProductActionType.MERGE_PRODUCT,
+      })
+
+      await saveProduct(state.newProductItem)
+
+      dispatch({
+        type: ProductActionType.CLEAR_PRODUCT,
       })
     }
-    await saveProduct(state.newProductItem)
   }
 
   return (
@@ -27,6 +42,7 @@ const SaveButton = () => {
       <button type="button" onClick={handleOnClick}>
         Save
       </button>
+      <p>{errorMessage}</p>
       {/* TODO: remove next line */}
       <pre>{JSON.stringify(state.newProductItem)}</pre>
     </>

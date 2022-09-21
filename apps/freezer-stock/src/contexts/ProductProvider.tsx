@@ -32,6 +32,12 @@ const reducer = (state: ProductState, action: ProductActions): ProductState => {
       return {
         ...state,
         storagedProduct: action.payload,
+        newProductItem: {
+          name: action.payload.name,
+          howLongToFreeze: action.payload.howLongToFreeze,
+          storageDate: "",
+          units: 0,
+        },
       }
     case ProductActionType.UPDATE_PRODUCT:
       return {
@@ -39,6 +45,33 @@ const reducer = (state: ProductState, action: ProductActions): ProductState => {
         newProductItem: {
           ...state.newProductItem,
           [action.payload.key]: action.payload.value,
+        },
+      }
+    case ProductActionType.MERGE_PRODUCT:
+      return {
+        ...state,
+        newProductItem: {
+          name: state.newProductItem.name || state.storagedProduct.name,
+          howLongToFreeze:
+            state.newProductItem.howLongToFreeze ||
+            state.storagedProduct.howLongToFreeze,
+          storageDate: state.newProductItem.storageDate,
+          units: state.newProductItem.units,
+        },
+      }
+    case ProductActionType.CLEAR_PRODUCT:
+      return {
+        storagedProduct: {
+          name: "",
+          howLongToFreeze: 0,
+          nextToExpireDate: "",
+          nextToExpireUnits: 0,
+        },
+        newProductItem: {
+          name: "",
+          howLongToFreeze: 0,
+          storageDate: "",
+          units: 0,
         },
       }
     default:

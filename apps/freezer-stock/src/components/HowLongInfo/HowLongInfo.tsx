@@ -22,8 +22,12 @@ const HowLongInfo = () => {
     })
   }
 
-  const handleKeyDown = (event: React.FormEvent<HTMLInputElement>) => {
-    dispatchHowLong(Number(event.currentTarget.value))
+  const handleOnChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const typedHowLong = Number(event.currentTarget.value)
+
+    if (typedHowLong > 0) {
+      dispatchHowLong(typedHowLong)
+    }
   }
 
   const handleOnClickEdit = (event: React.MouseEvent<HTMLElement>) => {
@@ -51,10 +55,11 @@ const HowLongInfo = () => {
       ) : (
         <>
           <input
-            type="text"
+            type="number"
+            min="1"
             placeholder="How long...?"
             aria-label="How long the product can be freezed"
-            onKeyDown={handleKeyDown}
+            onChange={handleOnChange}
           />{" "}
           <span>months</span>{" "}
           {originalHowLongToFreeze ? (
