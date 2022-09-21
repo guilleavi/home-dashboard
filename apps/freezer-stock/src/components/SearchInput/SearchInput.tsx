@@ -2,6 +2,7 @@ import { ProductContext } from "contexts/ProductProvider"
 import React, { useContext, useEffect, useRef, useState } from "react"
 import { getProduct } from "services/products"
 import { ProductActionType } from "types/state"
+import styles from "./SearchInput.module.scss"
 
 const SearchInput = () => {
   const {
@@ -60,6 +61,7 @@ const SearchInput = () => {
 
   return (
     <input
+      className={styles["icon"]}
       type="search"
       placeholder="Search..."
       aria-label="Search product"
