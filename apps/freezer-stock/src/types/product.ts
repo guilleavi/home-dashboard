@@ -5,12 +5,6 @@ export type ProductSummary = {
   nextToExpireUnits: number
 }
 
-export type ProductDetails = {
-  name: string
-  expirationDate: string
-  units: number
-}
-
 export type ProductToSave = {
   name: string
   howLongToFreeze: number
@@ -18,12 +12,16 @@ export type ProductToSave = {
   units: number
 }
 
-const TODAY = new Date()
+export type ProductDetails = {
+  name: string
+  expirationDate: string
+  units: number
+}
 
 export class NewProduct implements ProductSummary {
   name = ""
   howLongToFreeze = 0
-  nextToExpireDate = TODAY.toDateString()
+  nextToExpireDate = new Date().toDateString()
   nextToExpireUnits = 0
 
   constructor(name: string) {

@@ -5,41 +5,40 @@ import {
   ProductToSave,
   ProductDetails,
 } from "types/product"
-import { safeFetch } from "utils/fetch"
+import { fetch } from "utils/fetch"
 
-interface GetProduct {
+type GetProduct = {
   abortSignal: AbortSignal
   name: string
 }
 
-const getProduct = async ({
+export const getProduct = async ({
   abortSignal,
   name,
 }: GetProduct): Promise<ProductSummary
 > => {
   return name
-    ? await safeFetch<ProductSummary
+    ? await fetch<ProductSummary
     >({
       abortSignal,
       defaultValue: new NewProduct(name),
-      url: `http://localhost:3000/api/products/${name}`,
+      url: `/api/products/${name}`,
     })
     : new NewProduct("")
 }
 
-const getProductDetails = async ({
+export const getProductDetails = async ({
   abortSignal,
   name,
 }: GetProduct): Promise<Array<ProductDetails>> =>
-  await axios.get(`http://localhost:3000/api/products/intances/${name}`, {
+  await axios.get(`/api/products/intances/${name}`, {
     signal: abortSignal,
   })
 
-const saveProduct = async (newProductItem: ProductToSave) => {
+export const saveProduct = async (newProductItem: ProductToSave) => {
   const postStatus = await axios.post(
-    `http://localhost:3000/api/products/${newProductItem.name}`,
+    `/api/products/${newProductItem.name}`,
     newProductItem,
   )
 }
 
-export { getProduct, getProductDetails, saveProduct }
