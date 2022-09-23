@@ -24,7 +24,8 @@ export const pluralize = (singularTerm: string, units: number): string =>
  * @param units {number}
  * @returns {string}
  */
-export const pluralizeToBe = (units: number): string => `${units > 1 ? "are" : "is"}`
+export const pluralizeToBe = (units: number): string =>
+  `${units > 1 ? "are" : "is"}`
 
 /**
  * Trims spaces and converts the string to Upper Case
@@ -41,4 +42,3 @@ export const standarize = (dirtyString: string): string =>
  */
 export const toPascalCase = (singleWord: string): string =>
   singleWord.charAt(0).toUpperCase() + singleWord.slice(1).toLowerCase()
-

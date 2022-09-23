@@ -20,8 +20,7 @@ export const fetch = async <T>({
 }: Fetch<T>): Promise<T> => {
   try {
     // TODO: create axios facade
-    const response = (await axios.get(url, { signal: abortSignal }))
-      .data as T
+    const response = (await axios.get(url, { signal: abortSignal })).data as T
 
     return response || defaultValue
   } catch (e: unknown) {

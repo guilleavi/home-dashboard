@@ -15,15 +15,13 @@ type GetProduct = {
 export const getProduct = async ({
   abortSignal,
   name,
-}: GetProduct): Promise<ProductSummary
-> => {
+}: GetProduct): Promise<ProductSummary> => {
   return name
-    ? await fetch<ProductSummary
-    >({
-      abortSignal,
-      defaultValue: new NewProduct(name),
-      url: `/api/products/${name}`,
-    })
+    ? await fetch<ProductSummary>({
+        abortSignal,
+        defaultValue: new NewProduct(name),
+        url: `/api/products/${name}`,
+      })
     : new NewProduct("")
 }
 
@@ -41,4 +39,3 @@ export const saveProduct = async (newProductItem: ProductToSave) => {
     newProductItem,
   )
 }
-

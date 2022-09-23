@@ -18,8 +18,8 @@ export default async function handler(
     include: {
       instances: {
         orderBy: {
-          expirationDate: 'asc'
-        }
+          expirationDate: "asc",
+        },
       },
     },
   })
@@ -33,11 +33,13 @@ export default async function handler(
 
     const productInstancesResponse: Array<ProductDetails> = []
 
-    product.instances.forEach(instance => productInstancesResponse.push({
-      name: instance.name,
-      expirationDate: instance.expirationDate,
-      units: instance.units
-    }))
+    product.instances.forEach((instance) =>
+      productInstancesResponse.push({
+        name: instance.name,
+        expirationDate: instance.expirationDate,
+        units: instance.units,
+      }),
+    )
 
     res.send(productInstancesResponse)
     return

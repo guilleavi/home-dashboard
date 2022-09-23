@@ -9,20 +9,24 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const { query: { name }, body, method } = req
+  const {
+    query: { name },
+    body,
+    method,
+  } = req
 
   assertIsString(name)
 
   switch (method) {
-    case 'GET':
+    case "GET":
       res.send(await getProduct(name))
       break
-    case 'POST':
+    case "POST":
       await saveProduct(body)
       res.send({})
       break
     default:
-      res.setHeader('Allow', ['GET', 'POST'])
+      res.setHeader("Allow", ["GET", "POST"])
       res.status(405).end(`Method ${method} Not Allowed`)
   }
 }
@@ -67,7 +71,7 @@ const saveProduct = async (body: ProductToSave) => {
   const { name, howLongToFreeze, storageDate, units } = body
 
   const product = await prisma.product.findUnique({
-    where: { name: name }
+    where: { name: name },
   })
 
   // Check if the product is new, in that case, insert a new product
@@ -76,16 +80,16 @@ const saveProduct = async (body: ProductToSave) => {
       data: {
         name: name as string,
         monthsToExpire: howLongToFreeze as number,
-      } as Product
+      } as Product,
     })
   } else {
     // If the product already exists, update the howLongToFreeze value if it changes
     if (product.monthsToExpire !== howLongToFreeze) {
       await prisma.product.update({
         data: {
-          monthsToExpire: howLongToFreeze
+          monthsToExpire: howLongToFreeze,
         },
-        where: { name: name }
+        where: { name: name },
       })
     }
   }
@@ -99,8 +103,8 @@ const saveProduct = async (body: ProductToSave) => {
       data: {
         name: name as string,
         units: units as number,
-        expirationDate: storageDateToDate.toLocaleDateString()
-      } as ProductInstance
+        expirationDate: storageDateToDate.toLocaleDateString(),
+      } as ProductInstance,
     })
   }
 }

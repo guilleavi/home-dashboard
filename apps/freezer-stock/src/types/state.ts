@@ -8,8 +8,8 @@ export type ProductState = {
 export enum ProductActionType {
   GET_PRODUCT = "GET_PRODUCT",
   UPDATE_PRODUCT = "UPDATE_PRODUCT",
-  MERGE_PRODUCT = 'MERGE_PRODUCT',
-  CLEAR_PRODUCT = 'CLEAR_PRODUCT'
+  MERGE_PRODUCT = "MERGE_PRODUCT",
+  CLEAR_PRODUCT = "CLEAR_PRODUCT",
 }
 
 type GetProductAction = {
@@ -20,7 +20,7 @@ type GetProductAction = {
 type UpdateProductAction = {
   type: ProductActionType.UPDATE_PRODUCT
   payload: {
-    key: keyof ProductToSave,
+    key: keyof ProductToSave
     value: string | number
   }
 }
