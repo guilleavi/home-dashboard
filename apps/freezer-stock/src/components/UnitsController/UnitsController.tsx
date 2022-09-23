@@ -1,6 +1,7 @@
 import { ProductContext } from "contexts/ProductProvider"
 import { useContext } from "react"
 import { ProductActionType } from "types/state"
+import styles from "./UnitsController.module.scss"
 
 const UnitsController = () => {
   const {
@@ -20,15 +21,23 @@ const UnitsController = () => {
   }
 
   return (
-    <>
-      <button type="button" onClick={() => handleUpdateQuatity(-1)}>
+    <section className={styles["controllers"]}>
+      <button
+        className={styles["button"]}
+        type="button"
+        onClick={() => handleUpdateQuatity(-1)}
+      >
         -
       </button>
-      <span>{units}</span>
-      <button type="button" onClick={() => handleUpdateQuatity(1)}>
+      <p className={styles["label"]}>{units}</p>
+      <button
+        className={styles["button"]}
+        type="button"
+        onClick={() => handleUpdateQuatity(1)}
+      >
         +
       </button>
-    </>
+    </section>
   )
 }
 

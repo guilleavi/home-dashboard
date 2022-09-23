@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  gap: 0.5rem;
+}
+
+.details-link {
+  align-self: center;
+  color: #00b7ff;
+  text-decoration: underline;
+}

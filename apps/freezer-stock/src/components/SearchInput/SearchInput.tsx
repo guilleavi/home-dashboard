@@ -60,14 +60,16 @@ const SearchInput = () => {
   }
 
   return (
-    <input
-      className={styles["icon"]}
-      type="search"
-      placeholder="Search..."
-      aria-label="Search product"
-      onKeyDown={handleKeyDown}
-      ref={inputRef}
-    />
+    <section>
+      <input
+        className={styles["search-bar"]}
+        type="search"
+        placeholder="Search..."
+        aria-label="Search product"
+        onKeyDown={handleKeyDown}
+        ref={inputRef}
+      />
+    </section>
   )
 }
 

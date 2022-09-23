@@ -1,6 +1,7 @@
 import { ProductContext } from "contexts/ProductProvider"
 import React, { useContext, useEffect, useState } from "react"
 import { ProductActionType } from "types/state"
+import styles from "./StorageDate.module.scss"
 
 const StorageDate = () => {
   const today = new Date().toISOString().slice(0, 10)
@@ -35,10 +36,11 @@ const StorageDate = () => {
   }
 
   return (
-    <>
-      <div>{`Storage Date ${!hasCustomDate ? today : ""}`}</div>
-      <div>
+    <section>
+      <p>{`Storage Date: ${!hasCustomDate ? today : ""}`}</p>
+      <div className={styles["custom"]}>
         <input
+          className={styles["checkbox"]}
           type="checkbox"
           checked={hasCustomDate}
           onChange={handleCheckboxOnClick}
@@ -53,7 +55,7 @@ const StorageDate = () => {
           />
         ) : null}
       </div>
-    </>
+    </section>
   )
 }
 

@@ -1,6 +1,7 @@
 import { ProductContext } from "contexts/ProductProvider"
 import { useContext, useEffect, useState } from "react"
 import { ProductActionType } from "types/state"
+import styles from "./HowLongInfo.module.scss"
 
 const HowLongInfo = () => {
   const {
@@ -42,31 +43,37 @@ const HowLongInfo = () => {
   }
 
   return (
-    <div>
-      <h3>How long can you freeze it? </h3>
+    <div className={styles["container"]}>
+      <p className={styles["question"]}>How long can you freeze it? </p>
       {updatedHowLong ? (
-        <p>
-          {originalHowLongToFreeze} months{" "}
-          <button type="button" onClick={handleOnClickEdit}>
-            {/* TODO: replace with icon */}
-            Edit
-          </button>
-        </p>
+        <>
+          <p className={styles["answer"]}>{originalHowLongToFreeze} months </p>
+          <button
+            aria-label="edit"
+            className={`${styles["button"]} ${styles["edit"]}`}
+            type="button"
+            onClick={handleOnClickEdit}
+          />
+        </>
       ) : (
         <>
-          <input
-            type="number"
-            min="1"
-            placeholder="How long...?"
-            aria-label="How long the product can be freezed"
-            onChange={handleOnChange}
-          />{" "}
-          <span>months</span>{" "}
+          <p className={styles["answer"]}>
+            <input
+              aria-label="How long the product can be freezed"
+              className={styles["months-input"]}
+              min="1"
+              type="number"
+              onChange={handleOnChange}
+            />{" "}
+            months{" "}
+          </p>
           {originalHowLongToFreeze ? (
-            <button type="button" onClick={handleOnClickUndo}>
-              {/* TODO: replace with icon */}
-              Undo
-            </button>
+            <button
+              aria-label="undo"
+              className={`${styles["button"]} ${styles["undo"]}`}
+              type="button"
+              onClick={handleOnClickUndo}
+            />
           ) : null}
         </>
       )}

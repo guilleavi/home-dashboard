@@ -2,6 +2,7 @@ import { ProductContext } from "contexts/ProductProvider"
 import { useContext, useState } from "react"
 import { saveProduct } from "services/products"
 import { ProductActionType } from "types/state"
+import styles from "./SaveButton.module.scss"
 
 const SaveButton = () => {
   const { state, dispatch } = useContext(ProductContext)
@@ -39,12 +40,14 @@ const SaveButton = () => {
 
   return (
     <>
-      <button type="button" onClick={handleOnClick}>
+      <button
+        className={styles["button"]}
+        type="button"
+        onClick={handleOnClick}
+      >
         Save
       </button>
-      <p>{errorMessage}</p>
-      {/* TODO: remove next line */}
-      <pre>{JSON.stringify(state.newProductItem)}</pre>
+      <p className={styles["errors"]}>{errorMessage}</p>
     </>
   )
 }
