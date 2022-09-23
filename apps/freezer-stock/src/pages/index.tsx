@@ -19,6 +19,7 @@ const HomePage = () => {
       <SearchInput />
       {name ? (
         <>
+          <h2>{name}</h2>
           <ProductInfo />
           <StorageDate />
           <UnitsController />

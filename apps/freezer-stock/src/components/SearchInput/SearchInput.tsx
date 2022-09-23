@@ -60,16 +60,14 @@ const SearchInput = () => {
   }
 
   return (
-    <section>
-      <input
-        className={styles["search-bar"]}
-        type="search"
-        placeholder="Search..."
-        aria-label="Search product"
-        onKeyDown={handleKeyDown}
-        ref={inputRef}
-      />
-    </section>
+    <input
+      className={styles["search-bar"]}
+      type="search"
+      placeholder="Search..."
+      aria-label="Search product"
+      onKeyDown={handleKeyDown}
+      ref={inputRef}
+    />
   )
 }
 

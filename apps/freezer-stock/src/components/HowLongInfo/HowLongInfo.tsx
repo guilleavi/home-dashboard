@@ -44,7 +44,7 @@ const HowLongInfo = () => {
 
   return (
     <div className={styles["container"]}>
-      <p>How long can you freeze it? </p>
+      <p>Max. freeze time: </p>
       {updatedHowLong ? (
         <>
           <p className={styles["months"]}>{originalHowLongToFreeze} months </p>
