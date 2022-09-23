@@ -37,10 +37,12 @@ const StorageDate = () => {
 
   return (
     <section>
-      <p>{`Storage Date: ${!hasCustomDate ? today : ""}`}</p>
+      {/* TODO: standarize date format */}
+      <p>
+        Storage Date: <strong>{!hasCustomDate ? today : ""}</strong>
+      </p>
       <div className={styles["custom"]}>
         <input
-          className={styles["checkbox"]}
           type="checkbox"
           checked={hasCustomDate}
           onChange={handleCheckboxOnClick}
@@ -48,6 +50,7 @@ const StorageDate = () => {
         {`Custom date `}
         {hasCustomDate ? (
           <input
+            className={styles["datepicker"]}
             type="date"
             disabled={!hasCustomDate}
             defaultValue={today}

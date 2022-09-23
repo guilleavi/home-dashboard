@@ -21,7 +21,7 @@ const UnitsController = () => {
   }
 
   return (
-    <section className={styles["controllers"]}>
+    <section className={styles["container"]}>
       <button
         className={styles["button"]}
         type="button"

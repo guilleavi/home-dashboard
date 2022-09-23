@@ -1,12 +1,16 @@
-.controllers {
+.container {
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .button {
   border-radius: 5px;
+  font-size: 1rem;
   margin: 0 2rem;
   padding: 0.5rem 1rem;
-  font-size: 1rem;
+}
+
+.label {
+  font-weight: 700;
 }

@@ -44,10 +44,10 @@ const HowLongInfo = () => {
 
   return (
     <div className={styles["container"]}>
-      <p className={styles["question"]}>How long can you freeze it? </p>
+      <p>How long can you freeze it? </p>
       {updatedHowLong ? (
         <>
-          <p className={styles["answer"]}>{originalHowLongToFreeze} months </p>
+          <p className={styles["months"]}>{originalHowLongToFreeze} months </p>
           <button
             aria-label="edit"
             className={`${styles["button"]} ${styles["edit"]}`}
@@ -57,7 +57,7 @@ const HowLongInfo = () => {
         </>
       ) : (
         <>
-          <p className={styles["answer"]}>
+          <p className={styles["months"]}>
             <input
               aria-label="How long the product can be freezed"
               className={styles["months-input"]}
