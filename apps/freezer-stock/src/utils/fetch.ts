@@ -6,6 +6,7 @@ type Fetch<T> = {
   url: string
 }
 
+// TODO: this doesn't make sense anymore, it's only being used by the get product
 /**
  * Fetch data from the API
  * @param Fetch.abortSignal signal to cancel previous fetches

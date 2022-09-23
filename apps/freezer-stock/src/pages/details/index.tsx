@@ -1,10 +1,5 @@
-import type { NextPage } from "next"
+import StockDetails from "components/StockDetails/StockDetails"
 
-const DetailsPage: NextPage = () => (
-  <div>
-    This is DetailsPage
-    {/* TODO: this page */}
-  </div>
-)
+const DetailsPage = () => <StockDetails />
 
 export default DetailsPage
