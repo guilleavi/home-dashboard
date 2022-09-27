@@ -34,6 +34,15 @@ export const getProductDetails = async (name: string): Promise<Array<ProductDeta
   }
 }
 
+export const getAllProductDetails = async (): Promise<Array<ProductDetails>> => {
+  try {
+    return (await axios.get(`/api/products/instances`)).data as Array<ProductDetails>
+  } catch (e: unknown) {
+    console.log(e)
+    return []
+  }
+}
+
 export const saveProduct = async (newProductItem: ProductToSave) => {
   const postStatus = await axios.post(
     `/api/products/${newProductItem.name}`,

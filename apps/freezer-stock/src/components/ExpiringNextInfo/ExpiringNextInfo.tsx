@@ -1,3 +1,4 @@
+import SeeDetails from "components/SeeDetails/SeeDetails"
 import { ProductContext } from "contexts/ProductProvider"
 import Link from "next/link"
 import { useContext } from "react"
@@ -21,9 +22,7 @@ const ExpiringNextInfo = () => {
         {/* TODO: calculate on days/months how long to expire */}
         <strong>{nextToExpireDate}</strong>
       </p>
-      <Link href="/details">
-        <a className={styles["details-link"]}>See Stock Details</a>
-      </Link>{" "}
+      <SeeDetails name={name} />
     </div>
   )
 }

@@ -13,6 +13,7 @@ export default async function handler(
 
   assertIsString(name)
 
+  // TODO: fix date order
   const product = await prisma.product.findUnique({
     where: { name: name },
     include: {

@@ -40,11 +40,7 @@ const SaveButton = () => {
 
   return (
     <>
-      <button
-        className={styles["button"]}
-        type="button"
-        onClick={handleOnClick}
-      >
+      <button className="main-button" type="button" onClick={handleOnClick}>
         Save
       </button>
       <p className={styles["errors"]}>{errorMessage}</p>
