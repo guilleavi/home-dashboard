@@ -44,7 +44,7 @@ const getProduct = async (name: string): Promise<ProductSummary | null> => {
   })
 
   if (product) {
-    let nextToExpireDate = "" // TODO: convert to Date
+    let nextToExpireDate = new Date()
     let nextToExpireUnits = 0
 
     if (product.instances?.length) {
@@ -56,7 +56,7 @@ const getProduct = async (name: string): Promise<ProductSummary | null> => {
 
     const productResponse = {
       name: product.name,
-      monthsToFreeze: product.monthsToExpire,
+      monthsToFreeze: product.monthsToFreeze,
       nextToExpireDate,
       nextToExpireUnits,
     }
@@ -71,41 +71,42 @@ const saveProduct = async (body: ProductToSave) => {
   const { name, monthsToFreeze, storageDate, units } = body
 
   const product = await prisma.product.findUnique({
-    where: { name: name },
+    where: { name },
   })
 
   // Check if the product is new, in that case, insert a new product
   if (!product) {
     await prisma.product.create({
       data: {
-        name: name as string,
-        monthsToExpire: monthsToFreeze as number,
-      } as Product,
+        name,
+        monthsToFreeze,
+      },
     })
   } else {
-    // If the product already exists, update the monthsToFreeze value if it changes
-    if (product.monthsToExpire !== monthsToFreeze) {
+    // If the product already exists, update the monthsToFreeze value if it changed
+    if (product.monthsToFreeze !== monthsToFreeze) {
       await prisma.product.update({
         data: {
-          monthsToExpire: monthsToFreeze,
+          monthsToFreeze,
         },
-        where: { name: name },
+        where: { name },
       })
     }
   }
 
   if (units) {
     // Create a new product instance
-    const storageDateToDate = new Date(storageDate)
-    storageDateToDate.setDate(storageDateToDate.getDate() + 1)
-    // TODO: fix this, expiration data is storage date + months
+    storageDate.setDate(storageDate.getDate() + 1)
+
+    const expirationDate = storageDate
+    expirationDate.setMonth(storageDate.getMonth() + monthsToFreeze)
 
     await prisma.productInstance.create({
       data: {
-        name: name as string,
-        units: units as number,
-        expirationDate: storageDateToDate.toLocaleDateString(),
-      } as ProductInstance,
+        name,
+        units,
+        expirationDate,
+      },
     })
   }
 }
