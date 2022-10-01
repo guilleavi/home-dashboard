@@ -6,20 +6,20 @@ import styles from "./HowLongInfo.module.scss"
 const HowLongInfo = () => {
   const {
     state: {
-      storagedProduct: { howLongToFreeze: originalHowLongToFreeze },
+      storagedProduct: { monthsToFreeze: originalMonthsToFreeze },
     },
     dispatch,
   } = useContext(ProductContext)
   const [updatedHowLong, setUpdatedHowLong] = useState(0)
 
   useEffect(() => {
-    setUpdatedHowLong(originalHowLongToFreeze)
-  }, [originalHowLongToFreeze])
+    setUpdatedHowLong(originalMonthsToFreeze)
+  }, [originalMonthsToFreeze])
 
   const dispatchHowLong = (value: number) => {
     dispatch({
       type: ProductActionType.UPDATE_PRODUCT,
-      payload: { key: "howLongToFreeze", value },
+      payload: { key: "monthsToFreeze", value },
     })
   }
 
@@ -38,8 +38,8 @@ const HowLongInfo = () => {
 
   const handleOnClickUndo = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
-    setUpdatedHowLong(originalHowLongToFreeze)
-    dispatchHowLong(originalHowLongToFreeze)
+    setUpdatedHowLong(originalMonthsToFreeze)
+    dispatchHowLong(originalMonthsToFreeze)
   }
 
   return (
@@ -47,7 +47,7 @@ const HowLongInfo = () => {
       <p>Max. freeze time: </p>
       {updatedHowLong ? (
         <>
-          <p className={styles["months"]}>{originalHowLongToFreeze} months </p>
+          <p className={styles["months"]}>{originalMonthsToFreeze} months </p>
           <button
             aria-label="edit"
             className={`${styles["button"]} ${styles["edit"]}`}
@@ -67,7 +67,7 @@ const HowLongInfo = () => {
             />{" "}
             months{" "}
           </p>
-          {originalHowLongToFreeze ? (
+          {originalMonthsToFreeze ? (
             <button
               aria-label="undo"
               className={`${styles["button"]} ${styles["undo"]}`}

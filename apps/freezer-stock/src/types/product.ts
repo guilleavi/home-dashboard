@@ -1,13 +1,13 @@
 export type ProductSummary = {
   name: string
-  howLongToFreeze: number
-  nextToExpireDate: string
+  monthsToFreeze: number
+  nextToExpireDate: string // TODO: convert to Date
   nextToExpireUnits: number
 }
 
 export type ProductToSave = {
   name: string
-  howLongToFreeze: number
+  monthsToFreeze: number
   storageDate: string
   units: number
 }
@@ -20,7 +20,7 @@ export type ProductDetails = {
 
 export class NewProduct implements ProductSummary {
   name = ""
-  howLongToFreeze = 0
+  monthsToFreeze = 0
   nextToExpireDate = new Date().toDateString()
   nextToExpireUnits = 0
 

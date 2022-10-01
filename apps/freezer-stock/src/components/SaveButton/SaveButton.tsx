@@ -10,8 +10,8 @@ const SaveButton = () => {
 
   const validateData = () => {
     if (
-      !state.newProductItem.howLongToFreeze &&
-      !state.storagedProduct.howLongToFreeze
+      !state.newProductItem.monthsToFreeze &&
+      !state.storagedProduct.monthsToFreeze
     ) {
       setErrorMessage("'How long to freeze value' is mandatory!")
       return false

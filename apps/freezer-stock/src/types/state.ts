@@ -17,8 +17,16 @@ type GetProductAction = {
   payload: ProductSummary
 }
 
+type ProductToSaveValueType = [
+  name: string,
+  monthsToFreeze: number,
+  storageDate: string,
+  units: number,
+]
+
 type UpdateProductAction = {
   type: ProductActionType.UPDATE_PRODUCT
+  // TODO: add discrimination union
   payload: {
     key: keyof ProductToSave
     value: string | number

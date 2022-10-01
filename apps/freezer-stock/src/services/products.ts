@@ -1,11 +1,10 @@
-import axios from "axios"
 import {
   ProductSummary,
   NewProduct,
-  ProductToSave,
   ProductDetails,
-} from "types/product"
-import { fetch } from "utils/fetch"
+  ProductToSave,
+} from "@custom-types/product"
+import axios from "axios"
 
 type GetProduct = {
   abortSignal: AbortSignal
@@ -16,27 +15,39 @@ export const getProduct = async ({
   abortSignal,
   name,
 }: GetProduct): Promise<ProductSummary> => {
-  return name
-    ? await fetch<ProductSummary>({
-      abortSignal,
-      defaultValue: new NewProduct(name),
-      url: `/api/products/${name}`,
+  const url = `/api/products/${name}`
+  const defaultValue = new NewProduct(name)
+
+  try {
+    const response = await axios.get<ProductSummary>(url, {
+      signal: abortSignal,
     })
-    : new NewProduct("")
+
+    return response.data || defaultValue
+  } catch (e: unknown) {
+    console.log(e)
+    return defaultValue
+  }
 }
 
-export const getProductDetails = async (name: string): Promise<Array<ProductDetails>> => {
+export const getProductDetails = async (
+  name: string,
+): Promise<Array<ProductDetails>> => {
   try {
-    return (await axios.get(`/api/products/instances/${name}`)).data as Array<ProductDetails>
+    return (await axios.get(`/api/products/instances/${name}`))
+      .data as Array<ProductDetails>
   } catch (e: unknown) {
     console.log(e)
     return []
   }
 }
 
-export const getAllProductDetails = async (): Promise<Array<ProductDetails>> => {
+export const getAllProductDetails = async (): Promise<
+  Array<ProductDetails>
+> => {
   try {
-    return (await axios.get(`/api/products/instances`)).data as Array<ProductDetails>
+    return (await axios.get(`/api/products/instances`))
+      .data as Array<ProductDetails>
   } catch (e: unknown) {
     console.log(e)
     return []

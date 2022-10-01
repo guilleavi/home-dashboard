@@ -34,7 +34,7 @@ const reducer = (state: ProductState, action: ProductActions): ProductState => {
         storagedProduct: action.payload,
         newProductItem: {
           name: action.payload.name,
-          howLongToFreeze: action.payload.howLongToFreeze,
+          monthsToFreeze: action.payload.monthsToFreeze,
           storageDate: "",
           units: 0,
         },
@@ -52,9 +52,9 @@ const reducer = (state: ProductState, action: ProductActions): ProductState => {
         ...state,
         newProductItem: {
           name: state.newProductItem.name || state.storagedProduct.name,
-          howLongToFreeze:
-            state.newProductItem.howLongToFreeze ||
-            state.storagedProduct.howLongToFreeze,
+          monthsToFreeze:
+            state.newProductItem.monthsToFreeze ||
+            state.storagedProduct.monthsToFreeze,
           storageDate: state.newProductItem.storageDate,
           units: state.newProductItem.units,
         },
@@ -63,13 +63,13 @@ const reducer = (state: ProductState, action: ProductActions): ProductState => {
       return {
         storagedProduct: {
           name: "",
-          howLongToFreeze: 0,
+          monthsToFreeze: 0,
           nextToExpireDate: "",
           nextToExpireUnits: 0,
         },
         newProductItem: {
           name: "",
-          howLongToFreeze: 0,
+          monthsToFreeze: 0,
           storageDate: "",
           units: 0,
         },

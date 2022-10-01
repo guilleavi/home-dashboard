@@ -1,7 +1,8 @@
-import { ProductContext } from "contexts/ProductProvider"
-import React, { useContext, useEffect, useRef, useState } from "react"
-import { getProduct } from "services/products"
-import { ProductActionType } from "types/state"
+import { ProductContext } from "@contexts/ProductProvider"
+import { ReactKeyboardEvent } from "@custom-types/dom"
+import { ProductActionType } from "@custom-types/state"
+import { getProduct } from "@services/products"
+import { useContext, useRef, useState, useEffect } from "react"
 import styles from "./SearchInput.module.scss"
 
 const SearchInput = () => {
@@ -11,7 +12,7 @@ const SearchInput = () => {
     },
     dispatch,
   } = useContext(ProductContext)
-  const inputRef = useRef<HTMLInputElement>(null)
+  const searchInputRef = useRef<HTMLInputElement>(null)
   const [typedName, setTypedName] = useState("")
 
   useEffect(() => {
@@ -28,45 +29,34 @@ const SearchInput = () => {
       })
     }
 
-    fetchProduct(typedName, abortController.signal).catch((err) =>
-      console.error(err),
-    )
+    if (typedName.trim()) {
+      fetchProduct(typedName, abortController.signal).catch((err) =>
+        console.error(err),
+      )
+    }
 
     return () => {
-      // make sure that the previous call gets canceled before doing a new fetch
+      // cancel all previos fetch calls
       abortController.abort()
     }
   }, [dispatch, typedName])
 
-  useEffect(() => {
-    setTypedName(name)
-    if (inputRef.current) {
-      inputRef.current.value = name
-    }
-  }, [name])
+  const handleKeyDown = ({ key, target: { value } }: ReactKeyboardEvent) => {
+    if (key === "Enter") {
+      setTypedName(value)
 
-  const handleKeyDown = (
-    event: React.KeyboardEvent<HTMLInputElement> & {
-      target: HTMLInputElement
-    },
-  ) => {
-    if (event.key === "Enter") {
-      setTypedName(event.target.value)
-      // clean input
-      if (inputRef.current) {
-        inputRef.current.value = ""
-      }
+      searchInputRef.current!.value = ""
     }
   }
 
   return (
     <input
-      className={styles["search-bar"]}
-      type="search"
-      placeholder="Search..."
       aria-label="Search product"
+      className={styles["search-bar"]}
+      placeholder="Search..."
+      ref={searchInputRef}
+      type="search"
       onKeyDown={handleKeyDown}
-      ref={inputRef}
     />
   )
 }

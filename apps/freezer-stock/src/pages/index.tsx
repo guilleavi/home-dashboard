@@ -1,11 +1,10 @@
-import ProductInfo from "components/ProductInfo/ProductInfo"
-import SaveButton from "components/SaveButton/SaveButton"
-import SearchInput from "components/SearchInput/SearchInput"
-import SeeDetails from "components/SeeDetails/SeeDetails"
-import StorageDate from "components/StorageDate/StorageDate"
-import UnitsController from "components/UnitsController/UnitsController"
-import { ProductContext } from "contexts/ProductProvider"
-import Link from "next/link"
+import ProductInfo from "@components/ProductInfo/ProductInfo"
+import SaveButton from "@components/SaveButton/SaveButton"
+import SearchInput from "@components/SearchInput/SearchInput"
+import SeeDetails from "@components/SeeDetails/SeeDetails"
+import StorageDate from "@components/StorageDate/StorageDate"
+import UnitsController from "@components/UnitsController/UnitsController"
+import { ProductContext } from "@contexts/ProductProvider"
 import { useContext } from "react"
 
 const HomePage = () => {
@@ -25,7 +24,7 @@ const HomePage = () => {
           <ProductInfo />
           <StorageDate />
           <UnitsController />
-          {name ? <SaveButton /> : null}
+          <SaveButton />
         </>
       ) : null}
       <SeeDetails name="all" />
