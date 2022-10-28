@@ -5,10 +5,9 @@ export type ProductSummary = {
   nextToExpireUnits: number
 }
 
-export type ProductToSave = Exclude<
-  ProductSummary,
-  "nextToExpireDate" | "nextToExpireUnits"
-> & {
+export type ProductToSave = {
+  name: string
+  monthsToFreeze: number
   storageDate: Date
   units: number
 }

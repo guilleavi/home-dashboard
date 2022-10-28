@@ -8,11 +8,8 @@ import { ProductContext } from "@contexts/ProductProvider"
 import { useContext } from "react"
 
 const HomePage = () => {
-  const {
-    state: {
-      storagedProduct: { name },
-    },
-  } = useContext(ProductContext)
+  const { state } = useContext(ProductContext)
+  const { name } = state.storagedProduct
 
   return (
     <main className="main-container">

@@ -4,7 +4,7 @@ import Head from "next/head"
 import { ProductProvider } from "contexts/ProductProvider"
 
 const FreezerStockApp = ({ Component, pageProps }: AppProps) => (
-  <div>
+  <>
     <Head>
       <title>Freezer stock</title>
       <meta name="description" content="Freezer stock" />
@@ -13,7 +13,7 @@ const FreezerStockApp = ({ Component, pageProps }: AppProps) => (
     <ProductProvider>
       <Component {...pageProps} />
     </ProductProvider>
-  </div>
+  </>
 )
 
 export default FreezerStockApp

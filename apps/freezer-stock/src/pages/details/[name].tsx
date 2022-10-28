@@ -1,14 +1,25 @@
 import StockDetails from "components/StockDetails/StockDetails"
+import {
+  GetServerSidePropsContext,
+  InferGetServerSidePropsType,
+} from "next/types"
+import { ParsedUrlQuery } from "querystring"
 
-const DetailsPage = ({ name }: { name: string }) => <StockDetails name={name} />
+const DetailsPage = ({
+  name,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => (
+  <StockDetails name={name} />
+)
 
-export const getServerSideProps = async (context: {
-  params: { name: string }
-}) => {
-  const { name } = context.params
+interface ContextParams extends ParsedUrlQuery {
+  name: string
+}
 
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext<ContextParams>,
+) => {
   return {
-    props: { name },
+    props: { name: context.params!.name },
   }
 }
 
