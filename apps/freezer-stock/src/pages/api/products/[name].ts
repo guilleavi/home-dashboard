@@ -1,14 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { PrismaClient, Product, ProductInstance } from "@prisma/client"
+import { PrismaClient } from "@prisma/client"
 import { ProductSummary, ProductToSave } from "@custom-types/product"
 import { assertIsString } from "@asserts/primitives"
 
 const prisma = new PrismaClient()
 
-export default async function handler(
+const handleProduct = async (
   req: NextApiRequest,
-  res: NextApiResponse,
-) {
+  res: NextApiResponse<ProductSummary | null>,
+) => {
   const {
     query: { name },
     body,
@@ -19,11 +19,11 @@ export default async function handler(
 
   switch (method) {
     case "GET":
-      res.send(await getProduct(name))
+      res.send(await getNextToExpire(name))
       break
     case "POST":
       await saveProduct(body)
-      res.send({})
+      res.send(null)
       break
     default:
       res.setHeader("Allow", ["GET", "POST"])
@@ -31,7 +31,9 @@ export default async function handler(
   }
 }
 
-const getProduct = async (name: string): Promise<ProductSummary | null> => {
+const getNextToExpire = async (
+  name: string,
+): Promise<ProductSummary | null> => {
   const product = await prisma.product.findUnique({
     where: { name },
     include: {
@@ -50,7 +52,11 @@ const getProduct = async (name: string): Promise<ProductSummary | null> => {
     if (product.instances?.length) {
       nextToExpireDate = product.instances[0].expirationDate // asc order
       nextToExpireUnits = product.instances
-        .filter((instance) => instance.expirationDate === nextToExpireDate)
+        .filter(
+          (instance) =>
+            instance.expirationDate.toDateString() ===
+            nextToExpireDate.toDateString(),
+        )
         .reduce((p, c) => p + c.units, 0)
     }
 
@@ -74,39 +80,44 @@ const saveProduct = async (body: ProductToSave) => {
     where: { name },
   })
 
-  // Check if the product is new, in that case, insert a new product
-  if (!product) {
-    await prisma.product.create({
-      data: {
-        name,
-        monthsToFreeze,
-      },
-    })
-  } else {
-    // If the product already exists, update the monthsToFreeze value if it changed
-    if (product.monthsToFreeze !== monthsToFreeze) {
-      await prisma.product.update({
+  try {
+    // If the product already exists, update the monthsToFreeze value ONLY if it changed
+    if (product) {
+      if (product.monthsToFreeze !== monthsToFreeze) {
+        await prisma.product.update({
+          data: {
+            monthsToFreeze,
+          },
+          where: { name },
+        })
+      }
+    } else {
+      // If the product doesn't exist, insert a new product
+      await prisma.product.create({
         data: {
+          name,
           monthsToFreeze,
         },
-        where: { name },
       })
     }
-  }
 
-  if (units) {
-    // Create a new product instance
-    storageDate.setDate(storageDate.getDate() + 1)
+    // Create new instances
+    if (units) {
+      const expirationDate = new Date(storageDate)
+      // Expiration Date = Storage Date + How Many Months Can Be Freezed
+      expirationDate.setMonth(expirationDate.getMonth() + monthsToFreeze)
 
-    const expirationDate = storageDate
-    expirationDate.setMonth(storageDate.getMonth() + monthsToFreeze)
-
-    await prisma.productInstance.create({
-      data: {
-        name,
-        units,
-        expirationDate,
-      },
-    })
+      await prisma.productInstance.create({
+        data: {
+          name,
+          expirationDate,
+          units,
+        },
+      })
+    }
+  } catch (e: unknown) {
+    console.error(`Error saving the product '${name}'`, e)
   }
 }
+
+export default handleProduct

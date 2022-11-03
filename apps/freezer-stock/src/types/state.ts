@@ -29,7 +29,7 @@ type UpdateProductAction = {
   // TODO: add discrimination union
   payload: {
     key: keyof ProductToSave
-    value: string | number
+    value: string | number | Date
   }
 }
 

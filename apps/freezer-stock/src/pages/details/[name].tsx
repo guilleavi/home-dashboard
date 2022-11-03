@@ -1,5 +1,5 @@
 import StockDetails from "components/StockDetails/StockDetails"
-import {
+import type {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
 } from "next/types"
@@ -18,6 +18,8 @@ interface ContextParams extends ParsedUrlQuery {
 export const getServerSideProps = async (
   context: GetServerSidePropsContext<ContextParams>,
 ) => {
+  // TODO: add asserts to remove ! on params
+
   return {
     props: { name: context.params!.name },
   }

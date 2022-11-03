@@ -13,6 +13,7 @@ export type ProductToSave = {
 }
 
 export type ProductDetails = {
+  instanceId: number
   name: string
   expirationDate: Date
   units: number

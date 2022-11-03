@@ -29,9 +29,12 @@ const StorageDate = () => {
   const handleDateOnChange = (
     event: React.ChangeEvent<HTMLInputElement> & { target: HTMLInputElement },
   ) => {
+    const fixedStorageDate = new Date(event.target.value)
+    fixedStorageDate.setDate(fixedStorageDate.getDate() + 1) // Fix month
+
     dispatch({
       type: ProductActionType.UPDATE_PRODUCT,
-      payload: { key: "storageDate", value: event.target.value },
+      payload: { key: "storageDate", value: fixedStorageDate },
     })
   }
 

@@ -43,7 +43,7 @@ const SearchInput = () => {
 
   const handleKeyDown = ({ key, target: { value } }: ReactKeyboardEvent) => {
     if (key === "Enter") {
-      setTypedName(value)
+      setTypedName(value.toLowerCase())
 
       searchInputRef.current!.value = ""
     }

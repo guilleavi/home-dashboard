@@ -1,16 +1,18 @@
-import type { NextApiRequest, NextApiResponse } from "next"
+import type { ProductDetails } from "@custom-types/product"
 import { PrismaClient } from "@prisma/client"
-import { ProductDetails } from "@custom-types/product"
-import { assertIsString } from "@asserts/primitives"
+import { getProductDetails } from "@utils/api"
+import type { NextApiRequest, NextApiResponse } from "next"
 
 const prisma = new PrismaClient()
 
-export default async function handler(
+const getAllInstances = async (
   req: NextApiRequest,
-  res: NextApiResponse<ProductDetails[] | null>,
-) {
-  // TODO: fix date order
-  const products = await prisma.product.findMany({
+  res: NextApiResponse<Array<ProductDetails>>,
+) => {
+  const allProducts = await prisma.product.findMany({
+    orderBy: {
+      name: "asc",
+    },
     include: {
       instances: {
         orderBy: {
@@ -20,29 +22,18 @@ export default async function handler(
     },
   })
 
-  if (products) {
-    interface ProductDetails {
-      name: string
-      expirationDate: string
-      units: number
-    }
-    const productInstancesResponse: Array<ProductDetails> = []
+  if (allProducts.length) {
+    const allProductsDetails: Array<ProductDetails> = []
 
-    products.forEach((product) => {
-      if (product.instances?.length) {
-        product.instances.forEach((instance) =>
-          productInstancesResponse.push({
-            name: instance.name,
-            expirationDate: instance.expirationDate,
-            units: instance.units,
-          }),
-        )
-      }
+    allProducts.forEach((product) => {
+      allProductsDetails.push(...getProductDetails(product.instances))
     })
 
-    res.send(productInstancesResponse)
+    res.send(allProductsDetails)
     return
   }
 
-  res.send(null)
+  res.send([] as Array<ProductDetails>)
 }
+
+export default getAllInstances

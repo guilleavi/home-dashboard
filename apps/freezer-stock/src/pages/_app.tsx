@@ -1,7 +1,7 @@
-import "../styles/index.scss"
+import { ProductProvider } from "contexts/ProductProvider"
 import type { AppProps } from "next/app"
 import Head from "next/head"
-import { ProductProvider } from "contexts/ProductProvider"
+import "../styles/index.scss"
 
 const FreezerStockApp = ({ Component, pageProps }: AppProps) => (
   <>

@@ -1,21 +1,40 @@
-import type { NextApiRequest, NextApiResponse } from "next"
-import { PrismaClient } from "@prisma/client"
-import { ProductDetails } from "@custom-types/product"
 import { assertIsString } from "@asserts/primitives"
+import { ProductDetails } from "@custom-types/product"
+import { PrismaClient } from "@prisma/client"
+import { getProductDetails } from "@utils/api"
+import type { NextApiRequest, NextApiResponse } from "next"
 
 const prisma = new PrismaClient()
 
-export default async function handler(
+const handleProductInstances = async (
   req: NextApiRequest,
-  res: NextApiResponse<ProductDetails[] | null>,
-) {
-  const { name } = req.query
+  res: NextApiResponse<Array<ProductDetails> | null>,
+) => {
+  const {
+    query: { name },
+    body,
+    method,
+  } = req
 
   assertIsString(name)
 
-  // TODO: fix date order
+  switch (method) {
+    case "GET":
+      res.send(await getProductInstances(name))
+      break
+    case "PUT":
+      await updateIntanceUnits(body)
+      res.send(null)
+      break
+    default:
+      res.setHeader("Allow", ["GET", "PUT"])
+      res.status(405).end(`Method ${method} Not Allowed`)
+  }
+}
+
+const getProductInstances = async (name: string): Promise<ProductDetails[]> => {
   const product = await prisma.product.findUnique({
-    where: { name: name },
+    where: { name },
     include: {
       instances: {
         orderBy: {
@@ -26,25 +45,26 @@ export default async function handler(
   })
 
   if (product && product.instances?.length) {
-    interface ProductDetails {
-      name: string
-      expirationDate: string
-      units: number
-    }
-
-    const productInstancesResponse: Array<ProductDetails> = []
-
-    product.instances.forEach((instance) =>
-      productInstancesResponse.push({
-        name: instance.name,
-        expirationDate: instance.expirationDate,
-        units: instance.units,
-      }),
-    )
-
-    res.send(productInstancesResponse)
-    return
+    return getProductDetails(product.instances)
   }
 
-  res.send(null)
+  return [] as Array<ProductDetails>
 }
+
+const updateIntanceUnits = async ({ instanceId, units }: ProductDetails) => {
+  try {
+    await prisma.productInstance.update({
+      data: {
+        units,
+      },
+      where: { instanceId },
+    })
+  } catch (e: unknown) {
+    console.error(
+      `Error updating the units for the instanceId '${instanceId}'`,
+      e,
+    )
+  }
+}
+
+export default handleProductInstances
