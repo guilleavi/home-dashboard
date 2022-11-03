@@ -1,4 +1,4 @@
-import { ProductProvider } from "contexts/ProductProvider"
+import { ProductProvider } from "@contexts/ProductProvider"
 import type { AppProps } from "next/app"
 import Head from "next/head"
 import "../styles/index.scss"

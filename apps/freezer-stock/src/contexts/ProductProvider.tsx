@@ -1,9 +1,6 @@
 import type { ProductSummary, ProductToSave } from "@custom-types/product"
-import type {
-  ProductState,
-  ProductActions,
-  ProductActionType,
-} from "@custom-types/state"
+import type { ProductState, ProductActions } from "@custom-types/state"
+import { ProductActionType } from "@custom-types/state"
 import React, { PropsWithChildren, createContext, useReducer } from "react"
 
 const initialState: ProductState = {
@@ -35,7 +32,7 @@ const reducer = (state: ProductState, action: ProductActions): ProductState => {
         newProductItem: {
           name: action.payload.name.toLowerCase(),
           monthsToFreeze: action.payload.monthsToFreeze,
-          storageDate: "",
+          storageDate: new Date(),
           units: 0,
         },
       }
@@ -66,13 +63,13 @@ const reducer = (state: ProductState, action: ProductActions): ProductState => {
         storagedProduct: {
           name: "",
           monthsToFreeze: 0,
-          nextToExpireDate: "",
+          nextToExpireDate: new Date(),
           nextToExpireUnits: 0,
         },
         newProductItem: {
           name: "",
           monthsToFreeze: 0,
-          storageDate: "",
+          storageDate: new Date(),
           units: 0,
         },
       }
