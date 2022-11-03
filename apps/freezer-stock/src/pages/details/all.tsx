@@ -1,4 +1,4 @@
-import StockDetails from "components/StockDetails/StockDetails"
+import StockDetails from "@components/StockDetails/StockDetails"
 
 const AllDetailsPage = () => <StockDetails />
 

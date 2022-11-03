@@ -1,7 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from "next"
-import { PrismaClient } from "@prisma/client"
-import { ProductSummary, ProductToSave } from "@custom-types/product"
 import { assertIsString } from "@asserts/primitives"
+import type { ProductSummary, ProductToSave } from "@custom-types/product"
+import { PrismaClient } from "@prisma/client"
+import type { NextApiRequest, NextApiResponse } from "next"
 
 const prisma = new PrismaClient()
 

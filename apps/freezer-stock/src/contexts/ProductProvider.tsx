@@ -1,5 +1,5 @@
-import { ProductSummary, ProductToSave } from "@custom-types/product"
-import {
+import type { ProductSummary, ProductToSave } from "@custom-types/product"
+import type {
   ProductState,
   ProductActions,
   ProductActionType,

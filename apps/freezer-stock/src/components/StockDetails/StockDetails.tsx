@@ -1,5 +1,4 @@
-import { ProductDetails } from "@custom-types/product"
-import { ProductContext } from "contexts/ProductProvider"
+import type { ProductDetails } from "@custom-types/product"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { getAllProductDetails, getProductDetails } from "services/products"

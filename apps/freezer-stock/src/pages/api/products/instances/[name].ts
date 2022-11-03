@@ -1,5 +1,5 @@
 import { assertIsString } from "@asserts/primitives"
-import { ProductDetails } from "@custom-types/product"
+import type { ProductDetails } from "@custom-types/product"
 import { PrismaClient } from "@prisma/client"
 import { getProductDetails } from "@utils/api"
 import type { NextApiRequest, NextApiResponse } from "next"

@@ -1,6 +1,6 @@
 import { ProductContext } from "@contexts/ProductProvider"
-import { ReactKeyboardEvent } from "@custom-types/dom"
-import { ProductActionType } from "@custom-types/state"
+import type { ReactKeyboardEvent } from "@custom-types/dom"
+import type { ProductActionType } from "@custom-types/state"
 import { getProduct } from "@services/products"
 import { useContext, useRef, useState, useEffect } from "react"
 import styles from "./SearchInput.module.scss"
