@@ -1,7 +1,6 @@
 import { assertIsString } from "@asserts/primitives"
 import type { ProductDetails } from "@custom-types/product"
 import { PrismaClient } from "@prisma/client"
-import { getProductDetails } from "@utils/api"
 import type { NextApiRequest, NextApiResponse } from "next"
 
 const prisma = new PrismaClient()
@@ -45,7 +44,7 @@ const getProductInstances = async (name: string): Promise<ProductDetails[]> => {
   })
 
   if (product && product.instances?.length) {
-    return getProductDetails(product.instances)
+    return product.instances
   }
 
   return [] as Array<ProductDetails>

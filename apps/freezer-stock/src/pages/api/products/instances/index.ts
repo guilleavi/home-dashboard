@@ -1,6 +1,5 @@
 import type { ProductDetails } from "@custom-types/product"
 import { PrismaClient } from "@prisma/client"
-import { getProductDetails } from "@utils/api"
 import type { NextApiRequest, NextApiResponse } from "next"
 
 const prisma = new PrismaClient()
@@ -26,7 +25,7 @@ const getAllInstances = async (
     const allProductsDetails: Array<ProductDetails> = []
 
     allProducts.forEach((product) => {
-      allProductsDetails.push(...getProductDetails(product.instances))
+      allProductsDetails.push(...product.instances)
     })
 
     res.send(allProductsDetails)
