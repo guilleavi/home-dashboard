@@ -1,21 +1,20 @@
+import { GetProduct } from "@custom-types/api"
 import type {
-  ProductSummary,
-  NewProduct,
   ProductDetails,
+  ProductSummary,
   ProductToSave,
 } from "@custom-types/product"
+import { NewProduct } from "@custom-types/product"
 import axios from "axios"
 
-type GetProduct = {
-  abortSignal: AbortSignal
-  name: string
-}
+const PRODUCT_URL = "/api/products"
+const INSTANCE_URL = `${PRODUCT_URL}/instances`
 
 export const getProduct = async ({
   abortSignal,
   name,
 }: GetProduct): Promise<ProductSummary> => {
-  const url = `/api/products/${name}`
+  const url = `${PRODUCT_URL}/${name}`
   const defaultValue = new NewProduct(name)
 
   try {
@@ -34,7 +33,7 @@ export const getProductDetails = async (
   name: string,
 ): Promise<Array<ProductDetails>> => {
   try {
-    return (await axios.get(`/api/products/instances/${name}`))
+    return (await axios.get(`${INSTANCE_URL}/${name}`))
       .data as Array<ProductDetails>
   } catch (e: unknown) {
     console.log(e)
@@ -46,8 +45,7 @@ export const getAllProductDetails = async (): Promise<
   Array<ProductDetails>
 > => {
   try {
-    return (await axios.get(`/api/products/instances`))
-      .data as Array<ProductDetails>
+    return (await axios.get(`${INSTANCE_URL}`)).data as Array<ProductDetails>
   } catch (e: unknown) {
     console.log(e)
     return []
@@ -55,8 +53,9 @@ export const getAllProductDetails = async (): Promise<
 }
 
 export const saveProduct = async (newProductItem: ProductToSave) => {
-  const postStatus = await axios.post(
-    `/api/products/${newProductItem.name}`,
-    newProductItem,
-  )
+  try {
+    await axios.post(`${PRODUCT_URL}/${newProductItem.name}`, newProductItem)
+  } catch (e: unknown) {
+    console.log(e)
+  }
 }
