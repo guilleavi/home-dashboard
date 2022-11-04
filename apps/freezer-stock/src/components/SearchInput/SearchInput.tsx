@@ -19,10 +19,7 @@ const SearchInput = () => {
     const abortController = new AbortController()
 
     const fetchProduct = async (name: string, abortSignal: AbortSignal) => {
-      const fetchedProduct = await getProduct({
-        name,
-        abortSignal,
-      })
+      const fetchedProduct = await getProduct(name, abortSignal)
       dispatch({
         type: ProductActionType.GET_PRODUCT,
         payload: fetchedProduct,

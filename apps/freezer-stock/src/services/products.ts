@@ -1,4 +1,3 @@
-import { GetProduct } from "@custom-types/api"
 import type {
   ProductDetails,
   ProductSummary,
@@ -10,10 +9,10 @@ import axios from "axios"
 const PRODUCT_URL = "/api/products"
 const INSTANCE_URL = `${PRODUCT_URL}/instances`
 
-export const getProduct = async ({
-  abortSignal,
-  name,
-}: GetProduct): Promise<ProductSummary> => {
+export const getProduct = async (
+  name: string,
+  abortSignal: AbortSignal,
+): Promise<ProductSummary> => {
   const url = `${PRODUCT_URL}/${name}`
   const defaultValue = new NewProduct(name)
 
