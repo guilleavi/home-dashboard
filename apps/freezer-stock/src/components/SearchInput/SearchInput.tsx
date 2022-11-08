@@ -1,17 +1,13 @@
 import { ProductContext } from "@contexts/ProductProvider"
 import type { ReactKeyboardEvent } from "@custom-types/dom"
-import type { ProductActionType } from "@custom-types/state"
+import { ProductActionType } from "@custom-types/state"
+import { KEY } from "@enums/common"
 import { getProduct } from "@services/products"
-import { useContext, useRef, useState, useEffect } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import styles from "./SearchInput.module.scss"
 
 const SearchInput = () => {
-  const {
-    state: {
-      storagedProduct: { name },
-    },
-    dispatch,
-  } = useContext(ProductContext)
+  const { dispatch } = useContext(ProductContext)
   const searchInputRef = useRef<HTMLInputElement>(null)
   const [typedName, setTypedName] = useState("")
 
@@ -38,9 +34,9 @@ const SearchInput = () => {
     }
   }, [dispatch, typedName])
 
-  const handleKeyDown = ({ key, target: { value } }: ReactKeyboardEvent) => {
-    if (key === "Enter") {
-      setTypedName(value.toLowerCase())
+  const handleKeyDown = ({ key, target }: ReactKeyboardEvent) => {
+    if (key === KEY.ENTER) {
+      setTypedName(target.value.toLowerCase())
 
       searchInputRef.current!.value = ""
     }

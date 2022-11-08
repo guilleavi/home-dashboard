@@ -1,5 +1,6 @@
 import { assertIsString } from "@asserts/primitives"
 import type { ProductSummary, ProductToSave } from "@custom-types/product"
+import { HTTP_METHOD } from "@enums/api"
 import { PrismaClient } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
 
@@ -18,15 +19,15 @@ const handleProduct = async (
   assertIsString(name)
 
   switch (method) {
-    case "GET":
+    case HTTP_METHOD.GET:
       res.send(await getNextToExpire(name))
       break
-    case "POST":
+    case HTTP_METHOD.POST:
       await saveProduct(body)
       res.send(null)
       break
     default:
-      res.setHeader("Allow", ["GET", "POST"])
+      res.setHeader("Allow", [HTTP_METHOD.GET, HTTP_METHOD.POST])
       res.status(405).end(`Method ${method} Not Allowed`)
   }
 }
@@ -39,7 +40,7 @@ const getNextToExpire = async (
     include: {
       instances: {
         orderBy: {
-          expirationDate: "asc",
+          expirationDate: ORDER.ASC,
         },
       },
     },

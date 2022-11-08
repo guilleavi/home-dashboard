@@ -15,6 +15,9 @@
       "@custom-types/*": [
         "types/*"
       ],
+      "@enums/*": [
+        "enums/*"
+      ],
       "@services/*": [
         "services/*"
       ],

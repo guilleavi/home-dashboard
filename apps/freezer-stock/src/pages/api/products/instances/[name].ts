@@ -1,5 +1,6 @@
 import { assertIsString } from "@asserts/primitives"
 import type { ProductDetails } from "@custom-types/product"
+import { HTTP_METHOD } from "@enums/api"
 import { PrismaClient } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
 
@@ -18,15 +19,15 @@ const handleProductInstances = async (
   assertIsString(name)
 
   switch (method) {
-    case "GET":
+    case HTTP_METHOD.GET:
       res.send(await getProductInstances(name))
       break
-    case "PUT":
+    case HTTP_METHOD.PUT:
       await updateIntanceUnits(body)
       res.send(null)
       break
     default:
-      res.setHeader("Allow", ["GET", "PUT"])
+      res.setHeader("Allow", [HTTP_METHOD.GET, HTTP_METHOD.PUT])
       res.status(405).end(`Method ${method} Not Allowed`)
   }
 }
@@ -37,7 +38,7 @@ const getProductInstances = async (name: string): Promise<ProductDetails[]> => {
     include: {
       instances: {
         orderBy: {
-          expirationDate: "asc",
+          expirationDate: ORDER.ASC,
         },
       },
     },
