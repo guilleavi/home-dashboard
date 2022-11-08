@@ -16,6 +16,7 @@ const SearchInput = () => {
 
     const fetchProduct = async (name: string, abortSignal: AbortSignal) => {
       const fetchedProduct = await getProduct(name, abortSignal)
+      console.log("Testing Input:", fetchedProduct)
       dispatch({
         type: ProductActionType.GET_PRODUCT,
         payload: fetchedProduct,

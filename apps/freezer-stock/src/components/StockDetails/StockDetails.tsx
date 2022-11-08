@@ -1,7 +1,7 @@
-import type { ProductDetails } from "@custom-types/product"
+import { ProductDetails } from "@custom-types/product"
+import { getProductDetails, getAllProductDetails } from "@services/products"
 import Link from "next/link"
-import { useEffect, useState } from "react"
-import { getAllProductDetails, getProductDetails } from "services/products"
+import { useState, useEffect } from "react"
 import styles from "./StockDetails.module.scss"
 
 const StockDetails = ({ name }: { name?: string }) => {
@@ -44,7 +44,7 @@ const StockDetails = ({ name }: { name?: string }) => {
                   <tr key={i}>
                     <td>{instance.name}</td>
                     <td>{instance.units}</td>
-                    <td>{instance.expirationDate}</td>
+                    <td>{instance.expirationDate.toDateString()}</td>
                   </tr>
                 )
               })}

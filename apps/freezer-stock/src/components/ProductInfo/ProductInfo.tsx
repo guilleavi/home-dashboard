@@ -1,6 +1,6 @@
-import ExpiringNextInfo from "components/ExpiringNextInfo/ExpiringNextInfo"
-import HowLongInfo from "components/HowLongInfo/HowLongInfo"
-import { ProductContext } from "contexts/ProductProvider"
+import ExpiringNextInfo from "@components/ExpiringNextInfo/ExpiringNextInfo"
+import HowLongInfo from "@components/HowLongInfo/HowLongInfo"
+import { ProductContext } from "@contexts/ProductProvider"
 import { useContext } from "react"
 import styles from "./ProductInfo.module.scss"
 

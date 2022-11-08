@@ -1,6 +1,6 @@
 import { assertIsString } from "@asserts/primitives"
 import type { ProductDetails } from "@custom-types/product"
-import { HTTP_METHOD } from "@enums/api"
+import { HTTP_METHOD, ORDER } from "@enums/api"
 import { PrismaClient } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
 

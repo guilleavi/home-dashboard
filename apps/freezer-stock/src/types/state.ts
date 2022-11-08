@@ -1,4 +1,4 @@
-import type { ProductSummary, ProductToSave } from "./product"
+import { ProductSummary, ProductToSave } from "./product"
 
 export type ProductState = {
   storagedProduct: ProductSummary

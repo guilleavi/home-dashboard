@@ -1,6 +1,6 @@
-import { ProductContext } from "contexts/ProductProvider"
-import React, { useContext, useEffect, useState } from "react"
-import { ProductActionType } from "types/state"
+import { ProductContext } from "@contexts/ProductProvider"
+import { ProductActionType } from "@custom-types/state"
+import { useContext, useState, useEffect } from "react"
 import styles from "./StorageDate.module.scss"
 
 const StorageDate = () => {

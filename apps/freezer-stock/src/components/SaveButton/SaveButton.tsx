@@ -1,7 +1,7 @@
-import { ProductContext } from "contexts/ProductProvider"
+import { ProductContext } from "@contexts/ProductProvider"
+import { ProductActionType } from "@custom-types/state"
+import { saveProduct } from "@services/products"
 import { useContext, useState } from "react"
-import { saveProduct } from "services/products"
-import { ProductActionType } from "types/state"
 import styles from "./SaveButton.module.scss"
 
 const SaveButton = () => {

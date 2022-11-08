@@ -1,6 +1,6 @@
-import { ProductContext } from "contexts/ProductProvider"
+import { ProductContext } from "@contexts/ProductProvider"
+import { ProductActionType } from "@custom-types/state"
 import { useContext } from "react"
-import { ProductActionType } from "types/state"
 import styles from "./UnitsController.module.scss"
 
 const UnitsController = () => {
