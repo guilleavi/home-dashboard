@@ -19,7 +19,7 @@ const ExpiringNextInfo = () => {
         </strong>{" "}
         of {name} {pluralizeToBe(nextToExpireUnits)} expiring on{" "}
         {/* TODO: calculate on days/months how long to expire */}
-        <strong>{nextToExpireDate.toDateString()}</strong>
+        <strong>{nextToExpireDate.toString()}</strong>
       </p>
       <SeeDetails name={name} />
     </div>

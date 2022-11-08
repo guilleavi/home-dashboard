@@ -44,7 +44,7 @@ const StockDetails = ({ name }: { name?: string }) => {
                   <tr key={i}>
                     <td>{instance.name}</td>
                     <td>{instance.units}</td>
-                    <td>{instance.expirationDate.toDateString()}</td>
+                    <td>{instance.expirationDate.toString()}</td>
                   </tr>
                 )
               })}
