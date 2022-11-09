@@ -1,12 +1,18 @@
 import { ProductDetails } from "@custom-types/product"
 import { getProductDetails, getAllProductDetails } from "@services/products"
 import { trimDateString } from "@utils/date"
+import { toPascalCase } from "@utils/strings"
 import Link from "next/link"
 import { useState, useEffect } from "react"
 import styles from "./StockDetails.module.scss"
 
-const StockDetails = ({ name }: { name?: string }) => {
+type StockDetailsProps = {
+  name: string
+}
+
+const StockDetails = ({ name = "" }: StockDetailsProps) => {
   const [instances, setInstances] = useState<Array<ProductDetails>>([])
+
   useEffect(() => {
     const fetchDetails = async (productName: string) => {
       setInstances(await getProductDetails(productName))
@@ -21,16 +27,14 @@ const StockDetails = ({ name }: { name?: string }) => {
     } else {
       fetchAllDetails()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [name])
 
   // TODO: add sort and filter
-
   return (
-    <section className="main-container">
-      <h1>{name} stock details</h1>
+    <main className="main-container">
+      <h1>{toPascalCase(name)} Stock Details</h1>
       <section>
-        {instances ? (
+        {instances && instances.length ? (
           <table className={styles["list"]}>
             <thead>
               <tr>
@@ -60,7 +64,7 @@ const StockDetails = ({ name }: { name?: string }) => {
       <Link href="/">
         <button className="main-button">Back</button>
       </Link>
-    </section>
+    </main>
   )
 }
 
