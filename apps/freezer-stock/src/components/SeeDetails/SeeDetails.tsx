@@ -1,14 +1,16 @@
 import Link from "next/link"
 import styles from "./SeeDetails.module.scss"
 
-const SeeDetails = ({ name }: { name?: string }) => {
-  return (
-    <section className="">
-      <Link href={`/details/${name}`}>
-        <a className={styles["details-link"]}>See Stock Details</a>
-      </Link>
-    </section>
-  )
+type SeeDetailsProps = {
+  name: string
 }
+
+const SeeDetails = ({ name }: SeeDetailsProps) => (
+  <Link href={`/details/${name}`}>
+    <a className={styles["details-link"]}>
+      {name === "all" ? "See All Products" : "See Details"}
+    </a>
+  </Link>
+)
 
 export default SeeDetails

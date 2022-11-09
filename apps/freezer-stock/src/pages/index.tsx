@@ -5,6 +5,7 @@ import SeeDetails from "@components/SeeDetails/SeeDetails"
 import StorageDate from "@components/StorageDate/StorageDate"
 import UnitsController from "@components/UnitsController/UnitsController"
 import { ProductContext } from "@contexts/ProductProvider"
+import { toPascalCase } from "@utils/strings"
 import { useContext } from "react"
 
 const HomePage = () => {
@@ -17,7 +18,7 @@ const HomePage = () => {
       <SearchInput />
       {name ? (
         <>
-          <h2>{name}</h2>
+          <h2>{toPascalCase(name)}</h2>
           <ProductInfo />
           <StorageDate />
           <UnitsController />

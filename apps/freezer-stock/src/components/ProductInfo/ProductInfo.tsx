@@ -1,21 +1,23 @@
 import ExpiringNextInfo from "@components/ExpiringNextInfo/ExpiringNextInfo"
 import HowLongInfo from "@components/HowLongInfo/HowLongInfo"
+import SeeDetails from "@components/SeeDetails/SeeDetails"
 import { ProductContext } from "@contexts/ProductProvider"
 import { useContext } from "react"
-import styles from "./ProductInfo.module.scss"
 
 const ProductInfo = () => {
-  const {
-    state: {
-      storagedProduct: { nextToExpireUnits },
-    },
-  } = useContext(ProductContext)
+  const { state } = useContext(ProductContext)
+  const { name, nextToExpireUnits } = state.storagedProduct
 
   return (
-    <section className={styles["card"]}>
+    <div className="card">
       <HowLongInfo />
-      {nextToExpireUnits ? <ExpiringNextInfo /> : null}
-    </section>
+      {nextToExpireUnits ? (
+        <>
+          <ExpiringNextInfo />
+          <SeeDetails name={name} />
+        </>
+      ) : null}
+    </div>
   )
 }
 

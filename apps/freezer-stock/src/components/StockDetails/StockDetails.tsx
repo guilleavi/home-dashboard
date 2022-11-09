@@ -1,5 +1,6 @@
 import { ProductDetails } from "@custom-types/product"
 import { getProductDetails, getAllProductDetails } from "@services/products"
+import { trimDateString } from "@utils/date"
 import Link from "next/link"
 import { useState, useEffect } from "react"
 import styles from "./StockDetails.module.scss"
@@ -44,7 +45,9 @@ const StockDetails = ({ name }: { name?: string }) => {
                   <tr key={i}>
                     <td>{instance.name}</td>
                     <td>{instance.units}</td>
-                    <td>{instance.expirationDate.toString()}</td>
+                    <td>
+                      {trimDateString(instance.expirationDate.toString())}
+                    </td>
                   </tr>
                 )
               })}

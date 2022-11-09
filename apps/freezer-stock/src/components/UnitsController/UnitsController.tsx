@@ -1,17 +1,14 @@
+import CounterButton from "@components/CounterButton/CounterButton"
 import { ProductContext } from "@contexts/ProductProvider"
 import { ProductActionType } from "@custom-types/state"
 import { useContext } from "react"
 import styles from "./UnitsController.module.scss"
 
 const UnitsController = () => {
-  const {
-    state: {
-      newProductItem: { units = 0 },
-    },
-    dispatch,
-  } = useContext(ProductContext)
+  const { state, dispatch } = useContext(ProductContext)
+  const { units } = state.newProductItem || 0
 
-  const handleUpdateQuatity = (add: number) => {
+  const handleUpdateQuantity = (add: number) => {
     let newQuantity = units + add
     newQuantity = newQuantity < 0 ? 0 : newQuantity
     dispatch({
@@ -21,23 +18,11 @@ const UnitsController = () => {
   }
 
   return (
-    <section className={styles["container"]}>
-      <button
-        className={styles["button"]}
-        type="button"
-        onClick={() => handleUpdateQuatity(-1)}
-      >
-        -
-      </button>
+    <div className="center-container">
+      <CounterButton operation="-" action={() => handleUpdateQuantity(-1)} />
       <p className={styles["label"]}>{units}</p>
-      <button
-        className={styles["button"]}
-        type="button"
-        onClick={() => handleUpdateQuatity(1)}
-      >
-        +
-      </button>
-    </section>
+      <CounterButton operation="+" action={() => handleUpdateQuantity(1)} />
+    </div>
   )
 }
 

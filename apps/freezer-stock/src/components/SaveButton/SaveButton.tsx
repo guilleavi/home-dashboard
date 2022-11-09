@@ -9,15 +9,16 @@ const SaveButton = () => {
   const [errorMessage, setErrorMessage] = useState("")
 
   const validateData = () => {
-    if (
-      !state.newProductItem.monthsToFreeze &&
-      !state.storagedProduct.monthsToFreeze
-    ) {
-      setErrorMessage("'How long to freeze value' is mandatory!")
+    const hasMonthsToFreeze =
+      state.newProductItem.monthsToFreeze ||
+      state.storagedProduct.monthsToFreeze
+
+    if (!hasMonthsToFreeze) {
+      setErrorMessage("'Max. freeze time' is mandatory!")
       return false
     }
-    setErrorMessage("")
 
+    setErrorMessage("")
     return true
   }
 

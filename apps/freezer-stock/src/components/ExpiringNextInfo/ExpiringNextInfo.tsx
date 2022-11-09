@@ -1,15 +1,12 @@
-import SeeDetails from "@components/SeeDetails/SeeDetails"
 import { ProductContext } from "@contexts/ProductProvider"
+import { trimDateString } from "@utils/date"
 import { pluralize, pluralizeToBe } from "@utils/strings"
 import { useContext } from "react"
 import styles from "./ExpiringNextInfo.module.scss"
 
 const ExpiringNextInfo = () => {
-  const {
-    state: {
-      storagedProduct: { name, nextToExpireDate, nextToExpireUnits },
-    },
-  } = useContext(ProductContext)
+  const { state } = useContext(ProductContext)
+  const { name, nextToExpireDate, nextToExpireUnits } = state.storagedProduct
 
   return (
     <div className={styles["container"]}>
@@ -19,9 +16,8 @@ const ExpiringNextInfo = () => {
         </strong>{" "}
         of {name} {pluralizeToBe(nextToExpireUnits)} expiring on{" "}
         {/* TODO: calculate on days/months how long to expire */}
-        <strong>{nextToExpireDate.toString()}</strong>
+        <strong>{trimDateString(nextToExpireDate.toString())}</strong>
       </p>
-      <SeeDetails name={name} />
     </div>
   )
 }

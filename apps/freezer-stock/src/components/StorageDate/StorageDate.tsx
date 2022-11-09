@@ -1,13 +1,16 @@
 import { ProductContext } from "@contexts/ProductProvider"
+import { ReactChangeEvent } from "@custom-types/dom"
 import { ProductActionType } from "@custom-types/state"
+import { trimDateString } from "@utils/date"
 import { useContext, useState, useEffect } from "react"
 import styles from "./StorageDate.module.scss"
 
 const StorageDate = () => {
-  const today = new Date().toISOString().slice(0, 10)
-
   const { dispatch } = useContext(ProductContext)
   const [hasCustomDate, setHasCustomDate] = useState(false)
+
+  // TODO: fix date format, so the today date matches with the datepicker format
+  const today = trimDateString(new Date().toISOString())
 
   useEffect(() => {
     if (!hasCustomDate) {
@@ -17,7 +20,10 @@ const StorageDate = () => {
        */
       dispatch({
         type: ProductActionType.UPDATE_PRODUCT,
-        payload: { key: "storageDate", value: today },
+        payload: {
+          key: "storageDate",
+          value: trimDateString(new Date(today).toISOString()),
+        },
       })
     }
   }, [dispatch, hasCustomDate, today])
@@ -26,42 +32,42 @@ const StorageDate = () => {
     setHasCustomDate(!hasCustomDate)
   }
 
-  const handleDateOnChange = (
-    event: React.ChangeEvent<HTMLInputElement> & { target: HTMLInputElement },
-  ) => {
-    const fixedStorageDate = new Date(event.target.value)
+  const handleDateOnChange = ({ target }: ReactChangeEvent) => {
+    const fixedStorageDate = new Date(target.value)
     fixedStorageDate.setDate(fixedStorageDate.getDate() + 1) // Fix month
 
     dispatch({
       type: ProductActionType.UPDATE_PRODUCT,
-      payload: { key: "storageDate", value: fixedStorageDate },
+      payload: {
+        key: "storageDate",
+        value: trimDateString(new Date(target.value).toISOString()),
+      },
     })
   }
 
   return (
-    <section>
-      {/* TODO: standarize date format */}
+    <>
       <p>
         Storage Date: <strong>{!hasCustomDate ? today : ""}</strong>
       </p>
       <div className={styles["custom"]}>
         <input
-          type="checkbox"
           checked={hasCustomDate}
+          type="checkbox"
           onChange={handleCheckboxOnClick}
         />
         {`Custom date `}
         {hasCustomDate ? (
           <input
             className={styles["datepicker"]}
-            type="date"
-            disabled={!hasCustomDate}
             defaultValue={today}
+            disabled={!hasCustomDate}
+            type="date"
             onChange={handleDateOnChange}
           />
         ) : null}
       </div>
-    </section>
+    </>
   )
 }
 
