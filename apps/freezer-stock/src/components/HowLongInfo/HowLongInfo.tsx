@@ -47,11 +47,11 @@ const HowLongInfo = () => {
   }
 
   return (
-    <div className={styles["container"]}>
-      <p>Max. freeze time: </p>
+    <p className={styles["container"]}>
+      Max. freeze time:
       {editMode ? (
         <>
-          <p className={styles["months"]}>
+          <span className={styles["months"]}>
             <input
               aria-label="How long the product can be freezed"
               className={styles["months-input"]}
@@ -61,16 +61,18 @@ const HowLongInfo = () => {
               onChange={handleOnChange}
             />{" "}
             months{" "}
-          </p>
+          </span>
           <ActionButton actionName="undo" onAction={handleOnClickUndo} />
         </>
       ) : (
         <>
-          <p className={styles["months"]}>{originalMonthsToFreeze} months </p>
+          <span className={styles["months"]}>
+            {originalMonthsToFreeze} months{" "}
+          </span>
           <ActionButton actionName="edit" onAction={handleOnClickEdit} />
         </>
       )}
-    </div>
+    </p>
   )
 }
 

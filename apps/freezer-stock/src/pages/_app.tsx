@@ -6,7 +6,6 @@ import "../styles/index.scss"
 const FreezerStockApp = ({ Component, pageProps }: AppProps) => (
   <>
     <Head>
-      <title>Freezer stock</title>
       <meta name="description" content="Freezer stock" />
       <link rel="icon" href="/favicon.ico" />
     </Head>

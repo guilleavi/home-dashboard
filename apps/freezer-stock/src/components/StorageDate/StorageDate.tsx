@@ -46,12 +46,22 @@ const StorageDate = () => {
   }
 
   return (
-    <>
-      <p>
-        Storage Date: <strong>{!hasCustomDate ? today : ""}</strong>
-      </p>
-      <div className={styles["custom"]}>
+    <section>
+      <header>
+        <h3>
+          Storage Date:{" "}
+          {!hasCustomDate ? (
+            <time dateTime={today} className="strong">
+              {today}
+            </time>
+          ) : (
+            ""
+          )}
+        </h3>
+      </header>
+      <label className={styles["custom"]} htmlFor="has-custom-date">
         <input
+          id="has-custom-date"
           checked={hasCustomDate}
           type="checkbox"
           onChange={handleCheckboxOnClick}
@@ -66,8 +76,8 @@ const StorageDate = () => {
             onChange={handleDateOnChange}
           />
         ) : null}
-      </div>
-    </>
+      </label>
+    </section>
   )
 }
 

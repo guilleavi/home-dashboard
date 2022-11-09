@@ -8,17 +8,19 @@ const ExpiringNextInfo = () => {
   const { state } = useContext(ProductContext)
   const { name, nextToExpireDate, nextToExpireUnits } = state.storagedProduct
 
+  const formattedDate = trimDateString(nextToExpireDate.toString())
+
   return (
-    <div className={styles["container"]}>
-      <p>
-        <strong>
-          {nextToExpireUnits} {pluralize("unit", nextToExpireUnits)}
-        </strong>{" "}
-        of {name} {pluralizeToBe(nextToExpireUnits)} expiring on{" "}
-        {/* TODO: calculate on days/months how long to expire */}
-        <strong>{trimDateString(nextToExpireDate.toString())}</strong>
-      </p>
-    </div>
+    <p className={styles["container"]}>
+      <span className="strong">
+        {nextToExpireUnits} {pluralize("unit", nextToExpireUnits)}
+      </span>{" "}
+      of {name} {pluralizeToBe(nextToExpireUnits)} expiring on{" "}
+      {/* TODO: calculate on days/months how long to expire */}
+      <time dateTime={formattedDate} className="strong">
+        {formattedDate}
+      </time>
+    </p>
   )
 }
 

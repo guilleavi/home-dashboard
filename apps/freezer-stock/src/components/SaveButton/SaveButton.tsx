@@ -40,12 +40,12 @@ const SaveButton = () => {
   }
 
   return (
-    <>
+    <div className="center-container">
       <button className="main-button" type="button" onClick={handleOnClick}>
         Save
       </button>
       <p className={styles["errors"]}>{errorMessage}</p>
-    </>
+    </div>
   )
 }
 

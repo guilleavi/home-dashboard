@@ -1,7 +1,6 @@
 import { ProductDetails } from "@custom-types/product"
 import { getProductDetails, getAllProductDetails } from "@services/products"
 import { trimDateString } from "@utils/date"
-import { toPascalCase } from "@utils/strings"
 import Link from "next/link"
 import { useState, useEffect } from "react"
 import styles from "./StockDetails.module.scss"
@@ -10,7 +9,7 @@ type StockDetailsProps = {
   name: string
 }
 
-const StockDetails = ({ name = "" }: StockDetailsProps) => {
+const StockDetails = ({ name }: StockDetailsProps) => {
   const [instances, setInstances] = useState<Array<ProductDetails>>([])
 
   useEffect(() => {
@@ -22,49 +21,50 @@ const StockDetails = ({ name = "" }: StockDetailsProps) => {
       setInstances(await getAllProductDetails())
     }
 
-    if (name) {
-      fetchDetails(name)
-    } else {
+    if (name === "all") {
       fetchAllDetails()
+    } else {
+      fetchDetails(name)
     }
   }, [name])
 
   // TODO: add sort and filter
   return (
-    <main className="main-container">
-      <h1>{toPascalCase(name)} Stock Details</h1>
-      <section>
-        {instances && instances.length ? (
-          <table className={styles["list"]}>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Units</th>
-                <th>Expiration Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {instances.map((instance, i) => {
-                return (
-                  <tr key={i}>
-                    <td>{instance.name}</td>
-                    <td>{instance.units}</td>
-                    <td>
-                      {trimDateString(instance.expirationDate.toString())}
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        ) : (
-          <p>No results</p>
-        )}
-      </section>
+    <>
+      {instances && instances.length ? (
+        <table className={styles["list"]}>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Units</th>
+              <th>Expiration Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {instances.map((instance, i) => {
+              const formattedDate = trimDateString(
+                instance.expirationDate.toString(),
+              )
+
+              return (
+                <tr key={i}>
+                  <td>{instance.name}</td>
+                  <td>{instance.units}</td>
+                  <td>
+                    <time dateTime={formattedDate}>{formattedDate}</time>
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      ) : (
+        <p>No results</p>
+      )}
       <Link href="/">
         <button className="main-button">Back</button>
       </Link>
-    </main>
+    </>
   )
 }
 

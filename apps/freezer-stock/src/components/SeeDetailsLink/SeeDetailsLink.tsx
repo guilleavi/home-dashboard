@@ -1,5 +1,5 @@
 import Link from "next/link"
-import styles from "./SeeDetails.module.scss"
+import styles from "./SeeDetailsLink.module.scss"
 
 type SeeDetailsProps = {
   name: string

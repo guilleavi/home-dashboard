@@ -20,7 +20,7 @@ const UnitsController = () => {
   return (
     <div className="center-container">
       <CounterButton operation="-" action={() => handleUpdateQuantity(-1)} />
-      <p className={styles["label"]}>{units}</p>
+      <label className={styles["label"]}>{units}</label>
       <CounterButton operation="+" action={() => handleUpdateQuantity(1)} />
     </div>
   )
