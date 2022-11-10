@@ -2,7 +2,6 @@ import { ProductContext } from "@contexts/ProductProvider"
 import { trimDateString } from "@utils/date"
 import { pluralize, pluralizeToBe } from "@utils/strings"
 import { useContext } from "react"
-import styles from "./ExpiringNextInfo.module.scss"
 
 const ExpiringNextInfo = () => {
   const { state } = useContext(ProductContext)
@@ -11,7 +10,7 @@ const ExpiringNextInfo = () => {
   const formattedDate = trimDateString(nextToExpireDate.toString())
 
   return (
-    <p className={styles["container"]}>
+    <p>
       <span className="strong">
         {nextToExpireUnits} {pluralize("unit", nextToExpireUnits)}
       </span>{" "}

@@ -6,11 +6,11 @@ type SeeDetailsProps = {
 }
 
 const SeeDetails = ({ name }: SeeDetailsProps) => (
-  <Link href={`/details/${name}`}>
-    <a className={styles["details-link"]}>
+  <div className={styles["details-link"]}>
+    <Link href={`/details/${name}`}>
       {name === "all" ? "See All Products" : "See Details"}
-    </a>
-  </Link>
+    </Link>
+  </div>
 )
 
 export default SeeDetails

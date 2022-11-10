@@ -12,7 +12,6 @@ const HowLongInfo = () => {
   const [newMonthsToFreeze, setNewMonthsToFreeze] = useState(0)
 
   useEffect(() => {
-    console.log("originalMonthsToFreeze", originalMonthsToFreeze)
     setNewMonthsToFreeze(originalMonthsToFreeze)
   }, [originalMonthsToFreeze])
 

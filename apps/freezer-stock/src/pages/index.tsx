@@ -5,7 +5,6 @@ import SeeDetails from "@components/SeeDetailsLink/SeeDetailsLink"
 import StorageDate from "@components/StorageDate/StorageDate"
 import UnitsController from "@components/UnitsController/UnitsController"
 import { ProductContext } from "@contexts/ProductProvider"
-import { toPascalCase } from "@utils/strings"
 import Head from "next/head"
 import { useContext } from "react"
 
@@ -21,7 +20,8 @@ const HomePage = () => {
       <header>
         <h1>Freezer Stock</h1>
       </header>
-      <main className="main-container">
+      <main>
+        <SeeDetails name="all" />
         <SearchInput />
         {name ? (
           <>
@@ -31,7 +31,6 @@ const HomePage = () => {
             <SaveButton />
           </>
         ) : null}
-        <SeeDetails name="all" />
       </main>
     </>
   )

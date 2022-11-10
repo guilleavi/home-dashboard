@@ -18,7 +18,7 @@ const DetailsPage = ({
       <header>
         <h1>{toPascalCase(name)} Stock Details</h1>
       </header>
-      <main className="main-container">
+      <main>
         <StockDetails name={name} />
       </main>
     </>

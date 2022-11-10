@@ -2,35 +2,28 @@ import { ProductContext } from "@contexts/ProductProvider"
 import { ReactChangeEvent } from "@custom-types/dom"
 import { ProductActionType } from "@custom-types/state"
 import { trimDateString } from "@utils/date"
-import { useContext, useState, useEffect } from "react"
+import { useContext, useEffect } from "react"
 import styles from "./StorageDate.module.scss"
 
 const StorageDate = () => {
   const { dispatch } = useContext(ProductContext)
-  const [hasCustomDate, setHasCustomDate] = useState(false)
 
   // TODO: fix date format, so the today date matches with the datepicker format
   const today = trimDateString(new Date().toISOString())
 
   useEffect(() => {
-    if (!hasCustomDate) {
-      /*
-       * By default today's date is the storage date,
-       * but you can force a custom one in the case you forget to update the freezer stock at the moment
-       */
-      dispatch({
-        type: ProductActionType.UPDATE_PRODUCT,
-        payload: {
-          key: "storageDate",
-          value: trimDateString(new Date(today).toISOString()),
-        },
-      })
-    }
-  }, [dispatch, hasCustomDate, today])
-
-  const handleCheckboxOnClick = () => {
-    setHasCustomDate(!hasCustomDate)
-  }
+    /*
+     * By default today's date is the storage date,
+     * but you can force a custom one in the case you forget to update the freezer stock at the moment
+     */
+    dispatch({
+      type: ProductActionType.UPDATE_PRODUCT,
+      payload: {
+        key: "storageDate",
+        value: trimDateString(new Date(today).toISOString()),
+      },
+    })
+  }, [dispatch, today])
 
   const handleDateOnChange = ({ target }: ReactChangeEvent) => {
     const fixedStorageDate = new Date(target.value)
@@ -46,38 +39,15 @@ const StorageDate = () => {
   }
 
   return (
-    <section>
-      <header>
-        <h3>
-          Storage Date:{" "}
-          {!hasCustomDate ? (
-            <time dateTime={today} className="strong">
-              {today}
-            </time>
-          ) : (
-            ""
-          )}
-        </h3>
-      </header>
-      <label className={styles["custom"]} htmlFor="has-custom-date">
-        <input
-          id="has-custom-date"
-          checked={hasCustomDate}
-          type="checkbox"
-          onChange={handleCheckboxOnClick}
-        />
-        {`Custom date `}
-        {hasCustomDate ? (
-          <input
-            className={styles["datepicker"]}
-            defaultValue={today}
-            disabled={!hasCustomDate}
-            type="date"
-            onChange={handleDateOnChange}
-          />
-        ) : null}
-      </label>
-    </section>
+    <div className={styles["container"]}>
+      <h3>Storage Date:</h3>
+      <input
+        className={styles["datepicker"]}
+        defaultValue={today}
+        type="date"
+        onChange={handleDateOnChange}
+      />
+    </div>
   )
 }
 

@@ -1,5 +1,7 @@
 @import "https://fonts.googleapis.com/css?family=Open+Sans";
 @import "./reset";
+@import "./colors";
+@import "./fonts";
 
 body {
   font-family: "Open Sans", "Segoe UI", Helvetica, sans-serif;
@@ -7,63 +9,45 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-.main-container {
-  display: flex;
-  flex-direction: column;
-  margin: 3rem 2rem;
-}
-
-section {
-  margin-bottom: 1.5rem;
-}
-
-.card {
-  border-radius: 6px;
-  box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-  padding: 7px 10px 10px;
-}
-
-.center-container {
-  align-items: center;
-  display: flex;
-  justify-content: center;
+main {
+  display: block;
+  margin: 1rem 2rem;
 }
 
 h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
+  font-size: $huge;
+  font-weight: $bold;
+  margin: 1.5rem;
   text-align: center;
 }
 
 h2 {
-  font-weight: 700;
+  font-size: $big;
+  font-weight: $bold;
   margin-bottom: 0.75rem;
 }
 
-h3,
-p,
-a {
-  font-size: 0.9rem;
+h3 {
+  font-size: $normal;
+}
+
+p {
+  font-size: $small;
 }
 
 .strong {
-  font-weight: 700;
+  font-weight: $bold;
 }
 
 input {
-  border: 1px solid #ced4da;
+  border: 1px solid $thin-border;
   border-radius: 0.25rem;
   line-height: 1.5;
 }
 
 input:not([type="checkbox"]):focus {
   border: none;
-  box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+  box-shadow: 0 0 0 0.25rem $shadow;
 }
 
 button {
@@ -71,13 +55,17 @@ button {
   border-width: 2px;
 }
 
-.main-button {
-  align-self: center;
-  background-color: rgb(13 110 253 / 75%);
-  border-radius: 5px;
-  color: white;
-  font-size: 1.25rem;
-  padding: 0.5rem 2rem;
-  text-align: center;
-  width: 7rem;
+.card {
+  border-radius: 6px;
+  box-shadow: 0 0 0 0.25rem $shadow;
+  line-height: 2.5;
+  margin: 0 1rem 1.5rem;
+  padding: 10px 10px 0;
+}
+
+.center-container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 2rem;
 }

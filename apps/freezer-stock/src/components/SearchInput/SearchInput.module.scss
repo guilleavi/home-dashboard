@@ -1,4 +1,5 @@
 @import "../../styles/colors";
+@import "../../styles/fonts";
 
 .search-bar {
   background: url("../../../assets/search_20px.png") no-repeat 0.75rem;
@@ -10,4 +11,5 @@
 
 .search-bar::placeholder {
   color: $placeholder;
+  font-size: $small;
 }
