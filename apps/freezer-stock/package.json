@@ -35,5 +35,8 @@
   },
   "browserslist": [
     "defaults"
-  ]
+  ],
+  "prisma": {
+    "schema": "prisma/schema.prisma"
+  }
 }
