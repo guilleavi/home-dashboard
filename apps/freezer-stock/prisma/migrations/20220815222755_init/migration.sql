@@ -1,8 +1,8 @@
 -- CreateTable
 CREATE TABLE `Product` (
-    `productId` INTEGER NOT NULL,
+    `productId` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
-    `monthsToExpire` INTEGER NOT NULL,
+    `monthsToFreeze` INTEGER NOT NULL,
 
     UNIQUE INDEX `Product_name_key`(`name`),
     PRIMARY KEY (`productId`)
@@ -10,10 +10,10 @@ CREATE TABLE `Product` (
 
 -- CreateTable
 CREATE TABLE `ProductInstance` (
-    `instanceId` INTEGER NOT NULL,
+    `instanceId` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `units` INTEGER NOT NULL,
-    `expirationDate` VARCHAR(191) NOT NULL,
+    `expirationDate` DATETIME(3) NOT NULL,
 
     PRIMARY KEY (`instanceId`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
