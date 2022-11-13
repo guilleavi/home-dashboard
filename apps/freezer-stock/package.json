@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "format": "npx prettier --write ./src",
-    "stylelint": "npx stylelint \"src/**/*.{css,scss}\" --fix"
+    "stylelint": "npx stylelint \"src/**/*.{css,scss}\" --fix",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push --skip-generate"
   },
   "dependencies": {
     "@prisma/client": "^4.3.1",
