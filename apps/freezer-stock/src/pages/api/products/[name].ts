@@ -1,7 +1,7 @@
 import { assertIsString } from "@asserts/primitives"
 import type { ProductSummary, ProductToSave } from "@custom-types/product"
 import { HTTP_METHOD, ORDER } from "@enums/api"
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient, ProductInstance } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
 
 const prisma = new PrismaClient()
@@ -54,7 +54,7 @@ const getNextToExpire = async (
       nextToExpireDate = product.instances[0].expirationDate // asc order
       nextToExpireUnits = product.instances
         .filter(
-          (instance) =>
+          (instance: ProductInstance) =>
             instance.expirationDate.toDateString() ===
             nextToExpireDate.toDateString(),
         )
