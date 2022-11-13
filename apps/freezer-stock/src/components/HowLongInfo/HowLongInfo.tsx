@@ -1,60 +1,77 @@
-import { ProductContext } from "contexts/ProductProvider"
-import { useContext, useEffect, useState } from "react"
-import { ProductActions } from "types/state"
+import ActionButton from "@components/ActionButton/ActionButton"
+import { ProductContext } from "@contexts/ProductProvider"
+import { ProductActionType } from "@custom-types/state"
+import { useContext, useState, useEffect } from "react"
+import styles from "./HowLongInfo.module.scss"
 
-const HowLongInfo = ({ howLongToFreeze }: { howLongToFreeze: number }) => {
-  const { dispatch } = useContext(ProductContext)
-  const [localHowLong, setLocalHowLong] = useState<number>(0)
+const HowLongInfo = () => {
+  const { state, dispatch } = useContext(ProductContext)
+  const originalMonthsToFreeze = state.storagedProduct.monthsToFreeze
+
+  const [editMode, setEditMode] = useState(false)
+  const [newMonthsToFreeze, setNewMonthsToFreeze] = useState(0)
 
   useEffect(() => {
-    setLocalHowLong(howLongToFreeze)
-  }, [howLongToFreeze])
+    setNewMonthsToFreeze(originalMonthsToFreeze)
+  }, [originalMonthsToFreeze])
 
-  const handleOnChange = (e: React.FormEvent<HTMLInputElement>) => {
+  const dispatchHowLong = (value: number) => {
+    setNewMonthsToFreeze(value)
     dispatch({
-      type: ProductActions.UPDATE_HOW_MANY_MONTHS_FREEZE,
-      payload: Number(e.currentTarget.value),
+      type: ProductActionType.UPDATE_PRODUCT,
+      payload: { key: "monthsToFreeze", value },
     })
+  }
+
+  const handleOnChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const typedHowLong = Number(event.currentTarget.value)
+
+    if (typedHowLong > 0) {
+      dispatchHowLong(typedHowLong)
+    }
   }
 
   const handleOnClickEdit = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
-    setLocalHowLong(0)
+    setEditMode(true)
   }
 
   const handleOnClickUndo = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
-    setLocalHowLong(howLongToFreeze)
+    setEditMode(false)
+
+    if (originalMonthsToFreeze !== newMonthsToFreeze) {
+      dispatchHowLong(originalMonthsToFreeze)
+    }
   }
 
   return (
-    <div>
-      <h2>How long can you freeze it? </h2>
-      {localHowLong ? (
-        <p>
-          {howLongToFreeze} months{" "}
-          <button type="button" onClick={handleOnClickEdit}>
-            Edit
-          </button>
-        </p>
+    <p className={styles["container"]}>
+      Max. freeze time:
+      {editMode ? (
+        <>
+          <span className={styles["months"]}>
+            <input
+              aria-label="How long the product can be freezed"
+              className={styles["months-input"]}
+              min="1"
+              type="number"
+              value={newMonthsToFreeze}
+              onChange={handleOnChange}
+            />{" "}
+            months{" "}
+          </span>
+          <ActionButton actionName="undo" onAction={handleOnClickUndo} />
+        </>
       ) : (
         <>
-          {" "}
-          <input
-            type="number"
-            placeholder="How long...?"
-            aria-label="How long the product can be freezed"
-            onChange={handleOnChange}
-          />{" "}
-          <span>months</span>
-          {howLongToFreeze ? (
-            <button type="button" onClick={handleOnClickUndo}>
-              Undo
-            </button>
-          ) : null}
+          <span className={styles["months"]}>
+            {originalMonthsToFreeze} months{" "}
+          </span>
+          <ActionButton actionName="edit" onAction={handleOnClickEdit} />
         </>
       )}
-    </div>
+    </p>
   )
 }
 

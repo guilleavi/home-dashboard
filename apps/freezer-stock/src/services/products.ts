@@ -1,45 +1,60 @@
-import axios from "axios"
-import {
-  ProductSummary,
-  NewProduct,
-  ProductToSave,
+import type {
   ProductDetails,
-} from "types/product"
-import { safeFetch } from "utils/fetch"
+  ProductSummary,
+  ProductToSave,
+} from "@custom-types/product"
+import { NewProduct } from "@custom-types/product"
+import axios from "axios"
 
-interface GetProduct {
-  abortSignal: AbortSignal
-  name: string
-}
+const PRODUCT_URL = "/api/products"
+const INSTANCE_URL = `${PRODUCT_URL}/instances`
 
-const getProduct = async ({
-  abortSignal,
-  name,
-}: GetProduct): Promise<ProductSummary
-> => {
-  return name
-    ? await safeFetch<ProductSummary
-    >({
-      abortSignal,
-      defaultValue: new NewProduct(name),
-      url: `http://localhost:3000/api/products/${name}`,
+export const getProduct = async (
+  name: string,
+  abortSignal: AbortSignal,
+): Promise<ProductSummary> => {
+  const url = `${PRODUCT_URL}/${name}`
+  const defaultValue = new NewProduct(name)
+
+  try {
+    const response = await axios.get<ProductSummary>(url, {
+      signal: abortSignal,
     })
-    : new NewProduct("")
+
+    return response.data || defaultValue
+  } catch (e: unknown) {
+    console.log(e)
+    return defaultValue
+  }
 }
 
-const getProductDetails = async ({
-  abortSignal,
-  name,
-}: GetProduct): Promise<Array<ProductDetails>> =>
-  await axios.get(`http://localhost:3000/api/products/intances/${name}`, {
-    signal: abortSignal,
-  })
-
-const saveProduct = async (newProductItem: ProductToSave) => {
-  const postStatus = await axios.post(
-    `http://localhost:3000/api/products/${newProductItem.name}`,
-    newProductItem,
-  )
+export const getProductDetails = async (
+  name: string,
+): Promise<Array<ProductDetails>> => {
+  try {
+    return (await axios.get(`${INSTANCE_URL}/${name}`))
+      .data as Array<ProductDetails>
+  } catch (e: unknown) {
+    console.log(e)
+    return []
+  }
 }
 
-export { getProduct, getProductDetails, saveProduct }
+export const getAllProductDetails = async (): Promise<
+  Array<ProductDetails>
+> => {
+  try {
+    return (await axios.get(`${INSTANCE_URL}`)).data as Array<ProductDetails>
+  } catch (e: unknown) {
+    console.log(e)
+    return []
+  }
+}
+
+export const saveProduct = async (newProductItem: ProductToSave) => {
+  try {
+    await axios.post(`${PRODUCT_URL}/${newProductItem.name}`, newProductItem)
+  } catch (e: unknown) {
+    console.log(e)
+  }
+}

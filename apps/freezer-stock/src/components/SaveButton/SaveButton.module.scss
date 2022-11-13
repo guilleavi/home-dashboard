@@ -1,0 +1,17 @@
+@import "../../styles/colors";
+@import "../../styles/fonts";
+
+.save-button {
+  align-self: center;
+  background-color: $main-button;
+  border-radius: 5px;
+  color: white;
+  font-size: $big;
+  padding: 0.5rem 2rem;
+  text-align: center;
+  width: 7rem;
+}
+
+.errors {
+  color: red;
+}

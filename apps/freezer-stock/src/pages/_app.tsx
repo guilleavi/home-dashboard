@@ -1,19 +1,18 @@
-import "../styles/globals.scss"
+import { ProductProvider } from "@contexts/ProductProvider"
 import type { AppProps } from "next/app"
 import Head from "next/head"
-import { ProductProvider } from "contexts/ProductProvider"
+import "../styles/index.scss"
 
-const MyApp = ({ Component, pageProps }: AppProps) => (
-  <div>
+const FreezerStockApp = ({ Component, pageProps }: AppProps) => (
+  <>
     <Head>
-      <title>Freezer stock</title>
       <meta name="description" content="Freezer stock" />
       <link rel="icon" href="/favicon.ico" />
     </Head>
     <ProductProvider>
       <Component {...pageProps} />
     </ProductProvider>
-  </div>
+  </>
 )
 
-export default MyApp
+export default FreezerStockApp

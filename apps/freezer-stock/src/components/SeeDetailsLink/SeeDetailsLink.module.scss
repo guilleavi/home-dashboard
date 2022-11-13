@@ -1,0 +1,13 @@
+@import "../../styles/colors";
+@import "../../styles/fonts";
+
+.details-link {
+  margin-bottom: 0.5rem;
+  text-align: right;
+}
+
+.details-link a {
+  color: $link;
+  font-size: $tiny;
+  text-decoration: underline;
+}

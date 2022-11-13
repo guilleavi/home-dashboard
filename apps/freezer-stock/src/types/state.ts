@@ -1,49 +1,41 @@
 import { ProductSummary, ProductToSave } from "./product"
 
-enum ProductActions {
-  GET_PRODUCT = "GET_PRODUCT",
-  TYPE_PRODUCT = "TYPE_PRODUCT",
-  UPDATE_HOW_MANY_MONTHS_FREEZE = "UPDATE_HOW_MANY_MONTHS_FREEZE",
-  UPDATE_STORAGE_DATE = "UPDATE_STORAGE_DATE",
-  UPDATE_UNITS_TO_STORAGE = "UPDATE_UNITS_TO_STORAGE",
-}
-
-interface ProductState {
+export type ProductState = {
   storagedProduct: ProductSummary
   newProductItem: ProductToSave
 }
 
-interface GetProductAction {
-  type: ProductActions.GET_PRODUCT
+export enum ProductActionType {
+  GET_PRODUCT = "GET_PRODUCT",
+  UPDATE_PRODUCT = "UPDATE_PRODUCT",
+  MERGE_PRODUCT = "MERGE_PRODUCT",
+  CLEAR_PRODUCT = "CLEAR_PRODUCT",
+}
+
+type GetProductAction = {
+  type: ProductActionType.GET_PRODUCT
   payload: ProductSummary
 }
 
-interface TypeProductAction {
-  type: ProductActions.TYPE_PRODUCT
-  payload: string
+type UpdateProductAction = {
+  type: ProductActionType.UPDATE_PRODUCT
+  // TODO: add discrimination union ???
+  payload: {
+    key: keyof ProductToSave
+    value: string | number | Date
+  }
 }
 
-interface UpdateHowManyMonthsFreezeAction {
-  type: ProductActions.UPDATE_HOW_MANY_MONTHS_FREEZE
-  payload: number
+type MergeProductAction = {
+  type: ProductActionType.MERGE_PRODUCT
 }
 
-interface UpdateStorageDateAction {
-  type: ProductActions.UPDATE_STORAGE_DATE
-  payload: string
+type ClearProductAction = {
+  type: ProductActionType.CLEAR_PRODUCT
 }
 
-interface UpdateUnitsToStorageAction {
-  type: ProductActions.UPDATE_UNITS_TO_STORAGE
-  payload: number
-}
-
-type ProductAction =
+export type ProductActions =
   | GetProductAction
-  | TypeProductAction
-  | UpdateHowManyMonthsFreezeAction
-  | UpdateStorageDateAction
-  | UpdateUnitsToStorageAction
-
-export { ProductActions }
-export type { ProductState, ProductAction }
+  | UpdateProductAction
+  | MergeProductAction
+  | ClearProductAction

@@ -1,52 +1,38 @@
-import { ProductActions } from "@custom-types/state"
-import ProductContainer from "components/ProductContainer/ProductContainer"
-import SaveButton from "components/SaveButton/SaveButton"
-import SearchInput from "components/SearchInput/SearchInput"
-import { ProductContext } from "contexts/ProductProvider"
-import type { NextPage } from "next"
-import { useContext, useCallback, useEffect } from "react"
-import { getProduct } from "services/products"
+import ProductInfo from "@components/ProductInfo/ProductInfo"
+import SaveButton from "@components/SaveButton/SaveButton"
+import SearchInput from "@components/SearchInput/SearchInput"
+import SeeDetails from "@components/SeeDetailsLink/SeeDetailsLink"
+import StorageDate from "@components/StorageDate/StorageDate"
+import UnitsController from "@components/UnitsController/UnitsController"
+import { ProductContext } from "@contexts/ProductProvider"
+import Head from "next/head"
+import { useContext } from "react"
 
-const HomePage: NextPage = () => {
-  const {
-    state: {
-      newProductItem: { name: selectedProductName },
-    },
-    dispatch,
-  } = useContext(ProductContext)
-
-  const fetchProduct = useCallback(
-    async (signal: AbortSignal) => {
-      const fetchedProduct = await getProduct({
-        name: selectedProductName,
-        abortSignal: signal,
-      })
-      dispatch({
-        type: ProductActions.GET_PRODUCT,
-        payload: fetchedProduct,
-      })
-    },
-    [dispatch, selectedProductName],
-  )
-
-  useEffect(() => {
-    const abortController = new AbortController()
-    fetchProduct(abortController.signal).catch((err) => console.error(err))
-
-    return () => {
-      abortController.abort()
-    }
-  }, [fetchProduct, selectedProductName])
+const HomePage = () => {
+  const { state } = useContext(ProductContext)
+  const { name } = state.storagedProduct
 
   return (
-    <div className="page-container">
-      <h1>Freezer Stock</h1>
-      <div className="form-container">
+    <>
+      <Head>
+        <title>Freezer stock</title>
+      </Head>
+      <header>
+        <h1>Freezer Stock</h1>
+      </header>
+      <main>
+        <SeeDetails name="all" />
         <SearchInput />
-        <ProductContainer />
-        {selectedProductName ? <SaveButton /> : null}
-      </div>
-    </div>
+        {name ? (
+          <>
+            <ProductInfo />
+            <StorageDate />
+            <UnitsController />
+            <SaveButton />
+          </>
+        ) : null}
+      </main>
+    </>
   )
 }
 

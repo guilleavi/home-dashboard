@@ -3,12 +3,27 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
+      "@asserts/*": [
+        "asserts/*"
+      ],
+      "@components/*": [
+        "components/*"
+      ],
+      "@contexts/*": [
+        "contexts/*"
+      ],
       "@custom-types/*": [
         "types/*"
       ],
-      "@asserts/*": [
-        "asserts/*"
-      ]
+      "@enums/*": [
+        "enums/*"
+      ],
+      "@services/*": [
+        "services/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ],
     },
   },
   "include": [

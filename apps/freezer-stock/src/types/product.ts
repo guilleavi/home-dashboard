@@ -1,29 +1,28 @@
-export interface ProductSummary {
+export type ProductSummary = {
   name: string
-  howLongToFreeze: number
-  nextToExpireDate: string
+  monthsToFreeze: number
+  nextToExpireDate: Date
   nextToExpireUnits: number
 }
 
-export interface ProductDetails {
+export type ProductToSave = {
   name: string
-  expirationDate: string
+  monthsToFreeze: number
+  storageDate: Date
   units: number
 }
 
-export interface ProductToSave {
+export type ProductDetails = {
+  instanceId: number
   name: string
-  howLongToFreeze: number
-  storageDate: string
+  expirationDate: Date
   units: number
 }
-
-const TODAY = new Date()
 
 export class NewProduct implements ProductSummary {
   name = ""
-  howLongToFreeze = 0
-  nextToExpireDate = TODAY.toDateString()
+  monthsToFreeze = 0
+  nextToExpireDate = new Date()
   nextToExpireUnits = 0
 
   constructor(name: string) {

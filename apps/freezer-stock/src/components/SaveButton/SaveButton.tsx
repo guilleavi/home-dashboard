@@ -1,28 +1,54 @@
-import { ProductContext } from "contexts/ProductProvider"
-import { useContext } from "react"
-import { saveProduct } from "services/products"
-import { ProductActions } from "types/state"
+import { ProductContext } from "@contexts/ProductProvider"
+import { ProductActionType } from "@custom-types/state"
+import { saveProduct } from "@services/products"
+import { useContext, useState } from "react"
+import styles from "./SaveButton.module.scss"
 
 const SaveButton = () => {
   const { state, dispatch } = useContext(ProductContext)
+  const [errorMessage, setErrorMessage] = useState("")
+
+  const validateData = () => {
+    const hasMonthsToFreeze =
+      state.newProductItem.monthsToFreeze ||
+      state.storagedProduct.monthsToFreeze
+
+    if (!hasMonthsToFreeze) {
+      setErrorMessage("'Max. freeze time' is mandatory!")
+      return false
+    }
+
+    setErrorMessage("")
+    return true
+  }
 
   const handleOnClick = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
-    if (!state.newProductItem.howLongToFreeze) {
+
+    if (validateData()) {
+      // add missing information to newProductItem
       dispatch({
-        type: ProductActions.UPDATE_HOW_MANY_MONTHS_FREEZE,
-        payload: state.storagedProduct.howLongToFreeze,
+        type: ProductActionType.MERGE_PRODUCT,
+      })
+
+      await saveProduct(state.newProductItem)
+
+      dispatch({
+        type: ProductActionType.CLEAR_PRODUCT,
       })
     }
-    await saveProduct(state.newProductItem)
   }
 
   return (
-    <div>
-      <button type="button" onClick={handleOnClick}>
+    <div className="center-container">
+      <button
+        className={styles["save-button"]}
+        type="button"
+        onClick={handleOnClick}
+      >
         Save
       </button>
-      <pre>{JSON.stringify(state.newProductItem)}</pre>
+      <p className={styles["errors"]}>{errorMessage}</p>
     </div>
   )
 }

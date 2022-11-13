@@ -1,60 +1,53 @@
-import { ProductContext } from "contexts/ProductProvider"
-import React, { useContext, useEffect, useState } from "react"
-import { ProductActions } from "types/state"
+import { ProductContext } from "@contexts/ProductProvider"
+import { ReactChangeEvent } from "@custom-types/dom"
+import { ProductActionType } from "@custom-types/state"
+import { trimDateString } from "@utils/date"
+import { useContext, useEffect } from "react"
+import styles from "./StorageDate.module.scss"
 
 const StorageDate = () => {
-  const DATE_LENGTH = 10
-  const today = new Date().toISOString().slice(0, DATE_LENGTH)
-
   const { dispatch } = useContext(ProductContext)
-  const [hasCustomDate, setHasCustomDate] = useState(false)
+
+  // TODO: fix date format, so the today date matches with the datepicker format
+  const today = trimDateString(new Date().toISOString())
 
   useEffect(() => {
-    if (!hasCustomDate) {
-      /*
-       * By default today's date is the storage date,
-       * but you can force a custom one in the case you forget to update the freezer stock at the moment
-       */
-      dispatch({
-        type: ProductActions.UPDATE_STORAGE_DATE,
-        payload: today,
-      })
-    }
-  }, [dispatch, hasCustomDate, today])
-
-  const handleCheckboxOnClick = () => {
-    setHasCustomDate(!hasCustomDate)
-  }
-
-  const handleDateOnChange = (
-    event: React.ChangeEvent<HTMLInputElement> & { target: HTMLInputElement },
-  ) => {
+    /*
+     * By default today's date is the storage date,
+     * but you can force a custom one in the case you forget to update the freezer stock at the moment
+     */
     dispatch({
-      type: ProductActions.UPDATE_STORAGE_DATE,
-      payload: event.target.value,
+      type: ProductActionType.UPDATE_PRODUCT,
+      payload: {
+        key: "storageDate",
+        value: trimDateString(new Date(today).toISOString()),
+      },
+    })
+  }, [dispatch, today])
+
+  const handleDateOnChange = ({ target }: ReactChangeEvent) => {
+    const fixedStorageDate = new Date(target.value)
+    fixedStorageDate.setDate(fixedStorageDate.getDate() + 1) // Fix month
+
+    dispatch({
+      type: ProductActionType.UPDATE_PRODUCT,
+      payload: {
+        key: "storageDate",
+        value: trimDateString(new Date(target.value).toISOString()),
+      },
     })
   }
 
   return (
-    <>
-      <div>{`Storage Date ${!hasCustomDate ? today : ""}`}</div>
-      <div>
-        <input
-          type="checkbox"
-          checked={hasCustomDate}
-          onChange={handleCheckboxOnClick}
-        />
-        {`Custom date`}
-        {hasCustomDate ? (
-          <input
-            type="date"
-            disabled={!hasCustomDate}
-            defaultValue={today}
-            onChange={handleDateOnChange}
-          />
-        ) : null}
-      </div>
-    </>
+    <div className={styles["container"]}>
+      <h3>Storage Date:</h3>
+      <input
+        className={styles["datepicker"]}
+        defaultValue={today}
+        type="date"
+        onChange={handleDateOnChange}
+      />
+    </div>
   )
 }
 

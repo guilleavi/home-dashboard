@@ -1,33 +1,27 @@
-import { ProductContext } from "contexts/ProductProvider"
+import CounterButton from "@components/CounterButton/CounterButton"
+import { ProductContext } from "@contexts/ProductProvider"
+import { ProductActionType } from "@custom-types/state"
 import { useContext } from "react"
-import { ProductActions } from "types/state"
+import styles from "./UnitsController.module.scss"
 
 const UnitsController = () => {
-  const {
-    state: {
-      newProductItem: { units = 0 },
-    },
-    dispatch,
-  } = useContext(ProductContext)
+  const { state, dispatch } = useContext(ProductContext)
+  const { units } = state.newProductItem || 0
 
-  const handleUpdateQuatity = (add: number) => {
+  const handleUpdateQuantity = (add: number) => {
     let newQuantity = units + add
     newQuantity = newQuantity < 0 ? 0 : newQuantity
     dispatch({
-      type: ProductActions.UPDATE_UNITS_TO_STORAGE,
-      payload: newQuantity,
+      type: ProductActionType.UPDATE_PRODUCT,
+      payload: { key: "units", value: newQuantity },
     })
   }
 
   return (
-    <div>
-      <button type="button" onClick={() => handleUpdateQuatity(-1)}>
-        -
-      </button>
-      <span>{units}</span>
-      <button type="button" onClick={() => handleUpdateQuatity(1)}>
-        +
-      </button>
+    <div className="center-container">
+      <CounterButton operation="-" action={() => handleUpdateQuantity(-1)} />
+      <label className={styles["label"]}>{units}</label>
+      <CounterButton operation="+" action={() => handleUpdateQuantity(1)} />
     </div>
   )
 }

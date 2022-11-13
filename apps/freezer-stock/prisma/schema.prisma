@@ -13,7 +13,7 @@ datasource db {
 model Product {
   productId       Int       @id @default(autoincrement())
   name            String    @unique
-  monthsToExpire  Int
+  monthsToFreeze  Int
   instances       ProductInstance[]
 }
 
@@ -22,5 +22,5 @@ model ProductInstance {
   product         Product   @relation(fields: [name], references: [name])
   name            String
   units           Int
-  expirationDate  String
+  expirationDate  DateTime
 }
