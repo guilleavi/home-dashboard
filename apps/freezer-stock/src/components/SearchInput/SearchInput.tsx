@@ -17,6 +17,9 @@ const SearchInput = () => {
     const abortController = new AbortController()
 
     const fetchProduct = async (name: string, abortSignal: AbortSignal) => {
+      dispatch({
+        type: ProductActionType.CLEAR_PRODUCT,
+      })
       setShowSpinner(true)
       const fetchedProduct = await getProduct(name, abortSignal)
       dispatch({
