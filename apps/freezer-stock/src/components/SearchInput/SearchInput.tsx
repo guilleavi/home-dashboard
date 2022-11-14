@@ -2,6 +2,7 @@ import { ProductContext } from "@contexts/ProductProvider"
 import type { ReactKeyboardEvent } from "@custom-types/dom"
 import { ProductActionType } from "@custom-types/state"
 import { KEY } from "@enums/common"
+import CircularProgress from "@mui/material/CircularProgress"
 import { getProduct } from "@services/products"
 import { useContext, useEffect, useRef, useState } from "react"
 import styles from "./SearchInput.module.scss"
@@ -10,16 +11,19 @@ const SearchInput = () => {
   const { dispatch } = useContext(ProductContext)
   const searchInputRef = useRef<HTMLInputElement>(null)
   const [typedName, setTypedName] = useState("")
+  const [showSpinner, setShowSpinner] = useState(false)
 
   useEffect(() => {
     const abortController = new AbortController()
 
     const fetchProduct = async (name: string, abortSignal: AbortSignal) => {
+      setShowSpinner(true)
       const fetchedProduct = await getProduct(name, abortSignal)
       dispatch({
         type: ProductActionType.GET_PRODUCT,
         payload: fetchedProduct,
       })
+      setShowSpinner(false)
     }
 
     if (typedName.trim()) {
@@ -43,14 +47,22 @@ const SearchInput = () => {
   }
 
   return (
-    <input
-      aria-label="Search product"
-      className={styles["search-bar"]}
-      placeholder="Search..."
-      ref={searchInputRef}
-      type="search"
-      onKeyDown={handleKeyDown}
-    />
+    <>
+      {showSpinner ? (
+        <div className="center-container">
+          <CircularProgress />
+        </div>
+      ) : (
+        <input
+          aria-label="Search product"
+          className={styles["search-bar"]}
+          placeholder="Search..."
+          ref={searchInputRef}
+          type="search"
+          onKeyDown={handleKeyDown}
+        />
+      )}
+    </>
   )
 }
 

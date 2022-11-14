@@ -13,6 +13,9 @@
     "db:push": "prisma db push --skip-generate"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.10.13",
     "@prisma/client": "^4.6.1",
     "axios": "^0.27.2",
     "next": "12.3.0",
