@@ -4,17 +4,18 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npx prisma generate && npx prisma migrate deploy && next build",
     "start": "next start",
     "lint": "next lint",
     "format": "npx prettier --write ./src",
-    "stylelint": "npx stylelint \"src/**/*.{css,scss}\" --fix"
+    "stylelint": "npx stylelint \"src/**/*.{css,scss}\" --fix",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push --skip-generate"
   },
   "dependencies": {
-    "@prisma/client": "^4.3.1",
+    "@prisma/client": "^4.6.1",
     "axios": "^0.27.2",
     "next": "12.3.0",
-    "prisma": "^4.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "ui": "workspace:*"
@@ -27,6 +28,7 @@
     "eslint-config-next": "^12.3.0",
     "prettier": "^2.7.1",
     "prettier-config-custom": "workspace:*",
+    "prisma": "^4.6.1",
     "sass": "^1.54.9",
     "stylelint": "^14.11.0",
     "stylelint-config-custom": "workspace:*",
@@ -35,5 +37,8 @@
   },
   "browserslist": [
     "defaults"
-  ]
+  ],
+  "prisma": {
+    "schema": "prisma/schema.prisma"
+  }
 }

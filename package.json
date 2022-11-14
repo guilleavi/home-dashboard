@@ -11,7 +11,8 @@
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "format": "turbo run format",
-    "stylelint": "turbo run stylelint"
+    "stylelint": "turbo run stylelint",
+    "db:generate": "turbo run db:generate"
   },
   "devDependencies": {
     "eslint-config-custom": "workspace:*",
