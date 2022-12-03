@@ -1,5 +1,6 @@
 import { ProductContext } from "@contexts/ProductProvider"
 import { ProductActionType } from "@custom-types/state"
+import CircularProgress from "@mui/material/CircularProgress"
 import { saveProduct } from "@services/products"
 import { useContext, useState } from "react"
 import styles from "./SaveButton.module.scss"
@@ -7,6 +8,7 @@ import styles from "./SaveButton.module.scss"
 const SaveButton = () => {
   const { state, dispatch } = useContext(ProductContext)
   const [errorMessage, setErrorMessage] = useState("")
+  const [showSpinner, setShowSpinner] = useState(false)
 
   const validateData = () => {
     const hasMonthsToFreeze =
@@ -26,6 +28,7 @@ const SaveButton = () => {
     event.preventDefault()
 
     if (validateData()) {
+      setShowSpinner(true)
       // add missing information to newProductItem
       dispatch({
         type: ProductActionType.MERGE_PRODUCT,
@@ -36,18 +39,23 @@ const SaveButton = () => {
       dispatch({
         type: ProductActionType.CLEAR_PRODUCT,
       })
+      setShowSpinner(false)
     }
   }
 
   return (
     <div className="center-container">
-      <button
-        className={styles["save-button"]}
-        type="button"
-        onClick={handleOnClick}
-      >
-        Save
-      </button>
+      {showSpinner ? (
+        <CircularProgress />
+      ) : (
+        <button
+          className={styles["save-button"]}
+          type="button"
+          onClick={handleOnClick}
+        >
+          Save
+        </button>
+      )}
       <p className={styles["errors"]}>{errorMessage}</p>
     </div>
   )

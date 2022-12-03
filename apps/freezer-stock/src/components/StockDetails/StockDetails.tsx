@@ -1,4 +1,5 @@
 import { ProductDetails } from "@custom-types/product"
+import CircularProgress from "@mui/material/CircularProgress"
 import { getProductDetails, getAllProductDetails } from "@services/products"
 import { trimDateString } from "@utils/date"
 import Link from "next/link"
@@ -11,6 +12,7 @@ type StockDetailsProps = {
 
 const StockDetails = ({ name }: StockDetailsProps) => {
   const [instances, setInstances] = useState<Array<ProductDetails>>([])
+  const [showSpinner, setShowSpinner] = useState(false)
 
   useEffect(() => {
     const fetchDetails = async (productName: string) => {
@@ -21,17 +23,21 @@ const StockDetails = ({ name }: StockDetailsProps) => {
       setInstances(await getAllProductDetails())
     }
 
+    setShowSpinner(true)
     if (name === "all") {
       fetchAllDetails()
     } else {
       fetchDetails(name)
     }
+    setShowSpinner(false)
   }, [name])
 
   // TODO: add sort and filter
   return (
     <>
-      {instances && instances.length ? (
+      {showSpinner ? (
+        <CircularProgress />
+      ) : instances && instances.length ? (
         <table className={styles["list"]}>
           <thead>
             <tr>
