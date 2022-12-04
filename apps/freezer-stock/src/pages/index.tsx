@@ -1,28 +1,34 @@
+import PageContainer from "@components/PageContainer/PageContainer"
 import ProductInfo from "@components/ProductInfo/ProductInfo"
 import SaveButton from "@components/SaveButton/SaveButton"
 import SearchInput from "@components/SearchInput/SearchInput"
-import SeeDetails from "@components/SeeDetailsLink/SeeDetailsLink"
+import ShowDetailsLink from "@components/ShowDetailsLink/ShowDetailsLink"
+import Spinner from "@components/Spinner/Spinner"
 import StorageDate from "@components/StorageDate/StorageDate"
 import UnitsController from "@components/UnitsController/UnitsController"
 import { ProductContext } from "@contexts/ProductProvider"
-import Head from "next/head"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 
 const HomePage = () => {
-  const { state } = useContext(ProductContext)
+  const title = "Freezer Stock"
+
+  const { state, dispatch } = useContext(ProductContext)
   const { name } = state.storagedProduct
 
+  const [showSpinner, setShowSpinner] = useState(false)
+
+  const handleToggleSpinner = (show: boolean) => {
+    setShowSpinner(show)
+  }
+
   return (
-    <>
-      <Head>
-        <title>Freezer stock</title>
-      </Head>
-      <header>
-        <h1>Freezer Stock</h1>
-      </header>
-      <main>
-        <SeeDetails name="all" />
-        <SearchInput />
+    <PageContainer htmlTitle={title} pageTitle={title}>
+      <Spinner show={showSpinner}>
+        <ShowDetailsLink slug="all">Show All Products</ShowDetailsLink>
+        <SearchInput
+          onToggleSpinner={handleToggleSpinner}
+          dispatchFoundProduct={dispatch}
+        />
         {name ? (
           <>
             <ProductInfo />
@@ -31,8 +37,8 @@ const HomePage = () => {
             <SaveButton />
           </>
         ) : null}
-      </main>
-    </>
+      </Spinner>
+    </PageContainer>
   )
 }
 

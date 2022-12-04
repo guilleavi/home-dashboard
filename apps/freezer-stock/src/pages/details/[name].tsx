@@ -1,7 +1,7 @@
+import PageContainer from "@components/PageContainer/PageContainer"
 import StockDetails from "@components/StockDetails/StockDetails"
 import type { ContextParams } from "@custom-types/context"
 import { toPascalCase } from "@utils/strings"
-import Head from "next/head"
 import type {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
@@ -10,18 +10,11 @@ import type {
 const DetailsPage = ({
   name,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const title = `${toPascalCase(name)} Stock Details`
   return (
-    <>
-      <Head>
-        <title>Freezer stock - {toPascalCase(name)} Details</title>
-      </Head>
-      <header>
-        <h1>{toPascalCase(name)} Stock Details</h1>
-      </header>
-      <main>
-        <StockDetails name={name} />
-      </main>
-    </>
+    <PageContainer htmlTitle={`Freezer stock - ${title}`} pageTitle={title}>
+      <StockDetails name={name} />
+    </PageContainer>
   )
 }
 

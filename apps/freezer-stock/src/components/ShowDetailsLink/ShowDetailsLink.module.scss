@@ -1,12 +1,12 @@
 @import "../../styles/colors";
 @import "../../styles/fonts";
 
-.details-link {
+.link-wrapper {
   margin-bottom: 0.5rem;
   text-align: right;
 }
 
-.details-link a {
+.link {
   color: $link;
   font-size: $tiny;
   text-decoration: underline;

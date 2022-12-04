@@ -1,6 +1,6 @@
 import ExpiringNextInfo from "@components/ExpiringNextInfo/ExpiringNextInfo"
 import HowLongInfo from "@components/HowLongInfo/HowLongInfo"
-import SeeDetails from "@components/SeeDetailsLink/SeeDetailsLink"
+import ShowDetailsLink from "@components/ShowDetailsLink/ShowDetailsLink"
 import { ProductContext } from "@contexts/ProductProvider"
 import { toPascalCase } from "@utils/strings"
 import { useContext } from "react"
@@ -19,7 +19,7 @@ const ProductInfo = () => {
         {nextToExpireUnits ? (
           <>
             <ExpiringNextInfo />
-            <SeeDetails name={name} />
+            <ShowDetailsLink slug={name}>Show Details</ShowDetailsLink>
           </>
         ) : null}
       </div>
