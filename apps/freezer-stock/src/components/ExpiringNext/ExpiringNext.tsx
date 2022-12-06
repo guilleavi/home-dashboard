@@ -1,12 +1,17 @@
-import { ProductContext } from "@contexts/ProductProvider"
 import { trimDateString } from "@utils/date"
 import { pluralize, pluralizeToBe } from "@utils/strings"
-import { useContext } from "react"
 
-const ExpiringNextInfo = () => {
-  const { state } = useContext(ProductContext)
-  const { name, nextToExpireDate, nextToExpireUnits } = state.storagedProduct
+type ExpiringNextProps = {
+  name: string
+  nextToExpireDate: Date
+  nextToExpireUnits: number
+}
 
+const ExpiringNext = ({
+  name,
+  nextToExpireDate,
+  nextToExpireUnits,
+}: ExpiringNextProps) => {
   const formattedDate = trimDateString(nextToExpireDate.toString())
 
   return (
@@ -23,4 +28,4 @@ const ExpiringNextInfo = () => {
   )
 }
 
-export default ExpiringNextInfo
+export default ExpiringNext

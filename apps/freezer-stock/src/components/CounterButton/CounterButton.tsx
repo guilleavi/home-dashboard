@@ -2,11 +2,11 @@ import styles from "./CounterButton.module.scss"
 
 type CounterButtonProps = {
   operation: string
-  action: () => void
+  onTriggerAction: () => void
 }
 
-const CounterButton = ({ operation, action }: CounterButtonProps) => (
-  <button className={styles["button"]} type="button" onClick={action}>
+const CounterButton = ({ operation, onTriggerAction }: CounterButtonProps) => (
+  <button className={styles["button"]} type="button" onClick={onTriggerAction}>
     {operation}
   </button>
 )
