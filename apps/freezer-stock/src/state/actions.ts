@@ -1,9 +1,4 @@
-import { ProductSummary, ProductToSave } from "./product"
-
-export type ProductState = {
-  storagedProduct: ProductSummary
-  newProductItem: ProductToSave
-}
+import type { ProductSummary, ProductToSave } from "@custom-types/product"
 
 export enum ProductActionType {
   GET_PRODUCT = "GET_PRODUCT",

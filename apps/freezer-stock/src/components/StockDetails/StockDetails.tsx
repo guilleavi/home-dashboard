@@ -1,43 +1,16 @@
-import { ProductDetails } from "@custom-types/product"
-import CircularProgress from "@mui/material/CircularProgress"
-import { getProductDetails, getAllProductDetails } from "@services/products"
+import type { ProductDetails } from "@custom-types/product"
 import { trimDateString } from "@utils/date"
-import Link from "next/link"
-import { useState, useEffect } from "react"
 import styles from "./StockDetails.module.scss"
 
 type StockDetailsProps = {
-  name: string
+  instances: Array<ProductDetails>
 }
 
-const StockDetails = ({ name }: StockDetailsProps) => {
-  const [instances, setInstances] = useState<Array<ProductDetails>>([])
-  const [showSpinner, setShowSpinner] = useState(false)
-
-  useEffect(() => {
-    const fetchDetails = async (productName: string) => {
-      setInstances(await getProductDetails(productName))
-    }
-
-    const fetchAllDetails = async () => {
-      setInstances(await getAllProductDetails())
-    }
-
-    setShowSpinner(true)
-    if (name === "all") {
-      fetchAllDetails()
-    } else {
-      fetchDetails(name)
-    }
-    setShowSpinner(false)
-  }, [name])
-
+const StockDetails = ({ instances }: StockDetailsProps) => {
   // TODO: add sort and filter
   return (
     <>
-      {showSpinner ? (
-        <CircularProgress />
-      ) : instances && instances.length ? (
+      {instances && instances.length ? (
         <table className={styles["list"]}>
           <thead>
             <tr>
@@ -47,13 +20,13 @@ const StockDetails = ({ name }: StockDetailsProps) => {
             </tr>
           </thead>
           <tbody>
-            {instances.map((instance, i) => {
+            {instances.map((instance) => {
               const formattedDate = trimDateString(
                 instance.expirationDate.toString(),
               )
 
               return (
-                <tr key={i}>
+                <tr key={instance.instanceId}>
                   <td>{instance.name}</td>
                   <td>{instance.units}</td>
                   <td>
@@ -65,11 +38,8 @@ const StockDetails = ({ name }: StockDetailsProps) => {
           </tbody>
         </table>
       ) : (
-        <p>No results</p>
+        <p>No results found</p>
       )}
-      <Link href="/">
-        <button className="main-button">Back</button>
-      </Link>
     </>
   )
 }

@@ -1,71 +1,32 @@
-import { ProductContext } from "@contexts/ProductProvider"
 import type { ReactKeyboardEvent } from "@custom-types/dom"
-import { ProductActionType } from "@custom-types/state"
 import { KEY } from "@enums/common"
-import CircularProgress from "@mui/material/CircularProgress"
-import { getProduct } from "@services/products"
-import { useContext, useEffect, useRef, useState } from "react"
+import { useState } from "react"
 import styles from "./SearchInput.module.scss"
 
-const SearchInput = () => {
-  const { dispatch } = useContext(ProductContext)
-  const searchInputRef = useRef<HTMLInputElement>(null)
-  const [typedName, setTypedName] = useState("")
-  const [showSpinner, setShowSpinner] = useState(false)
+type SearchInputProps = {
+  onSearch: (inputValue: string) => void
+}
 
-  useEffect(() => {
-    const abortController = new AbortController()
+const SearchInput = ({ onSearch }: SearchInputProps) => {
+  const [inputValue, setInputValue] = useState("")
 
-    const fetchProduct = async (name: string, abortSignal: AbortSignal) => {
-      dispatch({
-        type: ProductActionType.CLEAR_PRODUCT,
-      })
-      setShowSpinner(true)
-      const fetchedProduct = await getProduct(name, abortSignal)
-      dispatch({
-        type: ProductActionType.GET_PRODUCT,
-        payload: fetchedProduct,
-      })
-      setShowSpinner(false)
-    }
-
-    if (typedName.trim()) {
-      fetchProduct(typedName, abortController.signal).catch((err) =>
-        console.error(err),
-      )
-    }
-
-    return () => {
-      // cancel all previos fetch calls
-      abortController.abort()
-    }
-  }, [dispatch, typedName])
-
-  const handleKeyDown = ({ key, target }: ReactKeyboardEvent) => {
+  const handleKeyDown = ({ key }: ReactKeyboardEvent) => {
     if (key === KEY.ENTER) {
-      setTypedName(target.value.toLowerCase())
-
-      searchInputRef.current!.value = ""
+      onSearch(inputValue)
+      setInputValue("")
     }
   }
 
   return (
-    <>
-      {showSpinner ? (
-        <div className="center-container">
-          <CircularProgress />
-        </div>
-      ) : (
-        <input
-          aria-label="Search product"
-          className={styles["search-bar"]}
-          placeholder="Search..."
-          ref={searchInputRef}
-          type="search"
-          onKeyDown={handleKeyDown}
-        />
-      )}
-    </>
+    <input
+      aria-label="Search product"
+      className={styles["search-bar"]}
+      placeholder="Search..."
+      type="search"
+      value={inputValue}
+      onChange={(e) => setInputValue(e.target.value.toLowerCase())}
+      onKeyDown={handleKeyDown}
+    />
   )
 }
 

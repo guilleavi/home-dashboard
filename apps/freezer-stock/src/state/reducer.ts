@@ -1,29 +1,21 @@
 import type { ProductSummary, ProductToSave } from "@custom-types/product"
-import type { ProductState, ProductActions } from "@custom-types/state"
-import { ProductActionType } from "@custom-types/state"
-import React, { PropsWithChildren, createContext, useReducer } from "react"
+import type { ProductActions } from "./actions"
+import { ProductActionType } from "./actions"
 
-const initialState: ProductState = {
+type ProductState = {
+  storagedProduct: ProductSummary
+  newProductItem: ProductToSave
+}
+
+export const initialState: ProductState = {
   storagedProduct: {} as ProductSummary,
   newProductItem: {} as ProductToSave,
 }
 
-export const ProductContext = createContext<{
-  state: ProductState
-  dispatch: React.Dispatch<ProductActions>
-}>({ state: initialState, dispatch: () => null })
-
-export const ProductProvider = ({ children }: PropsWithChildren) => {
-  const [state, dispatch] = useReducer(reducer, initialState)
-
-  return (
-    <ProductContext.Provider value={{ state, dispatch }}>
-      {children}
-    </ProductContext.Provider>
-  )
-}
-
-const reducer = (state: ProductState, action: ProductActions): ProductState => {
+export const reducer = (
+  state: ProductState,
+  action: ProductActions,
+): ProductState => {
   switch (action.type) {
     case ProductActionType.GET_PRODUCT:
       return {

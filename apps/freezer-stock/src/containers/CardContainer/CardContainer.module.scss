@@ -1,0 +1,9 @@
+@import "../../styles/colors";
+
+.card {
+  border-radius: 6px;
+  box-shadow: 0 0 0 0.25rem $shadow;
+  line-height: 2.5;
+  margin: 0 1rem 1.5rem;
+  padding: 10px 10px 0;
+}

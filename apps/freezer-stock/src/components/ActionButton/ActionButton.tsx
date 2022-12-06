@@ -1,17 +1,18 @@
+import { EditAction } from "@enums/common"
 import styles from "./ActionButton.module.scss"
 
 type ActionButtonProps = {
-  actionName: string
-  onAction: (event: React.MouseEvent<HTMLElement>) => void
+  action: EditAction
+  onTriggerAction: () => void
 }
 
-const ActionButton = ({ actionName, onAction }: ActionButtonProps) => {
+const ActionButton = ({ action, onTriggerAction }: ActionButtonProps) => {
   return (
     <button
-      aria-label={actionName}
-      className={`${styles["button"]} ${styles[`${actionName}`]}`}
+      aria-label={action}
+      className={`${styles["button"]} ${styles[`${action}`]}`}
       type="button"
-      onClick={onAction}
+      onClick={onTriggerAction}
     />
   )
 }

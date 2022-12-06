@@ -1,61 +1,46 @@
-import { ProductContext } from "@contexts/ProductProvider"
-import { ProductActionType } from "@custom-types/state"
-import CircularProgress from "@mui/material/CircularProgress"
-import { saveProduct } from "@services/products"
-import { useContext, useState } from "react"
+import { useState } from "react"
 import styles from "./SaveButton.module.scss"
 
-const SaveButton = () => {
-  const { state, dispatch } = useContext(ProductContext)
+type SaveButtonProps = {
+  newMonthsToFreeze: number
+  storagedMonthsToFreeze: number
+  onSave: () => void
+}
+
+const SaveButton = ({
+  newMonthsToFreeze,
+  storagedMonthsToFreeze,
+  onSave,
+}: SaveButtonProps) => {
   const [errorMessage, setErrorMessage] = useState("")
-  const [showSpinner, setShowSpinner] = useState(false)
 
-  const validateData = () => {
-    const hasMonthsToFreeze =
-      state.newProductItem.monthsToFreeze ||
-      state.storagedProduct.monthsToFreeze
+  const handleClick = () => {
+    const validateData = () => {
+      const hasMonthsToFreeze = newMonthsToFreeze || storagedMonthsToFreeze
 
-    if (!hasMonthsToFreeze) {
-      setErrorMessage("'Max. freeze time' is mandatory!")
-      return false
+      if (!hasMonthsToFreeze) {
+        setErrorMessage("'Max. freeze time' is mandatory!")
+        return false
+      }
+
+      setErrorMessage("")
+      return true
     }
 
-    setErrorMessage("")
-    return true
-  }
-
-  const handleOnClick = async (event: React.MouseEvent<HTMLElement>) => {
-    event.preventDefault()
-
     if (validateData()) {
-      setShowSpinner(true)
-      // add missing information to newProductItem
-      dispatch({
-        type: ProductActionType.MERGE_PRODUCT,
-      })
-
-      await saveProduct(state.newProductItem)
-
-      dispatch({
-        type: ProductActionType.CLEAR_PRODUCT,
-      })
-      setShowSpinner(false)
+      onSave()
     }
   }
 
   return (
     <div className="center-container">
-      {showSpinner ? (
-        <CircularProgress />
-      ) : (
-        <button
-          className={styles["save-button"]}
-          type="button"
-          onClick={handleOnClick}
-        >
-          Save
-        </button>
-      )}
+      <button
+        className={styles["save-button"]}
+        type="button"
+        onClick={handleClick}
+      >
+        Save
+      </button>
       <p className={styles["errors"]}>{errorMessage}</p>
     </div>
   )
