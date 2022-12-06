@@ -45,17 +45,14 @@ const SaveButton = () => {
 
   return (
     <div className="center-container">
-      {showSpinner ? (
-        <CircularProgress />
-      ) : (
-        <button
-          className={styles["save-button"]}
-          type="button"
-          onClick={handleOnClick}
-        >
-          Save
-        </button>
-      )}
+      <button
+        className={styles["save-button"]}
+        disabled={showSpinner}
+        type="button"
+        onClick={handleOnClick}
+      >
+        {showSpinner ? <CircularProgress /> : "Save"}
+      </button>
       <p className={styles["errors"]}>{errorMessage}</p>
     </div>
   )
