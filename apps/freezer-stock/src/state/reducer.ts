@@ -1,7 +1,8 @@
-import { ProductSummary, ProductToSave } from "@custom-types/product"
-import { ProductActions, ProductActionType } from "./actions"
+import type { ProductSummary, ProductToSave } from "@custom-types/product"
+import type { ProductActions } from "./actions"
+import { ProductActionType } from "./actions"
 
-export type ProductState = {
+type ProductState = {
   storagedProduct: ProductSummary
   newProductItem: ProductToSave
 }

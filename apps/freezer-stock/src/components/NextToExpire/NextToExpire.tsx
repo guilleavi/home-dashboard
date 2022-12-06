@@ -1,17 +1,17 @@
 import { pluralize, pluralizeToBe } from "@utils/strings"
-import styles from "./ExpiringNext.module.scss"
+import styles from "./NextToExpire.module.scss"
 
-type ExpiringNextProps = {
+type NextToExpireProps = {
   name: string
   nextToExpireDate: string
   nextToExpireUnits: number
 }
 
-const ExpiringNext = ({
+const NextToExpire = ({
   name,
   nextToExpireDate,
   nextToExpireUnits,
-}: ExpiringNextProps) => {
+}: NextToExpireProps) => {
   return (
     <p>
       <span className={styles["strong"]}>
@@ -26,4 +26,4 @@ const ExpiringNext = ({
   )
 }
 
-export default ExpiringNext
+export default NextToExpire

@@ -1,16 +1,16 @@
 import PageContainer from "containers/PageContainer/PageContainer"
+import Spinner from "@components/Spinner/Spinner"
 import StockDetails from "@components/StockDetails/StockDetails"
 import type { ContextParams } from "@custom-types/context"
+import type { ProductDetails } from "@custom-types/product"
+import { getProductDetails, getAllProductDetails } from "@services/products"
 import { toPascalCase } from "@utils/strings"
+import Link from "next/link"
 import type {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
 } from "next/types"
-import Spinner from "@components/Spinner/Spinner"
-import Link from "next/link"
 import { useEffect, useState } from "react"
-import { ProductDetails } from "@custom-types/product"
-import { getProductDetails, getAllProductDetails } from "@services/products"
 
 const DetailsPage = ({
   name,
@@ -45,6 +45,7 @@ const DetailsPage = ({
       <Spinner show={showSpinner}>
         <StockDetails instances={instances} />
       </Spinner>
+      {/* TODO: return to last searched product */}
       <Link href="/">
         <button className="main-button">Back</button>
       </Link>

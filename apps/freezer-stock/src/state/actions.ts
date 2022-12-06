@@ -1,4 +1,4 @@
-import { ProductSummary, ProductToSave } from "@custom-types/product"
+import type { ProductSummary, ProductToSave } from "@custom-types/product"
 
 export enum ProductActionType {
   GET_PRODUCT = "GET_PRODUCT",

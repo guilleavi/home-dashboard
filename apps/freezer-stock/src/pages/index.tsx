@@ -1,5 +1,5 @@
 import CardContainer from "containers/CardContainer/CardContainer"
-import ExpiringNext from "@components/ExpiringNext/ExpiringNext"
+import NextToExpire from "@components/NextToExpire/NextToExpire"
 import MonthsToFreeze from "@components/MonthsToFreeze/MonthsToFreeze"
 import PageContainer from "containers/PageContainer/PageContainer"
 import SaveButton from "@components/SaveButton/SaveButton"
@@ -112,7 +112,7 @@ const HomePage = () => {
               />
               {nextToExpireUnits ? (
                 <>
-                  <ExpiringNext
+                  <NextToExpire
                     name={name}
                     nextToExpireDate={trimDateString(
                       nextToExpireDate.toString(),

@@ -1,4 +1,4 @@
-import { EditAction } from "@custom-types/enums"
+import { EditAction } from "@enums/common"
 import styles from "./ActionButton.module.scss"
 
 type ActionButtonProps = {
@@ -10,7 +10,7 @@ const ActionButton = ({ action, onTriggerAction }: ActionButtonProps) => {
   return (
     <button
       aria-label={action}
-      className={`${styles["button"]} ${styles[`${action.toLowerCase()}`]}`}
+      className={`${styles["button"]} ${styles[`${action}`]}`}
       type="button"
       onClick={onTriggerAction}
     />

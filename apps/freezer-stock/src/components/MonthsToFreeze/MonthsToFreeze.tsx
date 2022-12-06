@@ -1,6 +1,6 @@
 import ActionButton from "@components/ActionButton/ActionButton"
-import { ReactChangeEvent } from "@custom-types/dom"
-import { EditAction } from "@custom-types/enums"
+import type { ReactChangeEvent } from "@custom-types/dom"
+import { EditAction } from "@enums/common"
 import { useState } from "react"
 import styles from "./MonthsToFreeze.module.scss"
 

@@ -1,4 +1,4 @@
-import { ReactChangeEvent } from "@custom-types/dom"
+import type { ReactChangeEvent } from "@custom-types/dom"
 import { trimDateString } from "@utils/date"
 import { useState } from "react"
 import styles from "./StorageDate.module.scss"

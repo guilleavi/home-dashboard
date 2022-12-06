@@ -1,4 +1,4 @@
-import { ProductDetails } from "@custom-types/product"
+import type { ProductDetails } from "@custom-types/product"
 import { trimDateString } from "@utils/date"
 import styles from "./StockDetails.module.scss"
 

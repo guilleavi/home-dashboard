@@ -13,3 +13,5 @@ const FreezerStockApp = ({ Component, pageProps }: AppProps) => (
 )
 
 export default FreezerStockApp
+
+// TODO: general todo, add unit and integration tests
