@@ -8,18 +8,17 @@ import ShowDetailsLink from "@components/ShowDetailsLink/ShowDetailsLink"
 import Spinner from "@components/Spinner/Spinner"
 import StorageDate from "@components/StorageDate/StorageDate"
 import UnitsController from "@components/UnitsController/UnitsController"
-import { ProductContext } from "@contexts/ProductProvider"
-import { ProductActionType } from "@custom-types/state"
 import { getProduct, saveProduct } from "@services/products"
 import { trimDateString } from "@utils/date"
-import { sleep } from "@utils/dev"
 import { toPascalCase } from "@utils/strings"
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useReducer, useState } from "react"
+import { reducer, initialState } from "state/reducer"
+import { ProductActionType } from "state/actions"
 
 const HomePage = () => {
   const title = "Freezer Stock"
 
-  const { state, dispatch } = useContext(ProductContext)
+  const [state, dispatch] = useReducer(reducer, initialState)
   const { monthsToFreeze, name, nextToExpireDate, nextToExpireUnits } =
     state.storagedProduct
   const { monthsToFreeze: newMonthsToFreeze, units } = state.newProductItem
@@ -36,17 +35,14 @@ const HomePage = () => {
         type: ProductActionType.CLEAR_PRODUCT,
       })
 
-      // TODO: remove the sleep, this is just for testing the spinner
-      getProduct(name, abortSignal).then((fetchedProduct) => {
-        sleep(500).then(() => {
-          dispatch({
-            type: ProductActionType.GET_PRODUCT,
-            payload: fetchedProduct,
-          })
+      const fetchedProduct = await getProduct(name, abortSignal)
 
-          setShowSpinner(false)
-        })
+      dispatch({
+        type: ProductActionType.GET_PRODUCT,
+        payload: fetchedProduct,
       })
+
+      setShowSpinner(false)
     }
 
     if (searchedValue.trim()) {
@@ -93,16 +89,13 @@ const HomePage = () => {
       type: ProductActionType.MERGE_PRODUCT,
     })
 
-    // TODO: remove the sleep, this is just for testing the spinner
-    await saveProduct(state.newProductItem).then(() => {
-      sleep().then(() => {
-        dispatch({
-          type: ProductActionType.CLEAR_PRODUCT,
-        })
+    await saveProduct(state.newProductItem)
 
-        setShowSpinner(false)
-      })
+    dispatch({
+      type: ProductActionType.CLEAR_PRODUCT,
     })
+
+    setShowSpinner(false)
   }
 
   return (
