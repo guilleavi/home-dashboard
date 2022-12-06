@@ -1,6 +1,6 @@
 import { ReactChangeEvent } from "@custom-types/dom"
 import { trimDateString } from "@utils/date"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import styles from "./StorageDate.module.scss"
 
 type StorageDateProps = {
@@ -14,8 +14,8 @@ const StorageDate = ({ onChangeStorageDate }: StorageDateProps) => {
   )
 
   const handleChange = ({ target }: ReactChangeEvent) => {
-    setStorageDate(target.value)
     onChangeStorageDate(target.value)
+    setStorageDate(target.value)
   }
 
   return (

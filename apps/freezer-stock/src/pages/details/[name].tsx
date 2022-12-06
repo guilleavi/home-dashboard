@@ -1,4 +1,4 @@
-import PageContainer from "@components/PageContainer/PageContainer"
+import PageContainer from "containers/PageContainer/PageContainer"
 import StockDetails from "@components/StockDetails/StockDetails"
 import type { ContextParams } from "@custom-types/context"
 import { toPascalCase } from "@utils/strings"

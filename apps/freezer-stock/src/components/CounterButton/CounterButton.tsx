@@ -6,7 +6,11 @@ type CounterButtonProps = {
 }
 
 const CounterButton = ({ operation, onTriggerAction }: CounterButtonProps) => (
-  <button className={styles["button"]} type="button" onClick={onTriggerAction}>
+  <button
+    className={styles["counter-button"]}
+    type="button"
+    onClick={onTriggerAction}
+  >
     {operation}
   </button>
 )

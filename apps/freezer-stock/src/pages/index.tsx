@@ -1,7 +1,7 @@
-import CardContainer from "@components/CardContainer/CardContainer"
+import CardContainer from "containers/CardContainer/CardContainer"
 import ExpiringNext from "@components/ExpiringNext/ExpiringNext"
 import MonthsToFreeze from "@components/MonthsToFreeze/MonthsToFreeze"
-import PageContainer from "@components/PageContainer/PageContainer"
+import PageContainer from "containers/PageContainer/PageContainer"
 import SaveButton from "@components/SaveButton/SaveButton"
 import SearchInput from "@components/SearchInput/SearchInput"
 import ShowDetailsLink from "@components/ShowDetailsLink/ShowDetailsLink"
@@ -121,7 +121,9 @@ const HomePage = () => {
                 <>
                   <ExpiringNext
                     name={name}
-                    nextToExpireDate={nextToExpireDate}
+                    nextToExpireDate={trimDateString(
+                      nextToExpireDate.toString(),
+                    )}
                     nextToExpireUnits={nextToExpireUnits}
                   />
                   <ShowDetailsLink slug={name}>Show Details</ShowDetailsLink>

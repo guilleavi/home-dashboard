@@ -1,10 +1,9 @@
-import { ReactMouseEvent } from "@custom-types/dom"
 import { EditAction } from "@custom-types/enums"
 import styles from "./ActionButton.module.scss"
 
 type ActionButtonProps = {
   action: EditAction
-  onTriggerAction: (event: ReactMouseEvent) => void
+  onTriggerAction: () => void
 }
 
 const ActionButton = ({ action, onTriggerAction }: ActionButtonProps) => {

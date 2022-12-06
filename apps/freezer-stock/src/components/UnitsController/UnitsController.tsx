@@ -11,9 +11,8 @@ const UnitsController = ({
   onChangeUnits,
 }: UnitsControllerProps) => {
   const handleUpdateQuantity = (add: number) => {
-    let newQuantity = units + add
-    newQuantity = newQuantity < 0 ? 0 : newQuantity
-    onChangeUnits(newQuantity)
+    const newQuantity = units + add
+    onChangeUnits(newQuantity < 0 ? 0 : newQuantity)
   }
 
   return (

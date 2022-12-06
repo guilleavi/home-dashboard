@@ -32,6 +32,7 @@ const StockDetails = ({ name }: StockDetailsProps) => {
     setShowSpinner(false)
   }, [name])
 
+  // TODO: refactor this component
   // TODO: add sort and filter
   return (
     <>

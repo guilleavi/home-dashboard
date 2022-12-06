@@ -1,9 +1,9 @@
-import { trimDateString } from "@utils/date"
 import { pluralize, pluralizeToBe } from "@utils/strings"
+import styles from "./ExpiringNext.module.scss"
 
 type ExpiringNextProps = {
   name: string
-  nextToExpireDate: Date
+  nextToExpireDate: string
   nextToExpireUnits: number
 }
 
@@ -12,17 +12,15 @@ const ExpiringNext = ({
   nextToExpireDate,
   nextToExpireUnits,
 }: ExpiringNextProps) => {
-  const formattedDate = trimDateString(nextToExpireDate.toString())
-
   return (
     <p>
-      <span className="strong">
+      <span className={styles["strong"]}>
         {nextToExpireUnits} {pluralize("unit", nextToExpireUnits)}
       </span>{" "}
       of {name} {pluralizeToBe(nextToExpireUnits)} expiring on{" "}
       {/* TODO: calculate on days/months how long to expire */}
-      <time dateTime={formattedDate} className="strong">
-        {formattedDate}
+      <time className={styles["strong"]} dateTime={nextToExpireDate}>
+        {nextToExpireDate}
       </time>
     </p>
   )

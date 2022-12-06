@@ -1,4 +1,3 @@
-import { ReactMouseEvent } from "@custom-types/dom"
 import { useState } from "react"
 import styles from "./SaveButton.module.scss"
 
@@ -15,19 +14,19 @@ const SaveButton = ({
 }: SaveButtonProps) => {
   const [errorMessage, setErrorMessage] = useState("")
 
-  const validateData = () => {
-    const hasMonthsToFreeze = newMonthsToFreeze || storagedMonthsToFreeze
+  const handleClick = () => {
+    const validateData = () => {
+      const hasMonthsToFreeze = newMonthsToFreeze || storagedMonthsToFreeze
 
-    if (!hasMonthsToFreeze) {
-      setErrorMessage("'Max. freeze time' is mandatory!")
-      return false
+      if (!hasMonthsToFreeze) {
+        setErrorMessage("'Max. freeze time' is mandatory!")
+        return false
+      }
+
+      setErrorMessage("")
+      return true
     }
 
-    setErrorMessage("")
-    return true
-  }
-
-  const handleClick = async (event: ReactMouseEvent) => {
     if (validateData()) {
       onSave()
     }
