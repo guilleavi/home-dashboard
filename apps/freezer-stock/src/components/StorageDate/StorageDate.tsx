@@ -8,7 +8,6 @@ type StorageDateProps = {
 }
 
 const StorageDate = ({ onChangeStorageDate }: StorageDateProps) => {
-  // TODO: fix date format, so the today date matches with the datepicker format
   const [storageDate, setStorageDate] = useState(
     trimDateString(new Date().toISOString()),
   )

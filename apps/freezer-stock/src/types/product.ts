@@ -29,3 +29,23 @@ export class NewProduct implements ProductSummary {
     this.name = name
   }
 }
+
+export type UpdateNamePayload = {
+  key: "name"
+  value: string
+}
+
+export type UpdateMonthsPayload = {
+  key: "monthsToFreeze"
+  value: number
+}
+
+export type UpdateDatePayload = {
+  key: "storageDate"
+  value: string
+}
+
+export type UpdateUnitsPayload = {
+  key: "units"
+  value: number
+}
