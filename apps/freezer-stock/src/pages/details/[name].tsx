@@ -11,6 +11,7 @@ import type {
   InferGetServerSidePropsType,
 } from "next/types"
 import { useEffect, useState } from "react"
+import { sleep } from "@utils/dev"
 
 const DetailsPage = ({
   name,
@@ -21,23 +22,23 @@ const DetailsPage = ({
   const [showSpinner, setShowSpinner] = useState(false)
 
   useEffect(() => {
-    setShowSpinner(true)
-
     if (name === "all") {
       const fetchAllDetails = async () => {
+        setShowSpinner(true)
         setInstances(await getAllProductDetails())
+        setShowSpinner(false)
       }
 
       fetchAllDetails()
     } else {
       const fetchDetails = async (productName: string) => {
+        setShowSpinner(true)
         setInstances(await getProductDetails(productName))
+        setShowSpinner(false)
       }
 
       fetchDetails(name)
     }
-
-    setShowSpinner(false)
   }, [name])
 
   return (
