@@ -114,9 +114,7 @@ const HomePage = () => {
                 <>
                   <NextToExpire
                     name={name}
-                    nextToExpireDate={trimDateString(
-                      nextToExpireDate.toString(),
-                    )}
+                    nextToExpireDate={nextToExpireDate}
                     nextToExpireUnits={nextToExpireUnits}
                   />
                   <ShowDetailsLink slug={name}>Show Details</ShowDetailsLink>

@@ -6,6 +6,7 @@ type StockDetailsProps = {
   instances: Array<ProductDetails>
 }
 
+// TODO: spinner not working
 const StockDetails = ({ instances }: StockDetailsProps) => {
   // TODO: add sort and filter
   return (
