@@ -8,23 +8,28 @@ type NextToExpireProps = {
   nextToExpireUnits: number
 }
 
+const daysToExpire = (nextToExpireDate: Date) =>
+  getDaysToExpire({
+    today: new Date(),
+    expirationDate: new Date(nextToExpireDate),
+  })
+
 const NextToExpire = ({
   name,
   nextToExpireDate,
   nextToExpireUnits,
 }: NextToExpireProps) => {
-  const daysToExpire = getDaysToExpire({
-    today: new Date(),
-    expirationDate: new Date(nextToExpireDate),
-  })
   return (
     <p>
       <span className={styles["strong"]}>
         {nextToExpireUnits} {pluralize("unit", nextToExpireUnits)}
       </span>{" "}
       of {name} {pluralizeToBe(nextToExpireUnits)} expiring on{" "}
-      <time className={styles["strong"]} dateTime={daysToExpire}>
-        {daysToExpire}
+      <time
+        className={styles["strong"]}
+        dateTime={daysToExpire(nextToExpireDate)}
+      >
+        {daysToExpire(nextToExpireDate)}
       </time>
     </p>
   )
