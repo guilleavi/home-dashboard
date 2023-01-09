@@ -12,6 +12,7 @@ import type {
 } from "next/types"
 import { useEffect, useState } from "react"
 import { sleep } from "@utils/dev"
+// TODO: fix lint
 
 const DetailsPage = ({
   name,
@@ -22,6 +23,7 @@ const DetailsPage = ({
   const [showSpinner, setShowSpinner] = useState(false)
 
   useEffect(() => {
+    // TODO: move the fetch to the server, SSG
     if (name === "all") {
       const fetchAllDetails = async () => {
         setShowSpinner(true)
@@ -41,6 +43,7 @@ const DetailsPage = ({
     }
   }, [name])
 
+  // TODO: replace spinner logic with useTransition
   return (
     <PageContainer htmlTitle={`Freezer stock - ${title}`} pageTitle={title}>
       <Spinner show={showSpinner}>

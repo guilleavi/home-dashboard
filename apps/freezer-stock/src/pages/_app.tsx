@@ -2,6 +2,8 @@ import type { AppProps } from "next/app"
 import Head from "next/head"
 import "../styles/index.scss"
 
+// TODO: add report web vitals nextjs
+
 const FreezerStockApp = ({ Component, pageProps }: AppProps) => (
   <>
     <Head>

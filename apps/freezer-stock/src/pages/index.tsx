@@ -29,6 +29,7 @@ const HomePage = () => {
   useEffect(() => {
     const abortController = new AbortController()
 
+    // TODO: use SWR nextjs hook
     const fetchProduct = async (name: string, abortSignal: AbortSignal) => {
       setShowSpinner(true)
       dispatch({
@@ -55,7 +56,7 @@ const HomePage = () => {
       // cancel all previos fetch calls
       abortController.abort()
     }
-  }, [searchedValue, dispatch])
+  }, [searchedValue])
 
   const handleChangeMonthsToFreeze = (updatedMonthsToFreeze: number) => {
     dispatch({
@@ -98,6 +99,7 @@ const HomePage = () => {
     setShowSpinner(false)
   }
 
+  // TODO: replace spinner logic with useTransition
   return (
     <PageContainer htmlTitle={title} pageTitle={title}>
       <Spinner show={showSpinner}>
@@ -134,5 +136,8 @@ const HomePage = () => {
     </PageContainer>
   )
 }
+
+// TODO: get static paths all details
+// TODO: remove api from robots.txt
 
 export default HomePage
