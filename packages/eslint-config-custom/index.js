@@ -10,12 +10,11 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:@typescript-eslint/strict",
-    "plugin:import/recommended",
-    "plugin:import/typescript",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
+    "next/core-web-vitals",
     "turbo",
   ],
   parser: "@typescript-eslint/parser",
@@ -34,7 +33,6 @@ module.exports = {
   plugins: [
     "@typescript-eslint",
     "eslint-comments",
-    "import",
     "jsx-a11y",
     "react",
     "react-hooks",
@@ -118,8 +116,6 @@ module.exports = {
         format: ["PascalCase"],
       },
     ],
-    // Imports
-    "import/no-unresolved": "error",
     // React
     "react/boolean-prop-naming": ["error", { validateNested: true }],
     "react/button-has-type": "error",
@@ -152,19 +148,6 @@ module.exports = {
       fragment: "Fragment",
       version: "detect",
       flowVersion: "0.53",
-    },
-    "import/extensions": [".ts", ".tsx"],
-    "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx"],
-    },
-    "import/resolver": {
-      typescript: {
-        alwaysTryTypes: true,
-        project: [
-          "../../apps/home-dashboard/tsconfig.json",
-          "../../apps/freezer-stock/tsconfig.json",
-        ],
-      },
     },
   },
 };

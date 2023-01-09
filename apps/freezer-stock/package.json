@@ -29,7 +29,7 @@
     "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",
     "eslint": "^8.23.1",
-    "eslint-config-next": "^12.3.0",
+    "eslint-config-custom": "workspace:*",
     "prettier": "^2.7.1",
     "prettier-config-custom": "workspace:*",
     "prisma": "^4.6.1",
