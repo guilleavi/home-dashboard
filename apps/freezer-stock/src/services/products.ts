@@ -21,6 +21,7 @@ export const getProduct = async (
       signal: abortSignal,
     })
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     return response.data || defaultValue
   } catch (e: unknown) {
     console.log(e)

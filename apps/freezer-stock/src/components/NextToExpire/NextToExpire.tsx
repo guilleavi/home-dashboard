@@ -18,21 +18,19 @@ const NextToExpire = ({
   name,
   nextToExpireDate,
   nextToExpireUnits,
-}: NextToExpireProps) => {
-  return (
-    <p>
-      <span className={styles["strong"]}>
-        {nextToExpireUnits} {pluralize("unit", nextToExpireUnits)}
-      </span>{" "}
-      of {name} {pluralizeToBe(nextToExpireUnits)} expiring on{" "}
-      <time
-        className={styles["strong"]}
-        dateTime={daysToExpire(nextToExpireDate)}
-      >
-        {daysToExpire(nextToExpireDate)}
-      </time>
-    </p>
-  )
-}
+}: NextToExpireProps) => (
+  <p>
+    <span className={styles["strong"]}>
+      {nextToExpireUnits} {pluralize("unit", nextToExpireUnits)}
+    </span>{" "}
+    of {name} {pluralizeToBe(nextToExpireUnits)} expiring on{" "}
+    <time
+      className={styles["strong"]}
+      dateTime={daysToExpire(nextToExpireDate)}
+    >
+      {daysToExpire(nextToExpireDate)}
+    </time>
+  </p>
+)
 
 export default NextToExpire

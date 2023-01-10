@@ -9,8 +9,9 @@ type ShowDetailsLinkProps = PropsWithChildren & {
 const ShowDetailsLink = ({ slug, children }: ShowDetailsLinkProps) => (
   <div className={styles["link-wrapper"]}>
     <Link href={`/details/${slug}`}>
-      {/* TODO: add passHref, it should be detected by the ESLint but it's not working. Fix lint */}
-      <a className={styles["link"]}>{children}</a>
+      <a className={styles["link"]} href={`/details/${slug}`}>
+        {children}
+      </a>
     </Link>
   </div>
 )

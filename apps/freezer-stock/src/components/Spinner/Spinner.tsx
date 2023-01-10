@@ -3,21 +3,17 @@ import { PropsWithChildren } from "react"
 import styles from "./Spinner.module.scss"
 
 type SpinnerProps = PropsWithChildren & {
-  show: boolean
+  isActive: boolean
 }
 
-const Spinner = ({ show, children }: SpinnerProps) => {
-  return (
-    <>
-      {show ? (
-        <div className={styles["centered"]}>
-          <CircularProgress />
-        </div>
-      ) : (
-        <>{children}</>
-      )}
-    </>
+const Spinner = ({ isActive, children }: SpinnerProps) =>
+  isActive ? (
+    <div className={styles["centered"]}>
+      <CircularProgress />
+    </div>
+  ) : (
+    // eslint-disable-next-line react/jsx-no-useless-fragment
+    <>{children}</>
   )
-}
 
 export default Spinner

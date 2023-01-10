@@ -30,13 +30,16 @@ const HomePage = () => {
     const abortController = new AbortController()
 
     // TODO: use SWR nextjs hook
-    const fetchProduct = async (name: string, abortSignal: AbortSignal) => {
+    const fetchProduct = async (
+      productName: string,
+      abortSignal: AbortSignal,
+    ) => {
       setShowSpinner(true)
       dispatch({
         type: ProductActionType.CLEAR_PRODUCT,
       })
 
-      const fetchedProduct = await getProduct(name, abortSignal)
+      const fetchedProduct = await getProduct(productName, abortSignal)
 
       dispatch({
         type: ProductActionType.GET_PRODUCT,
@@ -75,10 +78,10 @@ const HomePage = () => {
     })
   }
 
-  const handleChangeUnits = (units: number) => {
+  const handleChangeUnits = (productUnits: number) => {
     dispatch({
       type: ProductActionType.UPDATE_PRODUCT,
-      payload: { key: "units", value: units },
+      payload: { key: "units", value: productUnits },
     })
   }
 
@@ -102,7 +105,7 @@ const HomePage = () => {
   // TODO: replace spinner logic with useTransition
   return (
     <PageContainer htmlTitle={title} pageTitle={title}>
-      <Spinner show={showSpinner}>
+      <Spinner isActive={showSpinner}>
         <ShowDetailsLink slug="all">Show All Products</ShowDetailsLink>
         <SearchInput onSearch={(value) => setSearchedValue(value)} />
         {name ? (
@@ -128,7 +131,7 @@ const HomePage = () => {
             <SaveButton
               newMonthsToFreeze={newMonthsToFreeze}
               storagedMonthsToFreeze={monthsToFreeze}
-              onSave={handleOnSave}
+              onSave={() => void handleOnSave}
             />
           </>
         ) : null}
@@ -137,7 +140,9 @@ const HomePage = () => {
   )
 }
 
-// TODO: get static paths all details
-// TODO: remove api from robots.txt
+/*
+ * TODO: get static paths all details
+ * TODO: remove api from robots.txt
+ */
 
 export default HomePage

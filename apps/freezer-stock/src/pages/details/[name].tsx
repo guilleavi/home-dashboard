@@ -11,8 +11,6 @@ import type {
   InferGetServerSidePropsType,
 } from "next/types"
 import { useEffect, useState } from "react"
-import { sleep } from "@utils/dev"
-// TODO: fix lint
 
 const DetailsPage = ({
   name,
@@ -31,7 +29,7 @@ const DetailsPage = ({
         setShowSpinner(false)
       }
 
-      fetchAllDetails()
+      void fetchAllDetails()
     } else {
       const fetchDetails = async (productName: string) => {
         setShowSpinner(true)
@@ -39,30 +37,32 @@ const DetailsPage = ({
         setShowSpinner(false)
       }
 
-      fetchDetails(name)
+      void fetchDetails(name)
     }
   }, [name])
 
   // TODO: replace spinner logic with useTransition
   return (
     <PageContainer htmlTitle={`Freezer stock - ${title}`} pageTitle={title}>
-      <Spinner show={showSpinner}>
+      <Spinner isActive={showSpinner}>
         <StockDetails instances={instances} />
       </Spinner>
       {/* TODO: return to last searched product */}
       <Link href="/">
-        <button className="main-button">Back</button>
+        <button type="button" className="main-button">
+          Back
+        </button>
       </Link>
     </PageContainer>
   )
 }
 
+/* eslint-disable @typescript-eslint/require-await */
 export const getServerSideProps = async (
   context: GetServerSidePropsContext<ContextParams>,
-) => {
-  return {
-    props: { name: context.params!.name },
-  }
-}
+) => ({
+  props: { name: context.params?.name ?? "" },
+})
+/* eslint-enable @typescript-eslint/require-await */
 
 export default DetailsPage

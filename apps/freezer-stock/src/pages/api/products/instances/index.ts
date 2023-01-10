@@ -1,6 +1,6 @@
+import { PrismaClient } from "@custom-types/prisma/generated/client"
 import type { ProductDetails } from "@custom-types/product"
-import { ORDER } from "@enums/api"
-import { PrismaClient } from "@prisma/client"
+import { Order } from "@enums/api"
 import type { NextApiRequest, NextApiResponse } from "next"
 
 const prisma = new PrismaClient()
@@ -11,12 +11,12 @@ const getAllInstances = async (
 ) => {
   const allProducts = await prisma.product.findMany({
     orderBy: {
-      name: ORDER.ASC,
+      name: Order.ASC,
     },
     include: {
       instances: {
         orderBy: {
-          expirationDate: ORDER.ASC,
+          expirationDate: Order.ASC,
         },
       },
     },

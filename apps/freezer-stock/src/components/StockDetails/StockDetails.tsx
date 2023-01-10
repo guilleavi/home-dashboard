@@ -7,36 +7,35 @@ type StockDetailsProps = {
   instances: Array<ProductDetails>
 }
 
-const columns: GridColDef[] = [
+type GridValueGetterParamsWithRows = {
+  row: { expirationDate: Date }
+} & GridValueGetterParams
+
+const columns: Array<GridColDef> = [
   { field: "name", headerName: "Name", width: 300 },
   { field: "units", headerName: "Units", width: 125 },
   {
     field: "expirationDate",
     headerName: "Expiration Date",
     width: 200,
-    valueGetter: (params: GridValueGetterParams) =>
-      trimDateString(params.row["expirationDate"].toString()),
+    valueGetter: (params: GridValueGetterParamsWithRows) =>
+      trimDateString(params.row.expirationDate.toString()),
   },
 ]
 
-const StockDetails = ({ instances }: StockDetailsProps) => {
-  return (
-    <>
-      {instances && instances.length ? (
-        <div className={styles["list"]}>
-          <DataGrid
-            getRowId={(row) => row.instanceId}
-            rows={instances}
-            columns={columns}
-            pageSize={8}
-            sortingOrder={["desc", "asc"]}
-          />
-        </div>
-      ) : (
-        <p>No results found</p>
-      )}
-    </>
+const StockDetails = ({ instances }: StockDetailsProps) =>
+  instances.length ? (
+    <div className={styles["list"]}>
+      <DataGrid
+        getRowId={(row: { instanceId: number }) => row.instanceId}
+        rows={instances}
+        columns={columns}
+        pageSize={8}
+        sortingOrder={["desc", "asc"]}
+      />
+    </div>
+  ) : (
+    <p>No results found</p>
   )
-}
 
 export default StockDetails

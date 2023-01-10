@@ -9,9 +9,8 @@ type MonthsToFreezeProps = {
   onChangeMonthsToFreeze: (updatedMonthsToFreeze: number) => void
 }
 
-const getOppositeAction = (currentAction: EditAction) => {
-  return currentAction === EditAction.EDIT ? EditAction.UNDO : EditAction.EDIT
-}
+const getOppositeAction = (currentAction: EditAction) =>
+  currentAction === EditAction.EDIT ? EditAction.UNDO : EditAction.EDIT
 
 const MonthsToFreeze = ({
   originalMonthsToFreeze,
@@ -44,7 +43,7 @@ const MonthsToFreeze = ({
 
   return (
     <p className={styles["container"]}>
-      Max. freeze time:
+      Max. freeze time:{" "}
       <span className={styles["months"]}>
         {editMode === EditAction.EDIT ? (
           <input

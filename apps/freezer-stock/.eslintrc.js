@@ -1,5 +1,5 @@
 module.exports = {
   root: true,
   extends: ["custom"],
-  ignorePatterns: [".eslintrc.js"],
+  ignorePatterns: [".eslintrc.js", "src/types/prisma/generated/*"],
 }

@@ -1,13 +1,16 @@
-import { assertIsString } from "@asserts/primitives"
+import {
+  ProductDetailsCustomRequest,
+  ProductWithInstances,
+} from "@custom-types/api"
+import { PrismaClient } from "@custom-types/prisma/generated/client"
 import type { ProductDetails } from "@custom-types/product"
-import { HTTP_METHOD, ORDER } from "@enums/api"
-import { PrismaClient } from "@prisma/client"
-import type { NextApiRequest, NextApiResponse } from "next"
+import { HttpMethod, Order, StatusCode } from "@enums/api"
+import type { NextApiResponse } from "next"
 
 const prisma = new PrismaClient()
 
 const handleProductInstances = async (
-  req: NextApiRequest,
+  req: ProductDetailsCustomRequest,
   res: NextApiResponse<Array<ProductDetails> | null>,
 ) => {
   const {
@@ -16,35 +19,35 @@ const handleProductInstances = async (
     method,
   } = req
 
-  assertIsString(name)
-
   switch (method) {
-    case HTTP_METHOD.GET:
+    case HttpMethod.GET:
       res.send(await getProductInstances(name))
       break
-    case HTTP_METHOD.PUT:
+    case HttpMethod.PUT:
       await updateIntanceUnits(body)
       res.send(null)
       break
     default:
-      res.setHeader("Allow", [HTTP_METHOD.GET, HTTP_METHOD.PUT])
-      res.status(405).end(`Method ${method} Not Allowed`)
+      res.setHeader("Allow", [HttpMethod.GET, HttpMethod.PUT])
+      res.status(StatusCode.NOT_ALLOW).end(`Method ${method} Not Allowed`)
   }
 }
 
-const getProductInstances = async (name: string): Promise<ProductDetails[]> => {
-  const product = await prisma.product.findUnique({
+const getProductInstances = async (
+  name: string,
+): Promise<Array<ProductDetails>> => {
+  const product: ProductWithInstances | null = await prisma.product.findUnique({
     where: { name },
     include: {
       instances: {
         orderBy: {
-          expirationDate: ORDER.ASC,
+          expirationDate: Order.ASC,
         },
       },
     },
   })
 
-  if (product && product.instances?.length) {
+  if (product?.instances.length) {
     return product.instances
   }
 

@@ -5,7 +5,10 @@ import { pluralize } from "./strings"
  * @param date {string}
  * @returns {string}
  */
-export const trimDateString = (date: string): string => date.slice(0, 10)
+export const trimDateString = (date: string): string => {
+  const DATE_LENGTH = 10
+  return date.slice(0, DATE_LENGTH)
+}
 
 /**
  * Return diff of time as a expression like '3 months 2 weeks 1 day'
@@ -17,6 +20,12 @@ export const getDaysToExpire = ({
   today: Date
   expirationDate: Date
 }) => {
+  const ONE_THOUSAND = 1000
+  const SECONDS_PER_HOUR = 3600
+  const HOURS_PER_DAY = 24
+  const DAYS_PER_WEEK = 7
+  const DAYS_PER_MONTH = 30
+
   const getValue = (units: number, text: string) =>
     units ? `${units} ${pluralize(text, units)}` : ""
   const getDays = (days: number) => getValue(days, "day")
@@ -24,27 +33,28 @@ export const getDaysToExpire = ({
   const getMonths = (months: number) => getValue(months, "month")
 
   const diffOnDays = Math.floor(
-    (expirationDate.getTime() - today.getTime()) / (1000 * 3600 * 24),
+    (expirationDate.getTime() - today.getTime()) /
+      (ONE_THOUSAND * SECONDS_PER_HOUR * HOURS_PER_DAY),
   )
 
-  if (diffOnDays < 7) {
+  if (diffOnDays < DAYS_PER_WEEK) {
     return getDays(diffOnDays)
   }
 
-  if (diffOnDays < 30) {
-    const diffOnWeeks = Math.floor(diffOnDays / 7)
-    const restOfDays = Math.floor(diffOnDays % 7)
+  if (diffOnDays < DAYS_PER_MONTH) {
+    const diffOnWeeks = Math.floor(diffOnDays / DAYS_PER_WEEK)
+    const restOfDays = Math.floor(diffOnDays % DAYS_PER_WEEK)
     return `${getWeeks(diffOnWeeks)} ${getDays(restOfDays)}`
   }
 
-  const diffOnMonths = Math.floor(diffOnDays / 30)
-  const restOfDays = diffOnDays - diffOnMonths * 30
-  if (restOfDays < 7) {
+  const diffOnMonths = Math.floor(diffOnDays / DAYS_PER_MONTH)
+  const restOfDays = diffOnDays - diffOnMonths * DAYS_PER_MONTH
+  if (restOfDays < DAYS_PER_WEEK) {
     return `${getWeeks(diffOnMonths)} ${getDays(restOfDays)}`
   }
 
-  const restOfWeeks = Math.floor(restOfDays / 7)
-  const daysAfterWeeks = Math.floor(restOfDays % 7)
+  const restOfWeeks = Math.floor(restOfDays / DAYS_PER_WEEK)
+  const daysAfterWeeks = Math.floor(restOfDays % DAYS_PER_WEEK)
   return `${getMonths(diffOnMonths)} ${getWeeks(restOfWeeks)} ${getDays(
     daysAfterWeeks,
   )}`

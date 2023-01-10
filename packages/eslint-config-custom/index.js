@@ -87,6 +87,7 @@ module.exports = {
     "eslint-comments/no-unused-disable": "error", // remove unused eslint-disable
     // Typescript
     "@typescript-eslint/array-type": ["error", { default: "generic" }], // Array[T]
+    "@typescript-eslint/consistent-type-definitions": ["error", "type"],
     "@typescript-eslint/consistent-type-exports": "error", // export type separate
     "@typescript-eslint/no-unused-vars":
       process.env.NODE_ENV === "production" ? "error" : "warn",
@@ -101,6 +102,7 @@ module.exports = {
         ignore: [-1, 0, 1],
         ignoreArrayIndexes: true,
         ignoreDefaultValues: true,
+        ignoreEnums: true,
       },
     ],
     "no-shadow": "off",
@@ -138,8 +140,6 @@ module.exports = {
     "react/jsx-no-bind": ["error", { allowArrowFunctions: true }],
     "react/jsx-no-leaked-render": ["error", { validStrategies: ["ternary"] }],
     "react/jsx-no-useless-fragment": "error",
-    // React Hooks
-    // Accesibility
   },
   settings: {
     react: {

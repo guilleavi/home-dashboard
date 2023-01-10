@@ -1,13 +1,17 @@
 import { assertIsString } from "@asserts/primitives"
+import { ProductToSaveCustomRequest } from "@custom-types/api"
+import {
+  PrismaClient,
+  ProductInstance,
+} from "@custom-types/prisma/generated/client"
 import type { ProductSummary, ProductToSave } from "@custom-types/product"
-import { HTTP_METHOD, ORDER } from "@enums/api"
-import { PrismaClient, ProductInstance } from "@prisma/client"
-import type { NextApiRequest, NextApiResponse } from "next"
+import { HttpMethod, Order, StatusCode } from "@enums/api"
+import type { NextApiResponse } from "next"
 
 const prisma = new PrismaClient()
 
 const handleProduct = async (
-  req: NextApiRequest,
+  req: ProductToSaveCustomRequest,
   res: NextApiResponse<ProductSummary | null>,
 ) => {
   const {
@@ -19,16 +23,16 @@ const handleProduct = async (
   assertIsString(name)
 
   switch (method) {
-    case HTTP_METHOD.GET:
+    case HttpMethod.GET:
       res.send(await getNextToExpire(name))
       break
-    case HTTP_METHOD.POST:
+    case HttpMethod.POST:
       await saveProduct(body)
       res.send(null)
       break
     default:
-      res.setHeader("Allow", [HTTP_METHOD.GET, HTTP_METHOD.POST])
-      res.status(405).end(`Method ${method} Not Allowed`)
+      res.setHeader("Allow", [HttpMethod.GET, HttpMethod.POST])
+      res.status(StatusCode.NOT_ALLOW).end(`Method ${method} Not Allowed`)
   }
 }
 
@@ -40,7 +44,7 @@ const getNextToExpire = async (
     include: {
       instances: {
         orderBy: {
-          expirationDate: ORDER.ASC,
+          expirationDate: Order.ASC,
         },
       },
     },
@@ -50,7 +54,7 @@ const getNextToExpire = async (
     let nextToExpireDate = new Date()
     let nextToExpireUnits = 0
 
-    if (product.instances?.length) {
+    if (product.instances.length) {
       nextToExpireDate = product.instances[0].expirationDate // asc order
       nextToExpireUnits = product.instances
         .filter(
