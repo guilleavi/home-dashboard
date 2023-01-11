@@ -147,8 +147,4 @@ const HomePage = () => {
   )
 }
 
-/*
- * TODO: remove api from robots.txt
- */
-
 export default HomePage

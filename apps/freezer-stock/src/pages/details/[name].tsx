@@ -9,15 +9,12 @@ import {
 import { toPascalCase } from "@utils/strings"
 import PageContainer from "containers/PageContainer/PageContainer"
 import Link from "next/link"
-import type {
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-} from "next/types"
+import type { GetStaticPropsContext, InferGetStaticPropsType } from "next/types"
 
 const DetailsPage = ({
   name,
   instances,
-}: InferGetServerSidePropsType<typeof getStaticProps>) => {
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   const title = `${toPascalCase(name)} Stock Details`
 
   return (
@@ -38,7 +35,7 @@ const DetailsPage = ({
 }
 
 export const getStaticProps = async (
-  context: GetServerSidePropsContext<ContextParams>,
+  context: GetStaticPropsContext<ContextParams>,
 ) => {
   const name = context.params?.name ?? ""
   let instances = [] as Array<ProductDetails>
