@@ -8,7 +8,7 @@ type ShowDetailsLinkProps = PropsWithChildren & {
 
 const ShowDetailsLink = ({ slug, children }: ShowDetailsLinkProps) => (
   <div className={styles["link-wrapper"]}>
-    <Link href={`/details/${slug}`}>
+    <Link legacyBehavior href={`/details/${slug}`}>
       <a className={styles["link"]} href={`/details/${slug}`}>
         {children}
       </a>
