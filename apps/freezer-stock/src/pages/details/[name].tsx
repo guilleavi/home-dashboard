@@ -17,7 +17,7 @@ import {
 const DetailsPage = ({
   name,
   instances,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+}: InferGetServerSidePropsType<typeof getStaticProps>) => {
   const title = `${toPascalCase(name)} Stock Details`
 
   return (
