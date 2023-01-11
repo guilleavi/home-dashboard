@@ -12,6 +12,16 @@ import { Order } from "@enums/api"
 
 const prisma = new PrismaClient()
 
+export const getAllProductsName = async () => {
+  const allProducts = await prisma.product.findMany({
+    orderBy: {
+      name: Order.ASC,
+    },
+  })
+
+  return allProducts.map((product) => product.name)
+}
+
 export const getAllInstances = async () => {
   const allProducts = await prisma.product.findMany({
     orderBy: {

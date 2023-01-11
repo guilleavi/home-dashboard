@@ -8,7 +8,11 @@ import type {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
 } from "next/types"
-import { getAllInstances, getProductInstances } from "@services/queries"
+import {
+  getAllInstances,
+  getAllProductsName,
+  getProductInstances,
+} from "@services/queries"
 
 const DetailsPage = ({
   name,
@@ -29,7 +33,7 @@ const DetailsPage = ({
   )
 }
 
-export const getServerSideProps = async (
+export const getStaticProps = async (
   context: GetServerSidePropsContext<ContextParams>,
 ) => {
   const name = context.params?.name ?? ""
@@ -46,6 +50,28 @@ export const getServerSideProps = async (
       name,
       instances: JSON.parse(JSON.stringify(instances)) as Array<ProductDetails>,
     },
+  }
+}
+
+export const getStaticPaths = async () => {
+  const productNames = await getAllProductsName()
+  const paths = productNames.map((productName) => ({
+    params: {
+      name: productName,
+    },
+  }))
+
+  const allProducts = {
+    params: {
+      name: "all",
+    },
+  }
+
+  paths.push(allProducts)
+
+  return {
+    paths,
+    fallback: "blocking",
   }
 }
 
