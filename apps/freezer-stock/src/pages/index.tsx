@@ -14,16 +14,19 @@ import { toPascalCase } from "@utils/strings"
 import { useEffect, useReducer, useState } from "react"
 import { reducer, initialState } from "state/reducer"
 import { ProductActionType } from "state/actions"
+import { useRouter } from "next/router"
 
 const HomePage = () => {
   const title = "Freezer Stock"
+
+  const router = useRouter()
 
   const [state, dispatch] = useReducer(reducer, initialState)
   const { monthsToFreeze, name, nextToExpireDate, nextToExpireUnits } =
     state.storagedProduct
   const { monthsToFreeze: newMonthsToFreeze, units } = state.newProductItem
 
-  const [searchedValue, setSearchedValue] = useState("")
+  const [searchedValue, setSearchedValue] = useState(router.query["name"] ?? "")
   const [showSpinner, setShowSpinner] = useState(false)
 
   useEffect(() => {
@@ -141,7 +144,6 @@ const HomePage = () => {
 }
 
 /*
- * TODO: get static paths all details
  * TODO: remove api from robots.txt
  */
 

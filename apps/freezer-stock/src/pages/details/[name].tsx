@@ -1,18 +1,18 @@
-import PageContainer from "containers/PageContainer/PageContainer"
 import StockDetails from "@components/StockDetails/StockDetails"
 import type { ContextParams } from "@custom-types/context"
 import type { ProductDetails } from "@custom-types/product"
-import { toPascalCase } from "@utils/strings"
-import Link from "next/link"
-import type {
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-} from "next/types"
 import {
   getAllInstances,
   getAllProductsName,
   getProductInstances,
 } from "@services/queries"
+import { toPascalCase } from "@utils/strings"
+import PageContainer from "containers/PageContainer/PageContainer"
+import Link from "next/link"
+import type {
+  GetServerSidePropsContext,
+  InferGetServerSidePropsType,
+} from "next/types"
 
 const DetailsPage = ({
   name,
@@ -23,8 +23,12 @@ const DetailsPage = ({
   return (
     <PageContainer htmlTitle={`Freezer stock - ${title}`} pageTitle={title}>
       <StockDetails instances={instances} />
-      {/* TODO: return to last searched product */}
-      <Link href="/">
+      <Link
+        href={{
+          pathname: "/",
+          ...(name !== "all" && { query: { name } }),
+        }}
+      >
         <button type="button" className="main-button">
           Back
         </button>
