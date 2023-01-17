@@ -1,8 +1,10 @@
-import type { AppProps } from "next/app"
+import type { AppProps, NextWebVitalsMetric } from "next/app"
 import Head from "next/head"
 import "../styles/index.scss"
 
-// TODO: add report web vitals nextjs
+export const reportWebVitals = (metric: NextWebVitalsMetric) => {
+  console.log(metric)
+}
 
 const FreezerStockApp = ({ Component, pageProps }: AppProps) => (
   <>
@@ -17,3 +19,6 @@ const FreezerStockApp = ({ Component, pageProps }: AppProps) => (
 export default FreezerStockApp
 
 // TODO: general todo, add unit and integration tests
+// TODO: add Jest, React Testing Library and Cypress
+// TODO: add storybook
+// TODO: accessibility
