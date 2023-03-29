@@ -6,12 +6,14 @@ Stack:
 - ExpressJS 4.18
 - MySQL
 - Typescript
+- Nodemon to watch for changes
 
 Project Init
 
 - yarn
 - yarn add express --filter buy-me-api
 - yarn add typescript @types/express @types/node --dev
+- yarn add concurrently nodemon -D
 
 Docs:
 Create an Express server with TypeScrip
