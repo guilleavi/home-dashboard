@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "API to create a list of pending stuff to buy",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/index.js",
