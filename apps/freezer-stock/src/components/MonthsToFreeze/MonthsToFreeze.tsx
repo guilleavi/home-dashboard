@@ -9,16 +9,15 @@ type MonthsToFreezeProps = {
   onChangeMonthsToFreeze: (updatedMonthsToFreeze: number) => void
 }
 
+const getOppositeAction = (currentAction: EditAction) =>
+  currentAction === EditAction.EDIT ? EditAction.UNDO : EditAction.EDIT
+
 const MonthsToFreeze = ({
   originalMonthsToFreeze,
   onChangeMonthsToFreeze,
 }: MonthsToFreezeProps) => {
   const [editMode, setEditMode] = useState(EditAction.UNDO)
   const [inputValue, setInputValue] = useState(originalMonthsToFreeze)
-
-  const getOppositeAction = (currentAction: EditAction) => {
-    return currentAction === EditAction.EDIT ? EditAction.UNDO : EditAction.EDIT
-  }
 
   const handleChange = ({ target }: ReactChangeEvent) => {
     const typedMonthsToFreeze = Number(target.value)
@@ -44,7 +43,7 @@ const MonthsToFreeze = ({
 
   return (
     <p className={styles["container"]}>
-      Max. freeze time:
+      Max. freeze time:{" "}
       <span className={styles["months"]}>
         {editMode === EditAction.EDIT ? (
           <input

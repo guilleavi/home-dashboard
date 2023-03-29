@@ -10,12 +10,11 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:@typescript-eslint/strict",
-    "plugin:import/recommended",
-    "plugin:import/typescript",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
+    "next/core-web-vitals",
     "turbo",
   ],
   parser: "@typescript-eslint/parser",
@@ -34,7 +33,6 @@ module.exports = {
   plugins: [
     "@typescript-eslint",
     "eslint-comments",
-    "import",
     "jsx-a11y",
     "react",
     "react-hooks",
@@ -89,6 +87,7 @@ module.exports = {
     "eslint-comments/no-unused-disable": "error", // remove unused eslint-disable
     // Typescript
     "@typescript-eslint/array-type": ["error", { default: "generic" }], // Array[T]
+    "@typescript-eslint/consistent-type-definitions": ["error", "type"],
     "@typescript-eslint/consistent-type-exports": "error", // export type separate
     "@typescript-eslint/no-unused-vars":
       process.env.NODE_ENV === "production" ? "error" : "warn",
@@ -103,6 +102,7 @@ module.exports = {
         ignore: [-1, 0, 1],
         ignoreArrayIndexes: true,
         ignoreDefaultValues: true,
+        ignoreEnums: true,
       },
     ],
     "no-shadow": "off",
@@ -118,8 +118,6 @@ module.exports = {
         format: ["PascalCase"],
       },
     ],
-    // Imports
-    "import/no-unresolved": "error",
     // React
     "react/boolean-prop-naming": ["error", { validateNested: true }],
     "react/button-has-type": "error",
@@ -142,8 +140,6 @@ module.exports = {
     "react/jsx-no-bind": ["error", { allowArrowFunctions: true }],
     "react/jsx-no-leaked-render": ["error", { validStrategies: ["ternary"] }],
     "react/jsx-no-useless-fragment": "error",
-    // React Hooks
-    // Accesibility
   },
   settings: {
     react: {
@@ -152,19 +148,6 @@ module.exports = {
       fragment: "Fragment",
       version: "detect",
       flowVersion: "0.53",
-    },
-    "import/extensions": [".ts", ".tsx"],
-    "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx"],
-    },
-    "import/resolver": {
-      typescript: {
-        alwaysTryTypes: true,
-        project: [
-          "../../apps/home-dashboard/tsconfig.json",
-          "../../apps/freezer-stock/tsconfig.json",
-        ],
-      },
     },
   },
 };

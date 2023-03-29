@@ -1,4 +1,10 @@
-import type { ProductSummary, ProductToSave } from "@custom-types/product"
+import type {
+  ProductSummary,
+  UpdateDatePayload,
+  UpdateMonthsPayload,
+  UpdateNamePayload,
+  UpdateUnitsPayload,
+} from "@custom-types/product"
 
 export enum ProductActionType {
   GET_PRODUCT = "GET_PRODUCT",
@@ -14,11 +20,11 @@ type GetProductAction = {
 
 type UpdateProductAction = {
   type: ProductActionType.UPDATE_PRODUCT
-  // TODO: add discrimination union ???
-  payload: {
-    key: keyof ProductToSave
-    value: string | number | Date
-  }
+  payload:
+    | UpdateNamePayload
+    | UpdateMonthsPayload
+    | UpdateDatePayload
+    | UpdateUnitsPayload
 }
 
 type MergeProductAction = {

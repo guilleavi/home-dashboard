@@ -1,4 +1,5 @@
 import type { ProductDetails } from "@custom-types/product"
+import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid"
 import { trimDateString } from "@utils/date"
 import styles from "./StockDetails.module.scss"
 
@@ -6,42 +7,35 @@ type StockDetailsProps = {
   instances: Array<ProductDetails>
 }
 
-const StockDetails = ({ instances }: StockDetailsProps) => {
-  // TODO: add sort and filter
-  return (
-    <>
-      {instances && instances.length ? (
-        <table className={styles["list"]}>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Units</th>
-              <th>Expiration Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {instances.map((instance) => {
-              const formattedDate = trimDateString(
-                instance.expirationDate.toString(),
-              )
+type GridValueGetterParamsWithRows = {
+  row: { expirationDate: Date }
+} & GridValueGetterParams
 
-              return (
-                <tr key={instance.instanceId}>
-                  <td>{instance.name}</td>
-                  <td>{instance.units}</td>
-                  <td>
-                    <time dateTime={formattedDate}>{formattedDate}</time>
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      ) : (
-        <p>No results found</p>
-      )}
-    </>
+const columns: Array<GridColDef> = [
+  { field: "name", headerName: "Name", width: 300 },
+  { field: "units", headerName: "Units", width: 125 },
+  {
+    field: "expirationDate",
+    headerName: "Expiration Date",
+    width: 200,
+    valueGetter: (params: GridValueGetterParamsWithRows) =>
+      trimDateString(params.row.expirationDate.toString()),
+  },
+]
+
+const StockDetails = ({ instances }: StockDetailsProps) =>
+  instances.length ? (
+    <div className={styles["list"]}>
+      <DataGrid
+        getRowId={(row: { instanceId: number }) => row.instanceId}
+        rows={instances}
+        columns={columns}
+        pageSize={8}
+        sortingOrder={["desc", "asc"]}
+      />
+    </div>
+  ) : (
+    <p>No results found</p>
   )
-}
 
 export default StockDetails

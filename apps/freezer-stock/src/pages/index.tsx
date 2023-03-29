@@ -14,28 +14,39 @@ import { toPascalCase } from "@utils/strings"
 import { useEffect, useReducer, useState } from "react"
 import { reducer, initialState } from "state/reducer"
 import { ProductActionType } from "state/actions"
+import { useRouter } from "next/router"
+import { assertIsString } from "@asserts/primitives"
 
 const HomePage = () => {
   const title = "Freezer Stock"
+
+  const router = useRouter()
+  const queryParamName = router.query["name"] ?? ""
+
+  assertIsString(queryParamName)
 
   const [state, dispatch] = useReducer(reducer, initialState)
   const { monthsToFreeze, name, nextToExpireDate, nextToExpireUnits } =
     state.storagedProduct
   const { monthsToFreeze: newMonthsToFreeze, units } = state.newProductItem
 
-  const [searchedValue, setSearchedValue] = useState("")
+  const [searchedValue, setSearchedValue] = useState(queryParamName)
   const [showSpinner, setShowSpinner] = useState(false)
 
   useEffect(() => {
     const abortController = new AbortController()
 
-    const fetchProduct = async (name: string, abortSignal: AbortSignal) => {
+    // TODO: use SWR nextjs hook
+    const fetchProduct = async (
+      productName: string,
+      abortSignal: AbortSignal,
+    ) => {
       setShowSpinner(true)
       dispatch({
         type: ProductActionType.CLEAR_PRODUCT,
       })
 
-      const fetchedProduct = await getProduct(name, abortSignal)
+      const fetchedProduct = await getProduct(productName, abortSignal)
 
       dispatch({
         type: ProductActionType.GET_PRODUCT,
@@ -55,7 +66,7 @@ const HomePage = () => {
       // cancel all previos fetch calls
       abortController.abort()
     }
-  }, [searchedValue, dispatch])
+  }, [searchedValue])
 
   const handleChangeMonthsToFreeze = (updatedMonthsToFreeze: number) => {
     dispatch({
@@ -74,10 +85,10 @@ const HomePage = () => {
     })
   }
 
-  const handleChangeUnits = (units: number) => {
+  const handleChangeUnits = (productUnits: number) => {
     dispatch({
       type: ProductActionType.UPDATE_PRODUCT,
-      payload: { key: "units", value: units },
+      payload: { key: "units", value: productUnits },
     })
   }
 
@@ -98,9 +109,10 @@ const HomePage = () => {
     setShowSpinner(false)
   }
 
+  // TODO: replace spinner logic with useTransition
   return (
     <PageContainer htmlTitle={title} pageTitle={title}>
-      <Spinner show={showSpinner}>
+      <Spinner isActive={showSpinner}>
         <ShowDetailsLink slug="all">Show All Products</ShowDetailsLink>
         <SearchInput onSearch={(value) => setSearchedValue(value)} />
         {name ? (
@@ -114,9 +126,7 @@ const HomePage = () => {
                 <>
                   <NextToExpire
                     name={name}
-                    nextToExpireDate={trimDateString(
-                      nextToExpireDate.toString(),
-                    )}
+                    nextToExpireDate={nextToExpireDate}
                     nextToExpireUnits={nextToExpireUnits}
                   />
                   <ShowDetailsLink slug={name}>Show Details</ShowDetailsLink>
@@ -128,7 +138,7 @@ const HomePage = () => {
             <SaveButton
               newMonthsToFreeze={newMonthsToFreeze}
               storagedMonthsToFreeze={monthsToFreeze}
-              onSave={handleOnSave}
+              onSave={() => void handleOnSave}
             />
           </>
         ) : null}

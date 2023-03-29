@@ -1,5 +1,5 @@
 import type { ReactKeyboardEvent } from "@custom-types/dom"
-import { KEY } from "@enums/common"
+import { Key } from "@enums/common"
 import { useState } from "react"
 import styles from "./SearchInput.module.scss"
 
@@ -11,7 +11,7 @@ const SearchInput = ({ onSearch }: SearchInputProps) => {
   const [inputValue, setInputValue] = useState("")
 
   const handleKeyDown = ({ key }: ReactKeyboardEvent) => {
-    if (key === KEY.ENTER) {
+    if (key === Key.ENTER) {
       onSearch(inputValue)
       setInputValue("")
     }

@@ -6,15 +6,13 @@ type ActionButtonProps = {
   onTriggerAction: () => void
 }
 
-const ActionButton = ({ action, onTriggerAction }: ActionButtonProps) => {
-  return (
-    <button
-      aria-label={action}
-      className={`${styles["button"]} ${styles[`${action}`]}`}
-      type="button"
-      onClick={onTriggerAction}
-    />
-  )
-}
+const ActionButton = ({ action, onTriggerAction }: ActionButtonProps) => (
+  <button
+    aria-label={action}
+    className={`${styles["button"]} ${styles[`${action}`]}`}
+    type="button"
+    onClick={onTriggerAction}
+  />
+)
 
 export default ActionButton
