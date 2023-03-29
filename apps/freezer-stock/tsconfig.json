@@ -1,6 +1,7 @@
 {
   "extends": "tsconfig/nextjs.json",
   "compilerOptions": {
+    "sourceMap": true,
     "baseUrl": "src",
     "paths": {
       "@asserts/*": [

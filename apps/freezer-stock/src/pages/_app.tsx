@@ -22,3 +22,4 @@ export default FreezerStockApp
 // TODO: add Jest, React Testing Library and Cypress
 // TODO: add storybook
 // TODO: accessibility
+// TODO: create 404/500 pages
