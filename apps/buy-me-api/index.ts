@@ -1,11 +1,10 @@
-import express, { Express, Request, Response } from 'express'
+import express, { Express } from 'express'
+import indexRouter from './routes/index.js'
 
 const app: Express = express()
 const port = 3000 // TODO: install dotenv to set the port as an env var
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Express server is running')
-})
+app.use('/', indexRouter)
 
 app.listen(port, () => {
   console.log(`[server]: Server is runnung at http://localhost:${port}`)
