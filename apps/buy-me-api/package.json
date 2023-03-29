@@ -1,0 +1,15 @@
+{
+  "name": "buy-me-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "API to create a list of pending stuff to buy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "guilleavi",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
