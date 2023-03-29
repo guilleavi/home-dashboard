@@ -5,3 +5,14 @@ Stack:
 - NodeJS
 - ExpressJS 4.18
 - MySQL
+- Typescript
+
+Project Init
+
+- yarn
+- yarn add express --filter buy-me-api
+- yarn add typescript @types/express @types/node --dev
+
+Docs:
+Create an Express server with TypeScrip
+[https://blog.logrocket.com/how-to-set-up-node-typescript-express/](https://blog.logrocket.com/how-to-set-up-node-typescript-express/)
