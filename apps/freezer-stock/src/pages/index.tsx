@@ -11,140 +11,148 @@ import UnitsController from "@components/UnitsController/UnitsController"
 import { getProduct, saveProduct } from "@services/products"
 import { trimDateString } from "@utils/date"
 import { toPascalCase } from "@utils/strings"
-import { useEffect, useReducer, useState } from "react"
+import { useContext, useEffect, useReducer, useState } from "react"
 import { reducer, initialState } from "state/reducer"
 import { ProductActionType } from "state/actions"
 import { useRouter } from "next/router"
 import { assertIsString } from "@asserts/primitives"
+import useFetchProduct from "hooks/useFetchProduct"
+import { ProductContext } from "@contexts/ProductProvider"
 
 const HomePage = () => {
-  const title = "Freezer Stock"
+    const title = "Freezer Stock"
 
-  const router = useRouter()
-  const queryParamName = router.query["name"] ?? ""
+    const { state, dispatch } = useContext(ProductContext)
 
-  assertIsString(queryParamName)
+    const router = useRouter()
+    const queryParamName = router.query["name"] ?? ""
 
-  const [state, dispatch] = useReducer(reducer, initialState)
-  const { monthsToFreeze, name, nextToExpireDate, nextToExpireUnits } =
-    state.storagedProduct
-  const { monthsToFreeze: newMonthsToFreeze, units } = state.newProductItem
+    assertIsString(queryParamName)
 
-  const [searchedValue, setSearchedValue] = useState(queryParamName)
-  const [showSpinner, setShowSpinner] = useState(false)
+    // const [state, dispatch] = useReducer(reducer, initialState)
+    const { monthsToFreeze, name, nextToExpireDate, nextToExpireUnits } =
+        state.storagedProduct
+    const { monthsToFreeze: newMonthsToFreeze, units } = state.newProductItem
 
-  useEffect(() => {
-    const abortController = new AbortController()
 
-    // TODO: use SWR nextjs hook
-    const fetchProduct = async (
-      productName: string,
-      abortSignal: AbortSignal,
-    ) => {
-      setShowSpinner(true)
-      dispatch({
-        type: ProductActionType.CLEAR_PRODUCT,
-      })
+    const [searchedValue, setSearchedValue] = useState(queryParamName)
+    const [showSpinner, setShowSpinner] = useState(false)
 
-      const fetchedProduct = await getProduct(productName, abortSignal)
+    // const fetchedProduct = useFetchProduct(searchedValue)
 
-      dispatch({
-        type: ProductActionType.GET_PRODUCT,
-        payload: fetchedProduct,
-      })
+    useEffect(() => {
+        const abortController = new AbortController()
 
-      setShowSpinner(false)
+        // TODO: use SWR nextjs hook
+        const fetchProduct = async (
+            productName: string,
+            abortSignal: AbortSignal,
+        ) => {
+            setShowSpinner(true)
+            dispatch({
+                type: ProductActionType.CLEAR_PRODUCT,
+            })
+
+            const fetchedProduct = await getProduct(productName, abortSignal)
+
+
+            dispatch({
+                type: ProductActionType.GET_PRODUCT,
+                payload: fetchedProduct,
+            })
+
+            setShowSpinner(false)
+        }
+
+        if (searchedValue.trim()) {
+            fetchProduct(searchedValue, abortController.signal).catch((err) =>
+                console.error(err),
+            )
+        }
+
+        return () => {
+            // cancel all previos fetch calls
+            abortController.abort()
+        }
+    }, [dispatch, searchedValue])
+
+    const handleChangeMonthsToFreeze = (updatedMonthsToFreeze: number) => {
+        dispatch({
+            type: ProductActionType.UPDATE_PRODUCT,
+            payload: { key: "monthsToFreeze", value: updatedMonthsToFreeze },
+        })
     }
 
-    if (searchedValue.trim()) {
-      fetchProduct(searchedValue, abortController.signal).catch((err) =>
-        console.error(err),
-      )
+    const handleChangeStorageDate = (newDate: string) => {
+        dispatch({
+            type: ProductActionType.UPDATE_PRODUCT,
+            payload: {
+                key: "storageDate",
+                value: trimDateString(new Date(newDate).toISOString()),
+            },
+        })
     }
 
-    return () => {
-      // cancel all previos fetch calls
-      abortController.abort()
+    const handleChangeUnits = (productUnits: number) => {
+        dispatch({
+            type: ProductActionType.UPDATE_PRODUCT,
+            payload: { key: "units", value: productUnits },
+        })
     }
-  }, [searchedValue])
 
-  const handleChangeMonthsToFreeze = (updatedMonthsToFreeze: number) => {
-    dispatch({
-      type: ProductActionType.UPDATE_PRODUCT,
-      payload: { key: "monthsToFreeze", value: updatedMonthsToFreeze },
-    })
-  }
+    const handleOnSave = async () => {
+        setShowSpinner(true)
 
-  const handleChangeStorageDate = (newDate: string) => {
-    dispatch({
-      type: ProductActionType.UPDATE_PRODUCT,
-      payload: {
-        key: "storageDate",
-        value: trimDateString(new Date(newDate).toISOString()),
-      },
-    })
-  }
+        // add missing information to newProductItem
+        dispatch({
+            type: ProductActionType.MERGE_PRODUCT,
+        })
 
-  const handleChangeUnits = (productUnits: number) => {
-    dispatch({
-      type: ProductActionType.UPDATE_PRODUCT,
-      payload: { key: "units", value: productUnits },
-    })
-  }
+        await saveProduct(state.newProductItem)
 
-  const handleOnSave = async () => {
-    setShowSpinner(true)
+        dispatch({
+            type: ProductActionType.CLEAR_PRODUCT,
+        })
 
-    // add missing information to newProductItem
-    dispatch({
-      type: ProductActionType.MERGE_PRODUCT,
-    })
+        setShowSpinner(false)
+    }
 
-    await saveProduct(state.newProductItem)
-
-    dispatch({
-      type: ProductActionType.CLEAR_PRODUCT,
-    })
-
-    setShowSpinner(false)
-  }
-
-  // TODO: replace spinner logic with useTransition
-  return (
-    <PageContainer htmlTitle={title} pageTitle={title}>
-      <Spinner isActive={showSpinner}>
-        <ShowDetailsLink slug="all">Show All Products</ShowDetailsLink>
-        <SearchInput onSearch={(value) => setSearchedValue(value)} />
-        {name ? (
-          <>
-            <CardContainer title={toPascalCase(name)}>
-              <MonthsToFreeze
-                originalMonthsToFreeze={monthsToFreeze}
-                onChangeMonthsToFreeze={handleChangeMonthsToFreeze}
-              />
-              {nextToExpireUnits ? (
-                <>
-                  <NextToExpire
-                    name={name}
-                    nextToExpireDate={nextToExpireDate}
-                    nextToExpireUnits={nextToExpireUnits}
-                  />
-                  <ShowDetailsLink slug={name}>Show Details</ShowDetailsLink>
-                </>
-              ) : null}
-            </CardContainer>
-            <StorageDate onChangeStorageDate={handleChangeStorageDate} />
-            <UnitsController units={units} onChangeUnits={handleChangeUnits} />
-            <SaveButton
-              newMonthsToFreeze={newMonthsToFreeze}
-              storagedMonthsToFreeze={monthsToFreeze}
-              onSave={() => void handleOnSave}
-            />
-          </>
-        ) : null}
-      </Spinner>
-    </PageContainer>
-  )
+    // TODO: replace spinner logic with useTransition
+    return (
+        <PageContainer htmlTitle={title} pageTitle={title}>
+            <Spinner isActive={showSpinner}>
+                <ShowDetailsLink slug="all">Show All Products</ShowDetailsLink>
+                <SearchInput onSearch={(value) => setSearchedValue(value)} />
+                {name ? (
+                    <>
+                        <CardContainer title={toPascalCase(name)}>
+                            <MonthsToFreeze
+                                originalMonthsToFreeze={monthsToFreeze}
+                                onChangeMonthsToFreeze={handleChangeMonthsToFreeze}
+                            />
+                            {nextToExpireUnits ? (
+                                <>
+                                    <NextToExpire
+                                        name={name}
+                                        nextToExpireDate={nextToExpireDate}
+                                        nextToExpireUnits={nextToExpireUnits}
+                                    />
+                                    <ShowDetailsLink slug={name}>Show Details</ShowDetailsLink>
+                                </>
+                            ) : null}
+                        </CardContainer>
+                        <StorageDate onChangeStorageDate={handleChangeStorageDate} />
+                        <UnitsController units={units} onChangeUnits={handleChangeUnits} />
+                        <SaveButton
+                            newMonthsToFreeze={newMonthsToFreeze}
+                            storagedMonthsToFreeze={monthsToFreeze}
+                            onSave={() => void handleOnSave}
+                        />
+                    </>
+                ) : null}
+            </Spinner>
+        </PageContainer>
+    )
 }
 
 export default HomePage

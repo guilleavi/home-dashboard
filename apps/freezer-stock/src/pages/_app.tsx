@@ -1,10 +1,11 @@
 import type { AppProps, NextWebVitalsMetric } from "next/app"
 import Head from "next/head"
 import "../styles/index.scss"
+import { ProductProvider } from "@contexts/ProductProvider"
 
-export const reportWebVitals = (metric: NextWebVitalsMetric) => {
-  console.log(metric)
-}
+// export const reportWebVitals = (metric: NextWebVitalsMetric) => {
+//   console.log(metric)
+// }
 
 const FreezerStockApp = ({ Component, pageProps }: AppProps) => (
   <>
@@ -12,7 +13,9 @@ const FreezerStockApp = ({ Component, pageProps }: AppProps) => (
       <meta name="description" content="Freezer stock" />
       <link rel="icon" href="/favicon.ico" />
     </Head>
-    <Component {...pageProps} />
+    <ProductProvider>
+      <Component {...pageProps} />
+    </ProductProvider>
   </>
 )
 
