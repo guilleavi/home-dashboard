@@ -9,6 +9,12 @@ import axios from "axios"
 const PRODUCT_URL = "/api/products"
 const INSTANCE_URL = `${PRODUCT_URL}/instances`
 
+/**
+ * Get Product data with units to expire soon
+ * @param name - product name to search
+ * @param abortSignal - signal to abort previous fetchs
+ * @returns - product data with the amount of units that are going to expire sooner
+ */
 export const getProduct = async (
   name: string,
   abortSignal: AbortSignal,
@@ -21,6 +27,10 @@ export const getProduct = async (
       signal: abortSignal,
     })
 
+    /*
+     * If the product does not exits in the db, 
+     * return template with default data to create new product 
+     */
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     return response.data || defaultValue
   } catch (e: unknown) {
@@ -29,6 +39,11 @@ export const getProduct = async (
   }
 }
 
+/**
+ * Get all the instances for a specific product
+ * @param name - product to get its instances
+ * @returns - all the instances
+ */
 export const getProductDetails = async (
   name: string,
 ): Promise<Array<ProductDetails>> => {
@@ -41,6 +56,10 @@ export const getProductDetails = async (
   }
 }
 
+/**
+ * Get all the instances for all the products
+ * @returns - all the products with all their instances
+ */
 export const getAllProductDetails = async (): Promise<
   Array<ProductDetails>
 > => {
@@ -52,6 +71,10 @@ export const getAllProductDetails = async (): Promise<
   }
 }
 
+/**
+ * Add or Update a product and its instances
+ * @param newProductItem - data to save
+ */
 export const saveProduct = async (newProductItem: ProductToSave) => {
   try {
     await axios.post(`${PRODUCT_URL}/${newProductItem.name}`, newProductItem)

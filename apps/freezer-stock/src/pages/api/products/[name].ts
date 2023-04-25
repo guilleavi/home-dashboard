@@ -2,7 +2,7 @@ import { assertIsString } from "@asserts/primitives"
 import { ProductToSaveCustomRequest } from "@custom-types/api"
 import type { ProductSummary } from "@custom-types/product"
 import { HttpMethod, StatusCode } from "@enums/api"
-import { getNextToExpire, saveProduct } from "@services/queries"
+import { getProductWithNextToExpireUnits, saveProduct } from "api/queries"
 import type { NextApiResponse } from "next"
 
 const handleProduct = async (
@@ -19,7 +19,7 @@ const handleProduct = async (
 
   switch (method) {
     case HttpMethod.GET:
-      res.send(await getNextToExpire(name))
+      res.send(await getProductWithNextToExpireUnits(name))
       break
     case HttpMethod.POST:
       await saveProduct(body)

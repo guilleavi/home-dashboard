@@ -1,7 +1,7 @@
 import { ProductDetailsCustomRequest } from "@custom-types/api"
 import type { ProductDetails } from "@custom-types/product"
 import { HttpMethod, StatusCode } from "@enums/api"
-import { getProductInstances, updateIntanceUnits } from "@services/queries"
+import { getProductInstances, updateIntanceUnits } from "api/queries"
 import type { NextApiResponse } from "next"
 
 const handleProductInstances = async (
@@ -19,6 +19,7 @@ const handleProductInstances = async (
       res.send(await getProductInstances(name))
       break
     case HttpMethod.PUT:
+      // TODO: the client functionality that calls this endpoint has not been implemented yet
       await updateIntanceUnits(body)
       res.send(null)
       break

@@ -6,7 +6,7 @@ import {
   getAllInstances,
   getAllProductsName,
   getProductInstances,
-} from "@services/queries"
+} from "api/queries"
 import { toPascalCase } from "@utils/strings"
 import Link from "next/link"
 import type { GetStaticPropsContext, InferGetStaticPropsType } from "next/types"
