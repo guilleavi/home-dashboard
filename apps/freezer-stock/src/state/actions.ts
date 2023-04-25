@@ -13,25 +13,25 @@ export enum ProductActionType {
   CLEAR_PRODUCT = "CLEAR_PRODUCT",
 }
 
-type GetProductAction = {
+interface GetProductAction {
   type: ProductActionType.GET_PRODUCT
   payload: ProductSummary
 }
 
-type UpdateProductAction = {
+interface UpdateProductAction {
   type: ProductActionType.UPDATE_PRODUCT
   payload:
-    | UpdateNamePayload
-    | UpdateMonthsPayload
-    | UpdateDatePayload
-    | UpdateUnitsPayload
+  | UpdateNamePayload
+  | UpdateMonthsPayload
+  | UpdateDatePayload
+  | UpdateUnitsPayload
 }
 
-type MergeProductAction = {
+interface MergeProductAction {
   type: ProductActionType.MERGE_PRODUCT
 }
 
-type ClearProductAction = {
+interface ClearProductAction {
   type: ProductActionType.CLEAR_PRODUCT
 }
 

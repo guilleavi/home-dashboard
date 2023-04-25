@@ -1,5 +1,5 @@
 import { ParsedUrlQuery } from "querystring"
 
-export type ContextParams = ParsedUrlQuery & {
+export interface ContextParams extends ParsedUrlQuery {
   name: string
 }

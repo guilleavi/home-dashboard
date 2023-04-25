@@ -1,6 +1,6 @@
 import { ProductSummary, ProductToSave } from "./product"
 
-export type ProductState = {
+export interface ProductState {
   storagedProduct: ProductSummary
   newProductItem: ProductToSave
 }
@@ -12,12 +12,12 @@ export enum ProductActionType {
   CLEAR_PRODUCT = "CLEAR_PRODUCT",
 }
 
-type GetProductAction = {
+interface GetProductAction {
   type: ProductActionType.GET_PRODUCT
   payload: ProductSummary
 }
 
-type UpdateProductAction = {
+interface UpdateProductAction {
   type: ProductActionType.UPDATE_PRODUCT
   // TODO: add discrimination union ???
   payload: {
@@ -26,11 +26,11 @@ type UpdateProductAction = {
   }
 }
 
-type MergeProductAction = {
+interface MergeProductAction {
   type: ProductActionType.MERGE_PRODUCT
 }
 
-type ClearProductAction = {
+interface ClearProductAction {
   type: ProductActionType.CLEAR_PRODUCT
 }
 

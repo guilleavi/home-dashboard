@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react"
 import styles from "./CardContainer.module.scss"
 
-type SectionProps = PropsWithChildren & {
+interface SectionProps extends PropsWithChildren {
   title: string
 }
 

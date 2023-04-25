@@ -1,7 +1,7 @@
 import { EditAction } from "@enums/common"
 import styles from "./ActionButton.module.scss"
 
-type ActionButtonProps = {
+interface ActionButtonProps {
   action: EditAction
   onTriggerAction: () => void
 }

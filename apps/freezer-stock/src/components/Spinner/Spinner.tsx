@@ -2,7 +2,7 @@ import CircularProgress from "@mui/material/CircularProgress"
 import { PropsWithChildren } from "react"
 import styles from "./Spinner.module.scss"
 
-type SpinnerProps = PropsWithChildren & {
+interface SpinnerProps extends PropsWithChildren {
   isActive: boolean
 }
 

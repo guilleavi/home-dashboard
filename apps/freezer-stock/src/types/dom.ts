@@ -1,7 +1,7 @@
-export type ReactKeyboardEvent = React.KeyboardEvent<HTMLInputElement> & {
+export interface ReactKeyboardEvent extends React.KeyboardEvent<HTMLInputElement> {
   target: HTMLInputElement
 }
 
-export type ReactChangeEvent = React.ChangeEvent<HTMLInputElement> & {
+export interface ReactChangeEvent extends React.ChangeEvent<HTMLInputElement> {
   target: HTMLInputElement
 }

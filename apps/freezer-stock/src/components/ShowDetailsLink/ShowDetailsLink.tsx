@@ -2,7 +2,7 @@ import Link from "next/link"
 import { PropsWithChildren } from "react"
 import styles from "./ShowDetailsLink.module.scss"
 
-type ShowDetailsLinkProps = PropsWithChildren & {
+interface ShowDetailsLinkProps extends PropsWithChildren {
   slug: string
 }
 

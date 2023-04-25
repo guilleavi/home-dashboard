@@ -3,13 +3,13 @@ import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid"
 import { trimDateString } from "@utils/date"
 import styles from "./StockDetails.module.scss"
 
-type StockDetailsProps = {
+interface StockDetailsProps {
   instances: Array<ProductDetails>
 }
 
-type GridValueGetterParamsWithRows = {
+interface GridValueGetterParamsWithRows extends GridValueGetterParams {
   row: { expirationDate: Date }
-} & GridValueGetterParams
+}
 
 const columns: Array<GridColDef> = [
   { field: "name", headerName: "Name", width: 300 },

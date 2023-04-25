@@ -2,7 +2,7 @@ import Head from "next/head"
 import { PropsWithChildren } from "react"
 import styles from "./PageContainer.module.scss"
 
-type PageContainerProps = PropsWithChildren & {
+interface PageContainerProps extends PropsWithChildren {
   htmlTitle?: string
   pageTitle: string
 }

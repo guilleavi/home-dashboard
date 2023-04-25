@@ -19,6 +19,6 @@ export type ProductToSaveCustomRequest = Override<
   { body: ProductToSave }
 >
 
-export type ProductWithInstances = Product & {
+export interface ProductWithInstances extends Product {
   instances: Array<ProductInstance>
 }

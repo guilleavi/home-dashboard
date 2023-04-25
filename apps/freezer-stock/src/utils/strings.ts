@@ -1,5 +1,3 @@
-// TODO: add unit tests
-
 /**
  * Trims the values and compare them in a case insensitive way
  * @param valueA {string}
