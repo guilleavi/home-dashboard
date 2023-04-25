@@ -25,7 +25,7 @@ const useFetchProduct = (productToSearch: string) => {
     }
 
     return () => {
-      // cancel all previous calls to fetch a product
+      /* Cancel all previous calls to fetch a product */
       abortController.abort()
     }
   }, [productToSearch])
