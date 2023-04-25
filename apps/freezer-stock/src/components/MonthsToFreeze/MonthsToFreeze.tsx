@@ -1,43 +1,52 @@
 import ActionButton from "@components/ActionButton/ActionButton"
+import { ProductContext } from "@contexts/ProductProvider"
 import type { ReactChangeEvent } from "@custom-types/dom"
 import { EditAction } from "@enums/common"
-import { useState } from "react"
+import { ProductActionType } from "@state/actions"
+import { useContext, useState } from "react"
 import styles from "./MonthsToFreeze.module.scss"
-
-type MonthsToFreezeProps = {
-  originalMonthsToFreeze: number
-  onChangeMonthsToFreeze: (updatedMonthsToFreeze: number) => void
-}
 
 const getOppositeAction = (currentAction: EditAction) =>
   currentAction === EditAction.EDIT ? EditAction.UNDO : EditAction.EDIT
 
-const MonthsToFreeze = ({
-  originalMonthsToFreeze,
-  onChangeMonthsToFreeze,
-}: MonthsToFreezeProps) => {
+const MonthsToFreeze = () => {
+  const { state, dispatch } = useContext(ProductContext)
+  const monthsToFreezeOriginalValue = state.storagedProduct.monthsToFreeze
+
+  const [monthsToFreezeInputValue, setMonthsToFreezeInputValue] = useState(
+    monthsToFreezeOriginalValue,
+  )
+  /* The inital state 'UNDO' represents the read only functionality */
   const [editMode, setEditMode] = useState(EditAction.UNDO)
-  const [inputValue, setInputValue] = useState(originalMonthsToFreeze)
 
-  const handleChange = ({ target }: ReactChangeEvent) => {
-    const typedMonthsToFreeze = Number(target.value)
+  const handleChangeInput = ({ target }: ReactChangeEvent) => {
+    const typedNumber = Number(target.value)
 
-    if (typedMonthsToFreeze > 0) {
-      setInputValue(typedMonthsToFreeze)
-      onChangeMonthsToFreeze(typedMonthsToFreeze)
+    /* Only positive values are valid */
+    if (typedNumber > 0) {
+      setMonthsToFreezeInputValue(typedNumber)
+      dispatch({
+        type: ProductActionType.UPDATE_PRODUCT,
+        payload: { key: "monthsToFreeze", value: typedNumber },
+      })
     }
   }
 
+  /* Toggle between EDIT and UNDO actions */
   const handleTriggerAction = () => {
     const newAction = getOppositeAction(editMode)
     setEditMode(newAction)
 
-    if (
+    const hasMonthsToFreezeBeenUpdated =
       newAction === EditAction.UNDO &&
-      originalMonthsToFreeze !== inputValue
-    ) {
-      setInputValue(originalMonthsToFreeze)
-      onChangeMonthsToFreeze(originalMonthsToFreeze)
+      monthsToFreezeOriginalValue !== monthsToFreezeInputValue
+    /* Only undo the monthsToFreeze value, if it's been changed by the user */
+    if (hasMonthsToFreezeBeenUpdated) {
+      setMonthsToFreezeInputValue(monthsToFreezeOriginalValue)
+      dispatch({
+        type: ProductActionType.UPDATE_PRODUCT,
+        payload: { key: "monthsToFreeze", value: monthsToFreezeOriginalValue },
+      })
     }
   }
 
@@ -47,15 +56,15 @@ const MonthsToFreeze = ({
       <span className={styles["months"]}>
         {editMode === EditAction.EDIT ? (
           <input
-            aria-label="How long the product can be freezed"
             className={styles["months-input"]}
             min="1"
             type="number"
-            value={inputValue}
-            onChange={handleChange}
+            value={monthsToFreezeInputValue}
+            aria-label="How long the product can be freezed"
+            onChange={handleChangeInput}
           />
         ) : (
-          <> {originalMonthsToFreeze}</>
+          <> {monthsToFreezeOriginalValue}</>
         )}{" "}
         months{" "}
       </span>

@@ -10,6 +10,9 @@
       "@components/*": [
         "components/*"
       ],
+      "@containers/*": [
+        "containers/*"
+      ],
       "@contexts/*": [
         "contexts/*"
       ],
@@ -19,8 +22,14 @@
       "@enums/*": [
         "enums/*"
       ],
+      "@hooks/*": [
+        "hooks/*"
+      ],
       "@services/*": [
         "services/*"
+      ],
+      "@state/*": [
+        "state/*"
       ],
       "@utils/*": [
         "utils/*"

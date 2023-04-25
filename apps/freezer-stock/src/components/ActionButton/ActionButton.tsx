@@ -8,9 +8,9 @@ type ActionButtonProps = {
 
 const ActionButton = ({ action, onTriggerAction }: ActionButtonProps) => (
   <button
-    aria-label={action}
     className={`${styles["button"]} ${styles[`${action}`]}`}
     type="button"
+    aria-label={action}
     onClick={onTriggerAction}
   />
 )

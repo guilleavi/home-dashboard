@@ -1,20 +1,21 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import styles from "./SaveButton.module.scss"
+import { ProductContext } from "@contexts/ProductProvider"
+import { saveProduct } from "@services/products"
+import { ProductActionType } from "@state/actions"
 
-type SaveButtonProps = {
-  newMonthsToFreeze: number
-  storagedMonthsToFreeze: number
-  onSave: () => void
+interface SaveButtonProps {
+  onShowSpinner: (show: boolean) => void
 }
 
-const SaveButton = ({
-  newMonthsToFreeze,
-  storagedMonthsToFreeze,
-  onSave,
-}: SaveButtonProps) => {
+const SaveButton = ({ onShowSpinner }: SaveButtonProps) => {
+  const { state, dispatch } = useContext(ProductContext)
+  const storagedMonthsToFreeze = state.storagedProduct.monthsToFreeze
+  const newMonthsToFreeze = state.newProductItem.monthsToFreeze
+
   const [errorMessage, setErrorMessage] = useState("")
 
-  const handleClick = () => {
+  const handleSaveClick = async () => {
     const validateData = () => {
       const hasMonthsToFreeze = newMonthsToFreeze || storagedMonthsToFreeze
 
@@ -28,7 +29,20 @@ const SaveButton = ({
     }
 
     if (validateData()) {
-      onSave()
+      onShowSpinner(true)
+
+      /* Add missing information to newProductItem */
+      dispatch({
+        type: ProductActionType.MERGE_PRODUCT,
+      })
+
+      await saveProduct(state.newProductItem)
+
+      dispatch({
+        type: ProductActionType.CLEAR_PRODUCT,
+      })
+
+      onShowSpinner(false)
     }
   }
 
@@ -37,7 +51,7 @@ const SaveButton = ({
       <button
         className={styles["save-button"]}
         type="button"
-        onClick={handleClick}
+        onClick={handleSaveClick}
       >
         Save
       </button>

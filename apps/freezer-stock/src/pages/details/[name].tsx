@@ -1,4 +1,5 @@
 import StockDetails from "@components/StockDetails/StockDetails"
+import PageContainer from "@containers/PageContainer/PageContainer"
 import type { ContextParams } from "@custom-types/context"
 import type { ProductDetails } from "@custom-types/product"
 import {
@@ -7,10 +8,10 @@ import {
   getProductInstances,
 } from "@services/queries"
 import { toPascalCase } from "@utils/strings"
-import PageContainer from "containers/PageContainer/PageContainer"
 import Link from "next/link"
 import type { GetStaticPropsContext, InferGetStaticPropsType } from "next/types"
 
+// TODO: page should load faster and show spinner while is loading data
 const DetailsPage = ({
   name,
   instances,
@@ -26,7 +27,8 @@ const DetailsPage = ({
           ...(name !== "all" && { query: { name } }),
         }}
       >
-        <button type="button" className="main-button">
+        {/* TODO: remove button, use anchor */}
+        <button className="main-button" type="button">
           Back
         </button>
       </Link>

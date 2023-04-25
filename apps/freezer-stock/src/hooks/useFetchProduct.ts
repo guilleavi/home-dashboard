@@ -2,8 +2,10 @@ import { ProductSummary } from "@custom-types/product"
 import { getProduct } from "@services/products"
 import { useEffect, useState } from "react"
 
-const useFetchProduct = (searchedValue: string) => {
-  const [fetchedProduct, setFetchedProduct] = useState<ProductSummary>()
+const useFetchProduct = (productToSearch: string) => {
+  const [fetchedProduct, setFetchedProduct] = useState<ProductSummary>(
+    {} as ProductSummary,
+  )
 
   useEffect(() => {
     const abortController = new AbortController()
@@ -13,27 +15,20 @@ const useFetchProduct = (searchedValue: string) => {
       productName: string,
       abortSignal: AbortSignal,
     ) => {
-      // setShowSpinner(true)
-      // dispatch({
-      // 	type: ProductActionType.CLEAR_PRODUCT,
-      // })
-
       setFetchedProduct(await getProduct(productName, abortSignal))
-
-      // setShowSpinner(false)
     }
 
-    if (searchedValue.trim()) {
-      fetchProduct(searchedValue, abortController.signal).catch((err) =>
+    if (productToSearch.trim()) {
+      fetchProduct(productToSearch, abortController.signal).catch((err) =>
         console.error(err),
       )
     }
 
     return () => {
-      // cancel all previos fetch calls
+      // cancel all previous calls to fetch a product
       abortController.abort()
     }
-  }, [searchedValue])
+  }, [productToSearch])
 
   return fetchedProduct
 }
