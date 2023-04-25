@@ -4,6 +4,9 @@
     "sourceMap": true,
     "baseUrl": "src",
     "paths": {
+      "@api/*": [
+        "api/*"
+      ],
       "@asserts/*": [
         "asserts/*"
       ],

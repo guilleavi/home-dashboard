@@ -1,5 +1,5 @@
+import { getAllInstances } from "@api/queries"
 import type { ProductDetails } from "@custom-types/product"
-import { getAllInstances } from "api/queries"
 import type { NextApiRequest, NextApiResponse } from "next"
 
 const getAllInstancesAPI = async (

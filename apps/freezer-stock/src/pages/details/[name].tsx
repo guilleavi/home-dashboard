@@ -1,21 +1,16 @@
+import { getAllInstances, getProductInstances } from "@api/queries"
 import StockDetails from "@components/StockDetails/StockDetails"
 import PageContainer from "@containers/PageContainer/PageContainer"
 import type { ContextParams } from "@custom-types/context"
 import type { ProductDetails } from "@custom-types/product"
-import {
-  getAllInstances,
-  getAllProductsName,
-  getProductInstances,
-} from "api/queries"
 import { toPascalCase } from "@utils/strings"
 import Link from "next/link"
 import type { GetStaticPropsContext, InferGetStaticPropsType } from "next/types"
 
-// TODO: page should load faster and show spinner while is loading data
 const DetailsPage = ({
   name,
   instances,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+}: InferGetStaticPropsType<typeof getServerSideProps>) => {
   const title = `${toPascalCase(name)} Stock Details`
 
   return (
@@ -36,7 +31,7 @@ const DetailsPage = ({
   )
 }
 
-export const getStaticProps = async (
+export const getServerSideProps = async (
   context: GetStaticPropsContext<ContextParams>,
 ) => {
   const name = context.params?.name ?? ""
@@ -53,28 +48,6 @@ export const getStaticProps = async (
       name,
       instances: JSON.parse(JSON.stringify(instances)) as Array<ProductDetails>,
     },
-  }
-}
-
-export const getStaticPaths = async () => {
-  const productNames = await getAllProductsName()
-  const paths = productNames.map((productName) => ({
-    params: {
-      name: productName,
-    },
-  }))
-
-  const allProducts = {
-    params: {
-      name: "all",
-    },
-  }
-
-  paths.push(allProducts)
-
-  return {
-    paths,
-    fallback: "blocking",
   }
 }
 
