@@ -2,7 +2,7 @@ import type { ProductSummary, ProductToSave } from "@custom-types/product"
 import type { ProductActions } from "./actions"
 import { ProductActionType } from "./actions"
 
-interface ProductState {
+export interface ProductState {
   storagedProduct: ProductSummary
   newProductItem: ProductToSave
 }

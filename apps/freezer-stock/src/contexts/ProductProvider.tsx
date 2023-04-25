@@ -1,6 +1,7 @@
 import type { ProductSummary, ProductToSave } from "@custom-types/product"
-import type { ProductState, ProductActions } from "@custom-types/state"
-import { ProductActionType } from "@custom-types/state"
+import type { ProductActions } from "@state/actions"
+import { ProductActionType } from "@state/actions"
+import type { ProductState } from "@state/reducer"
 import React, { PropsWithChildren, createContext, useReducer } from "react"
 
 const initialState: ProductState = {
