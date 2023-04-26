@@ -1,0 +1,70 @@
+@import './fonts';
+@import "./reset";
+
+:root {
+  /* colors */
+  --main-color: #0d6efd;
+  --secondary-color: #007daf;
+  --error-color: red;
+  --link-color: var(--secondary-color);
+  --placeholder-color: #7297a5;
+  --shadow-color: #0d6efd40;
+  --thin-border-color: #ced4da;
+
+  /* borders */
+  --border-radius: 5px;
+  --border-width: 2px;
+
+  /* font */
+  --input-font-size: 0.9rem;
+  --link-font-size: 0.75rem;
+  --small-paragraph-size: 0.9rem;
+  --tiny-paragraph-size: 0.8rem;
+}
+
+body {
+  font-family: "Open Sans", "Segoe UI", Helvetica, sans-serif;
+  text-rendering: optimizelegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 1.5rem;
+  text-align: center;
+}
+
+input {
+  font-size: var(--input-font-size);
+
+  border: var(--border-width) solid var(--thin-border-color);
+  border-radius: var(--border-radius);
+}
+
+button {
+  border: var(--border-width) outset lightgray;
+  border-radius: var(--border-radius);
+}
+
+.block-container {
+  margin-top: 1rem;
+}
+
+.paragraph-container {
+  margin-bottom: 0.75rem;
+
+  font-size: var(--tiny-paragraph-size);
+}
+
+.bold-text {
+  color: black;
+  font-size: var(--small-paragraph-size);
+  font-weight: 700;
+}
+
+.navigation-link {
+  color: var(--link-color);
+  font-size: var(--link-font-size);
+  text-decoration: underline;
+}

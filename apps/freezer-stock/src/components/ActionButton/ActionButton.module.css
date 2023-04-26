@@ -1,0 +1,14 @@
+.button {
+  height: 1.5rem;
+  width: 1.5rem;
+
+  background-size: 20px;
+}
+
+.edit {
+  background: url("/assets/edit_20px.png") no-repeat;
+}
+
+.undo {
+  background: url("/assets/undo_20px.png") no-repeat;
+}

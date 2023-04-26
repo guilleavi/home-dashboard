@@ -1,23 +1,29 @@
 import type { ProductDetails } from "@custom-types/product"
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid"
+import Box from "@mui/material/Box"
 import { trimDateString } from "@utils/date"
-import styles from "./StockDetails.module.scss"
 
-type StockDetailsProps = {
+interface StockDetailsProps {
   instances: Array<ProductDetails>
 }
 
-type GridValueGetterParamsWithRows = {
+interface GridValueGetterParamsWithRows extends GridValueGetterParams {
   row: { expirationDate: Date }
-} & GridValueGetterParams
+}
 
 const columns: Array<GridColDef> = [
-  { field: "name", headerName: "Name", width: 300 },
-  { field: "units", headerName: "Units", width: 125 },
+  { field: "name", headerName: "Name", flex: 2, headerClassName: "header" },
+  {
+    field: "units",
+    headerName: "Units",
+    minWidth: 50,
+    headerClassName: "header",
+  },
   {
     field: "expirationDate",
     headerName: "Expiration Date",
-    width: 200,
+    minWidth: 120,
+    headerClassName: "header",
     valueGetter: (params: GridValueGetterParamsWithRows) =>
       trimDateString(params.row.expirationDate.toString()),
   },
@@ -25,15 +31,21 @@ const columns: Array<GridColDef> = [
 
 const StockDetails = ({ instances }: StockDetailsProps) =>
   instances.length ? (
-    <div className={styles["list"]}>
+    <Box
+      sx={{
+        width: "100%",
+        "& .header": { color: "black", backgroundColor: "lightgray" },
+      }}
+    >
       <DataGrid
         getRowId={(row: { instanceId: number }) => row.instanceId}
         rows={instances}
         columns={columns}
         pageSize={8}
         sortingOrder={["desc", "asc"]}
+        autoHeight={true}
       />
-    </div>
+    </Box>
   ) : (
     <p>No results found</p>
   )

@@ -1,27 +1,29 @@
 import CounterButton from "@components/CounterButton/CounterButton"
-import styles from "./UnitsController.module.scss"
+import { ProductContext } from "@contexts/ProductProvider"
+import { ProductActionType } from "@state/actions"
+import { useContext } from "react"
+import styles from "./UnitsController.module.css"
 
-type UnitsControllerProps = {
-  units: number
-  onChangeUnits: (newUnits: number) => void
-}
+const UnitsController = () => {
+  const { state, dispatch } = useContext(ProductContext)
+  const { units = 0 } = state.newProductItem
 
-const UnitsController = ({
-  units = 0,
-  onChangeUnits,
-}: UnitsControllerProps) => {
   const handleUpdateQuantity = (add: number) => {
     const newQuantity = units + add
-    onChangeUnits(newQuantity < 0 ? 0 : newQuantity)
+    const normalizedNewQuantity = newQuantity < 0 ? 0 : newQuantity
+    dispatch({
+      type: ProductActionType.UPDATE_PRODUCT,
+      payload: { key: "units", value: normalizedNewQuantity },
+    })
   }
 
   return (
-    <div className="center-container">
+    <div className={`block-container ${styles["centered"]}`}>
       <CounterButton
         operation="-"
         onTriggerAction={() => handleUpdateQuantity(-1)}
       />
-      <label className={styles["label"]}>{units}</label>
+      {units}
       <CounterButton
         operation="+"
         onTriggerAction={() => handleUpdateQuantity(1)}

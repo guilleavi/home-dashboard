@@ -1,36 +1,26 @@
+import { ProductContext } from "@contexts/ProductProvider"
 import { getDaysToExpire } from "@utils/date"
 import { pluralize, pluralizeToBe } from "@utils/strings"
-import styles from "./NextToExpire.module.scss"
+import { useContext } from "react"
 
-type NextToExpireProps = {
-  name: string
-  nextToExpireDate: Date
-  nextToExpireUnits: number
+const NextToExpire = () => {
+  const { state } = useContext(ProductContext)
+  const { name, nextToExpireDate, nextToExpireUnits } = state.storagedProduct
+
+  return (
+    <p className="paragraph-container">
+      <span className="bold-text">
+        {nextToExpireUnits} {pluralize("unit", nextToExpireUnits)}
+      </span>{" "}
+      of {name} {pluralizeToBe(nextToExpireUnits)} expiring in{" "}
+      <span className="bold-text">
+        {getDaysToExpire({
+          today: new Date(),
+          expirationDate: new Date(nextToExpireDate),
+        })}
+      </span>
+    </p>
+  )
 }
-
-const daysToExpire = (nextToExpireDate: Date) =>
-  getDaysToExpire({
-    today: new Date(),
-    expirationDate: new Date(nextToExpireDate),
-  })
-
-const NextToExpire = ({
-  name,
-  nextToExpireDate,
-  nextToExpireUnits,
-}: NextToExpireProps) => (
-  <p>
-    <span className={styles["strong"]}>
-      {nextToExpireUnits} {pluralize("unit", nextToExpireUnits)}
-    </span>{" "}
-    of {name} {pluralizeToBe(nextToExpireUnits)} expiring on{" "}
-    <time
-      className={styles["strong"]}
-      dateTime={daysToExpire(nextToExpireDate)}
-    >
-      {daysToExpire(nextToExpireDate)}
-    </time>
-  </p>
-)
 
 export default NextToExpire

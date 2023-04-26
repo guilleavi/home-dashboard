@@ -1,20 +1,20 @@
 import Head from "next/head"
 import { PropsWithChildren } from "react"
-import styles from "./PageContainer.module.scss"
+import styles from "./PageContainer.module.css"
 
-type PageContainerProps = PropsWithChildren & {
-  htmlTitle: string
+interface PageContainerProps extends PropsWithChildren {
+  htmlTitle?: string
   pageTitle: string
 }
 
 const PageContainer = ({
-  htmlTitle,
+  htmlTitle = "",
   pageTitle,
   children,
 }: PageContainerProps) => (
   <>
     <Head>
-      <title>{htmlTitle}</title>
+      <title>{htmlTitle || pageTitle}</title>
     </Head>
     <header>
       <h1>{pageTitle}</h1>

@@ -4,11 +4,17 @@
     "sourceMap": true,
     "baseUrl": "src",
     "paths": {
+      "@api/*": [
+        "api/*"
+      ],
       "@asserts/*": [
         "asserts/*"
       ],
       "@components/*": [
         "components/*"
+      ],
+      "@containers/*": [
+        "containers/*"
       ],
       "@contexts/*": [
         "contexts/*"
@@ -19,8 +25,14 @@
       "@enums/*": [
         "enums/*"
       ],
+      "@hooks/*": [
+        "hooks/*"
+      ],
       "@services/*": [
         "services/*"
+      ],
+      "@state/*": [
+        "state/*"
       ],
       "@utils/*": [
         "utils/*"

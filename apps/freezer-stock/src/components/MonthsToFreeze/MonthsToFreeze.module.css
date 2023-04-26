@@ -1,0 +1,13 @@
+.container {
+  align-items: baseline;
+  display: flex;
+  justify-content: space-between;
+}
+
+.months-input {
+  height: 1.5rem;
+  padding: 0.25rem;
+  width: 3rem;
+
+  text-align: center;
+}

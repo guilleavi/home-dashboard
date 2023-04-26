@@ -87,7 +87,7 @@ module.exports = {
     "eslint-comments/no-unused-disable": "error", // remove unused eslint-disable
     // Typescript
     "@typescript-eslint/array-type": ["error", { default: "generic" }], // Array[T]
-    "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+    "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
     "@typescript-eslint/consistent-type-exports": "error", // export type separate
     "@typescript-eslint/no-unused-vars":
       process.env.NODE_ENV === "production" ? "error" : "warn",
@@ -118,6 +118,7 @@ module.exports = {
         format: ["PascalCase"],
       },
     ],
+    "@typescript-eslint/no-misused-promises": "off",
     // React
     "react/boolean-prop-naming": ["error", { validateNested: true }],
     "react/button-has-type": "error",

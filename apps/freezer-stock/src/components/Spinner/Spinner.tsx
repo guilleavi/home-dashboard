@@ -1,8 +1,8 @@
 import CircularProgress from "@mui/material/CircularProgress"
 import { PropsWithChildren } from "react"
-import styles from "./Spinner.module.scss"
+import styles from "./Spinner.module.css"
 
-type SpinnerProps = PropsWithChildren & {
+interface SpinnerProps extends PropsWithChildren {
   isActive: boolean
 }
 
@@ -12,6 +12,7 @@ const Spinner = ({ isActive, children }: SpinnerProps) =>
       <CircularProgress />
     </div>
   ) : (
+    /* The children can be several HTML elements so they have to be wrapped inside a React Fragment */
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>{children}</>
   )

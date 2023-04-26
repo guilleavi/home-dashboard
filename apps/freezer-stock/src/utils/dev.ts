@@ -1,3 +1,5 @@
+/* Use this to simulate an API response delay */
+
 /*
  *  https://dnlytras.com/snippets/adding-delay-in-dev
  *   Sample:

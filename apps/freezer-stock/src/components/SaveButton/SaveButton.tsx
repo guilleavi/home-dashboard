@@ -1,48 +1,59 @@
-import { useState } from "react"
-import styles from "./SaveButton.module.scss"
+import { ProductContext } from "@contexts/ProductProvider"
+import { saveProduct } from "@services/products"
+import { ProductActionType } from "@state/actions"
+import { useContext } from "react"
+import styles from "./SaveButton.module.css"
 
-type SaveButtonProps = {
-  newMonthsToFreeze: number
-  storagedMonthsToFreeze: number
-  onSave: () => void
+interface SaveButtonProps {
+  onShowSpinner: (show: boolean) => void
 }
 
-const SaveButton = ({
-  newMonthsToFreeze,
-  storagedMonthsToFreeze,
-  onSave,
-}: SaveButtonProps) => {
-  const [errorMessage, setErrorMessage] = useState("")
+const SaveButton = ({ onShowSpinner }: SaveButtonProps) => {
+  const { state, dispatch } = useContext(ProductContext)
+  const storagedMonthsToFreeze = state.storagedProduct.monthsToFreeze
+  const newMonthsToFreeze = state.newProductItem.monthsToFreeze
 
-  const handleClick = () => {
+  const handleSaveClick = async () => {
     const validateData = () => {
+      const errorMessages = []
       const hasMonthsToFreeze = newMonthsToFreeze || storagedMonthsToFreeze
 
       if (!hasMonthsToFreeze) {
-        setErrorMessage("'Max. freeze time' is mandatory!")
+        errorMessages.push("'Max. freeze time' is mandatory!")
+        dispatch({ type: ProductActionType.SET_ERRORS, payload: errorMessages })
         return false
       }
 
-      setErrorMessage("")
       return true
     }
 
     if (validateData()) {
-      onSave()
+      onShowSpinner(true)
+
+      /* If the product to save is missing information, take it from the storage product */
+      dispatch({
+        type: ProductActionType.MERGE_PRODUCT,
+      })
+
+      await saveProduct(state.newProductItem)
+
+      /* Clean up data to start new search */
+      dispatch({
+        type: ProductActionType.CLEAR_PRODUCT,
+      })
+
+      onShowSpinner(false)
     }
   }
 
   return (
-    <div className="center-container">
-      <button
-        className={styles["save-button"]}
-        type="button"
-        onClick={handleClick}
-      >
-        Save
-      </button>
-      <p className={styles["errors"]}>{errorMessage}</p>
-    </div>
+    <button
+      className={`block-container ${styles["save-button"]}`}
+      type="button"
+      onClick={handleSaveClick}
+    >
+      SAVE
+    </button>
   )
 }
 

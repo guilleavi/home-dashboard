@@ -1,30 +1,39 @@
+import { ProductContext } from "@contexts/ProductProvider"
 import type { ReactChangeEvent } from "@custom-types/dom"
+import { ProductActionType } from "@state/actions"
 import { trimDateString } from "@utils/date"
-import { useState } from "react"
-import styles from "./StorageDate.module.scss"
+import { useContext, useState } from "react"
+import styles from "./StorageDate.module.css"
 
-type StorageDateProps = {
-  onChangeStorageDate: (newDate: string) => void
-}
+/* If there is no 'date' arg, it will returns today's date */
+const normalizedDate = (date?: string) =>
+  trimDateString((date ? new Date(date) : new Date()).toISOString())
 
-const StorageDate = ({ onChangeStorageDate }: StorageDateProps) => {
-  const [storageDate, setStorageDate] = useState(
-    trimDateString(new Date().toISOString()),
-  )
+const StorageDate = () => {
+  const { dispatch } = useContext(ProductContext)
 
-  const handleChange = ({ target }: ReactChangeEvent) => {
-    onChangeStorageDate(target.value)
+  const [storageDate, setStorageDate] = useState(normalizedDate())
+
+  const handleDatepickerChange = ({ target }: ReactChangeEvent) => {
     setStorageDate(target.value)
+    dispatch({
+      type: ProductActionType.UPDATE_PRODUCT,
+      payload: {
+        key: "storageDate",
+        value: trimDateString(normalizedDate(target.value)),
+      },
+    })
   }
 
   return (
-    <div className={styles["container"]}>
-      <h3>Storage Date:</h3>
+    <div className={`block-container ${styles["storage-date-container"]}`}>
+      <label htmlFor="storage-date-datepicker">Storage Date:</label>
       <input
         className={styles["datepicker"]}
+        id="storage-date-datepicker"
         type="date"
         value={storageDate}
-        onChange={handleChange}
+        onChange={handleDatepickerChange}
       />
     </div>
   )

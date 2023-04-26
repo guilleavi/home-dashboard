@@ -1,25 +1,53 @@
-import type { AppProps, NextWebVitalsMetric } from "next/app"
+import { ProductProvider } from "@contexts/ProductProvider"
+import type { AppProps } from "next/app"
 import Head from "next/head"
-import "../styles/index.scss"
-
-export const reportWebVitals = (metric: NextWebVitalsMetric) => {
-  console.log(metric)
-}
+import "../styles/index.css"
 
 const FreezerStockApp = ({ Component, pageProps }: AppProps) => (
   <>
     <Head>
       <meta name="description" content="Freezer stock" />
       <link rel="icon" href="/favicon.ico" />
+      <link
+        rel="preload"
+        href="/fonts/open-sans-300.woff2"
+        as="font"
+        type="font/woff2"
+        crossOrigin="anonymous"
+      />
+      <link
+        rel="preload"
+        href="/fonts/open-sans-400.woff2"
+        as="font"
+        type="font/woff2"
+        crossOrigin="anonymous"
+      />
+      <link
+        rel="preload"
+        href="/fonts/open-sans-400i.woff2"
+        as="font"
+        type="font/woff2"
+        crossOrigin="anonymous"
+      />
+      <link
+        rel="preload"
+        href="/fonts/open-sans-600.woff2"
+        as="font"
+        type="font/woff2"
+        crossOrigin="anonymous"
+      />
+      <link
+        rel="preload"
+        href="/fonts/open-sans-700.woff2"
+        as="font"
+        type="font/woff2"
+        crossOrigin="anonymous"
+      />
     </Head>
-    <Component {...pageProps} />
+    <ProductProvider>
+      <Component {...pageProps} />
+    </ProductProvider>
   </>
 )
 
 export default FreezerStockApp
-
-// TODO: general todo, add unit and integration tests
-// TODO: add Jest, React Testing Library and Cypress
-// TODO: add storybook
-// TODO: accessibility
-// TODO: create 404/500 pages

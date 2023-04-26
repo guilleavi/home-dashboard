@@ -11,14 +11,15 @@ export enum ProductActionType {
   UPDATE_PRODUCT = "UPDATE_PRODUCT",
   MERGE_PRODUCT = "MERGE_PRODUCT",
   CLEAR_PRODUCT = "CLEAR_PRODUCT",
+  SET_ERRORS = "SET_ERRORS",
 }
 
-type GetProductAction = {
+interface GetProductAction {
   type: ProductActionType.GET_PRODUCT
   payload: ProductSummary
 }
 
-type UpdateProductAction = {
+interface UpdateProductAction {
   type: ProductActionType.UPDATE_PRODUCT
   payload:
     | UpdateNamePayload
@@ -27,12 +28,17 @@ type UpdateProductAction = {
     | UpdateUnitsPayload
 }
 
-type MergeProductAction = {
+interface MergeProductAction {
   type: ProductActionType.MERGE_PRODUCT
 }
 
-type ClearProductAction = {
+interface ClearProductAction {
   type: ProductActionType.CLEAR_PRODUCT
+}
+
+interface SetErrorsAction {
+  type: ProductActionType.SET_ERRORS
+  payload: Array<string>
 }
 
 export type ProductActions =
@@ -40,3 +46,4 @@ export type ProductActions =
   | UpdateProductAction
   | MergeProductAction
   | ClearProductAction
+  | SetErrorsAction

@@ -1,0 +1,13 @@
+.search-bar {
+  height: 3rem;
+  margin-top: 0.25rem;
+  padding: 0.375rem 0.75rem 0.375rem 2.5rem;
+  width: 100%;
+
+  background: url("/assets/search_20px.png") no-repeat 0.75rem;
+  background-size: 20px;
+}
+
+.search-bar::placeholder {
+  color: var(--placeholder-color);
+}

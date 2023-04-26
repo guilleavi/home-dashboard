@@ -1,18 +1,18 @@
-export type ProductSummary = {
+export interface ProductSummary {
   name: string
   monthsToFreeze: number
   nextToExpireDate: Date
   nextToExpireUnits: number
 }
 
-export type ProductToSave = {
+export interface ProductToSave {
   name: string
   monthsToFreeze: number
   storageDate: Date
   units: number
 }
 
-export type ProductDetails = {
+export interface ProductDetails {
   instanceId: number
   name: string
   expirationDate: Date
@@ -30,22 +30,22 @@ export class NewProduct implements ProductSummary {
   }
 }
 
-export type UpdateNamePayload = {
+export interface UpdateNamePayload {
   key: "name"
   value: string
 }
 
-export type UpdateMonthsPayload = {
+export interface UpdateMonthsPayload {
   key: "monthsToFreeze"
   value: number
 }
 
-export type UpdateDatePayload = {
+export interface UpdateDatePayload {
   key: "storageDate"
   value: string
 }
 
-export type UpdateUnitsPayload = {
+export interface UpdateUnitsPayload {
   key: "units"
   value: number
 }

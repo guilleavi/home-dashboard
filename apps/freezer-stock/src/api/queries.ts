@@ -1,8 +1,8 @@
+import { ProductWithInstances } from "@custom-types/api"
 import {
   PrismaClient,
   ProductInstance,
 } from "@custom-types/prisma/generated/client"
-import { ProductWithInstances } from "@custom-types/api"
 import type {
   ProductDetails,
   ProductSummary,
@@ -12,6 +12,10 @@ import { Order } from "@enums/api"
 
 const prisma = new PrismaClient()
 
+/**
+ * Get only the name for all the products
+ * @returns - product names
+ */
 export const getAllProductsName = async () => {
   const allProducts = await prisma.product.findMany({
     orderBy: {
@@ -22,6 +26,10 @@ export const getAllProductsName = async () => {
   return allProducts.map((product) => product.name)
 }
 
+/**
+ * Get all the instances for all the products
+ * @returns - all the products with all their instances
+ */
 export const getAllInstances = async () => {
   const allProducts = await prisma.product.findMany({
     orderBy: {
@@ -49,6 +57,11 @@ export const getAllInstances = async () => {
   return [] as Array<ProductDetails>
 }
 
+/**
+ * Get all the instances for a specific product
+ * @param name - product to get its instances
+ * @returns - all the instances
+ */
 export const getProductInstances = async (
   name: string,
 ): Promise<Array<ProductDetails>> => {
@@ -70,6 +83,10 @@ export const getProductInstances = async (
   return [] as Array<ProductDetails>
 }
 
+/**
+ * Update the units for a specific instance, when they are removed from the freezer
+ * @param instance - instance to update
+ */
 export const updateIntanceUnits = async ({
   instanceId,
   units,
@@ -89,7 +106,12 @@ export const updateIntanceUnits = async ({
   }
 }
 
-export const getNextToExpire = async (
+/**
+ * Get Product data with units to expire soon
+ * @param name - product name to search
+ * @returns - product data with the amount of units that are going to expire sooner
+ */
+export const getProductWithNextToExpireUnits = async (
   name: string,
 ): Promise<ProductSummary | null> => {
   const product = await prisma.product.findUnique({
@@ -104,10 +126,15 @@ export const getNextToExpire = async (
   })
 
   if (product) {
+    /* Default expiration values if there is no instances */
     let nextToExpireDate = new Date()
     let nextToExpireUnits = 0
 
     if (product.instances.length) {
+      /*
+       * Get the closest date and filter all the instances
+       * with that expiration date to calculate the units to expire sooner
+       */
       nextToExpireDate = product.instances[0].expirationDate // asc order
       nextToExpireUnits = product.instances
         .filter(
@@ -128,9 +155,13 @@ export const getNextToExpire = async (
     return productResponse
   }
 
-  return product
+  return product // null
 }
 
+/**
+ * Add or Update a product and its instances
+ * @param body - ProductToSave
+ */
 export const saveProduct = async (body: ProductToSave) => {
   const { name, monthsToFreeze, storageDate, units } = body
 
@@ -139,7 +170,7 @@ export const saveProduct = async (body: ProductToSave) => {
   })
 
   try {
-    // If the product already exists, update the monthsToFreeze value ONLY if it changed
+    /* If the product already exists, update the monthsToFreeze value ONLY if it changed */
     if (product) {
       if (product.monthsToFreeze !== monthsToFreeze) {
         await prisma.product.update({
@@ -150,7 +181,7 @@ export const saveProduct = async (body: ProductToSave) => {
         })
       }
     } else {
-      // If the product doesn't exist, insert a new product
+      /* If the product doesn't exist, insert a new product */
       await prisma.product.create({
         data: {
           name,
@@ -159,10 +190,10 @@ export const saveProduct = async (body: ProductToSave) => {
       })
     }
 
-    // Create new instances
+    /* If there are instances, create them */
     if (units) {
       const expirationDate = new Date(storageDate)
-      // Expiration Date = Storage Date + How Many Months Can Be Freezed
+      /* Expiration Date = Storage Date + How Many Months Can Be Freezed */
       expirationDate.setMonth(expirationDate.getMonth() + monthsToFreeze)
 
       await prisma.productInstance.create({

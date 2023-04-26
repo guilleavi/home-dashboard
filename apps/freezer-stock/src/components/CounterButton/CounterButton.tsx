@@ -1,6 +1,6 @@
-import styles from "./CounterButton.module.scss"
+import styles from "./CounterButton.module.css"
 
-type CounterButtonProps = {
+interface CounterButtonProps {
   operation: string
   onTriggerAction: () => void
 }

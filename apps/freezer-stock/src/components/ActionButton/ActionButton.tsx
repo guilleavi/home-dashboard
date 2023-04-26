@@ -1,16 +1,16 @@
 import { EditAction } from "@enums/common"
-import styles from "./ActionButton.module.scss"
+import styles from "./ActionButton.module.css"
 
-type ActionButtonProps = {
+interface ActionButtonProps {
   action: EditAction
   onTriggerAction: () => void
 }
 
 const ActionButton = ({ action, onTriggerAction }: ActionButtonProps) => (
   <button
-    aria-label={action}
     className={`${styles["button"]} ${styles[`${action}`]}`}
     type="button"
+    aria-label={action}
     onClick={onTriggerAction}
   />
 )
