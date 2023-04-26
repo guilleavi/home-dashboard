@@ -1,6 +1,6 @@
 import type { ProductDetails } from "@custom-types/product"
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid"
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box"
 import { trimDateString } from "@utils/date"
 
 interface StockDetailsProps {
@@ -12,13 +12,18 @@ interface GridValueGetterParamsWithRows extends GridValueGetterParams {
 }
 
 const columns: Array<GridColDef> = [
-  { field: "name", headerName: "Name", flex: 2, headerClassName: 'header' },
-  { field: "units", headerName: "Units", minWidth: 50, headerClassName: 'header' },
+  { field: "name", headerName: "Name", flex: 2, headerClassName: "header" },
+  {
+    field: "units",
+    headerName: "Units",
+    minWidth: 50,
+    headerClassName: "header",
+  },
   {
     field: "expirationDate",
     headerName: "Expiration Date",
     minWidth: 120,
-    headerClassName: 'header',
+    headerClassName: "header",
     valueGetter: (params: GridValueGetterParamsWithRows) =>
       trimDateString(params.row.expirationDate.toString()),
   },
@@ -26,7 +31,12 @@ const columns: Array<GridColDef> = [
 
 const StockDetails = ({ instances }: StockDetailsProps) =>
   instances.length ? (
-    <Box sx={{ width: '100%', '& .header': { color: 'black', backgroundColor: 'lightgray' } }}>
+    <Box
+      sx={{
+        width: "100%",
+        "& .header": { color: "black", backgroundColor: "lightgray" },
+      }}
+    >
       <DataGrid
         getRowId={(row: { instanceId: number }) => row.instanceId}
         rows={instances}

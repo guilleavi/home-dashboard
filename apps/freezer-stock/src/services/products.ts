@@ -28,8 +28,8 @@ export const getProduct = async (
     })
 
     /*
-     * If the product does not exits in the db, 
-     * return template with default data to create new product 
+     * If the product does not exits in the db,
+     * return template with default data to create new product
      */
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     return response.data || defaultValue

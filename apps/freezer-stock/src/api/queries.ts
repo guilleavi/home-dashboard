@@ -131,9 +131,9 @@ export const getProductWithNextToExpireUnits = async (
     let nextToExpireUnits = 0
 
     if (product.instances.length) {
-      /* 
-       * Get the closest date and filter all the instances 
-       * with that expiration date to calculate the units to expire sooner 
+      /*
+       * Get the closest date and filter all the instances
+       * with that expiration date to calculate the units to expire sooner
        */
       nextToExpireDate = product.instances[0].expirationDate // asc order
       nextToExpireUnits = product.instances

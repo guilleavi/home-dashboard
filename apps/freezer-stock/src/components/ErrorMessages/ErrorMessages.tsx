@@ -7,15 +7,13 @@ const ErrorMessages = () => {
 
   return (
     <div className="block-container">
-      {
-        state.errors.map((error, index) =>
-          <p key={index} className={styles["error-message"]}>{error}</p>
-        )
-      }
+      {state.errors.map((error, index) => (
+        <p key={index} className={styles["error-message"]}>
+          {error}
+        </p>
+      ))}
     </div>
   )
-
-
 }
 
 export default ErrorMessages

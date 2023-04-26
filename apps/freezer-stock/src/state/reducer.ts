@@ -11,7 +11,7 @@ export interface ProductState {
 export const initialState: ProductState = {
   storagedProduct: {} as ProductSummary,
   newProductItem: {} as ProductToSave,
-  errors: []
+  errors: [],
 }
 
 export const reducer = (
@@ -66,12 +66,12 @@ export const reducer = (
           storageDate: new Date(),
           units: 0,
         },
-        errors: []
+        errors: [],
       }
     case ProductActionType.SET_ERRORS:
       return {
         ...state,
-        errors: action.payload
+        errors: action.payload,
       }
     default:
       console.error("Action not implemented", action)

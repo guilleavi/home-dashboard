@@ -1,4 +1,5 @@
-export interface ReactKeyboardEvent extends React.KeyboardEvent<HTMLInputElement> {
+export interface ReactKeyboardEvent
+  extends React.KeyboardEvent<HTMLInputElement> {
   target: HTMLInputElement
 }
 

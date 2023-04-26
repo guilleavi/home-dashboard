@@ -22,13 +22,10 @@ const NextToExpire = () => {
         {nextToExpireUnits} {pluralize("unit", nextToExpireUnits)}
       </span>{" "}
       of {name} {pluralizeToBe(nextToExpireUnits)} expiring in{" "}
-      <time
-        className="bold-text"
-        dateTime={daysToExpire(nextToExpireDate)}
-      >
+      <time className="bold-text" dateTime={daysToExpire(nextToExpireDate)}>
         {daysToExpire(nextToExpireDate)}
       </time>
-    </p >
+    </p>
   )
 }
 

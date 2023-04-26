@@ -13,8 +13,8 @@ interface SearchInputProps {
 }
 
 const SearchInput = ({ onShowSpinner }: SearchInputProps) => {
-  /* 
-   * When the user goes to the details page and comes back to the search page, 
+  /*
+   * When the user goes to the details page and comes back to the search page,
    * show the last search results
    */
   const router = useRouter()
