@@ -11,7 +11,7 @@ import CardContainer from "@containers/CardContainer/CardContainer"
 import PageContainer from "@containers/PageContainer/PageContainer"
 import { ProductContext } from "@contexts/ProductProvider"
 import { toPascalCase } from "@utils/strings"
-import { useContext, useState } from "react"
+import { useCallback, useContext, useState } from "react"
 
 const HomePage = () => {
   const [showSpinner, setShowSpinner] = useState(false)
@@ -19,11 +19,16 @@ const HomePage = () => {
   const { state } = useContext(ProductContext)
   const { name, nextToExpireUnits } = state.storagedProduct
 
+  /* useCallback avoids SearchInput rerender */
+  const handleShowSpinner = useCallback((show: boolean) => {
+    setShowSpinner(show)
+  }, [])
+
   // TODO: can I replace the spinner logic with the useTransition hook ???
   return (
     <PageContainer pageTitle={"Freezer Stock"}>
       <ShowDetailsLink slug="all">Show All Products</ShowDetailsLink>
-      <SearchInput onShowSpinner={(show) => setShowSpinner(show)} />
+      <SearchInput onShowSpinner={handleShowSpinner} />
       <Spinner isActive={showSpinner}>
         {name ? (
           <>

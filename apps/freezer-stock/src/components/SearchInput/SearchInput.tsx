@@ -36,7 +36,7 @@ const SearchInput = ({ onShowSpinner }: SearchInputProps) => {
       })
       onShowSpinner(false)
     }
-  }, [fetchedProduct])
+  }, [fetchedProduct, dispatch, onShowSpinner])
 
   const handleKeyDown = ({ key }: ReactKeyboardEvent) => {
     /* Trigger search and leave the input cleared for a future search */
