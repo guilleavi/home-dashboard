@@ -29,6 +29,8 @@ const columns: Array<GridColDef> = [
   },
 ]
 
+const ROWS_PER_PAGE = 10
+
 const StockDetails = ({ instances }: StockDetailsProps) =>
   instances.length ? (
     <Box
@@ -41,7 +43,8 @@ const StockDetails = ({ instances }: StockDetailsProps) =>
         getRowId={(row: { instanceId: number }) => row.instanceId}
         rows={instances}
         columns={columns}
-        pageSize={8}
+        rowsPerPageOptions={[ROWS_PER_PAGE]}
+        pageSize={ROWS_PER_PAGE}
         sortingOrder={["desc", "asc"]}
         autoHeight={true}
       />
