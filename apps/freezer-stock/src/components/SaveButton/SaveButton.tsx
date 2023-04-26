@@ -24,12 +24,6 @@ const SaveButton = ({ onShowSpinner }: SaveButtonProps) => {
         return false
       }
 
-      // TODO: remove this, it's just to test error's styles
-      errorMessages.push("'Max. freeze time' is mandatory!")
-      errorMessages.push("'Max. freeze time' is mandatory!")
-      dispatch({ type: ProductActionType.SET_ERRORS, payload: errorMessages })
-      return false
-
       return true
     }
 

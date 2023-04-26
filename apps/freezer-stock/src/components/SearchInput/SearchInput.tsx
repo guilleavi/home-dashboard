@@ -12,7 +12,6 @@ interface SearchInputProps {
   onShowSpinner: (show: boolean) => void
 }
 
-// FIXME: if you save a product and after that you search for that product again, it doesn't work
 const SearchInput = ({ onShowSpinner }: SearchInputProps) => {
   /* 
    * When the user goes to the details page and comes back to the search page, 
@@ -34,6 +33,7 @@ const SearchInput = ({ onShowSpinner }: SearchInputProps) => {
         type: ProductActionType.GET_PRODUCT,
         payload: fetchedProduct,
       })
+      setProductToSearch("")
       onShowSpinner(false)
     }
   }, [fetchedProduct, dispatch, onShowSpinner])
