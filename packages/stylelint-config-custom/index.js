@@ -7,5 +7,10 @@ module.exports = {
     "color-named": "always-where-possible",
     "font-weight-notation": "numeric",
     "declaration-no-important": true,
+    "declaration-empty-line-before": [
+      "always",
+      { "ignore": ["after-comment", "after-declaration", "first-nested", "inside-single-line-block"]}
+    ]
+    
   },
 };

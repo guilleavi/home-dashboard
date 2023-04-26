@@ -6,7 +6,6 @@
   --main-color: #0d6efdbf;
   --secondary-color: #00b7ff;
   --error-color: red;
-
   --link-color: var(--secondary-color);
   --placeholder-color: #7297a5;
   --shadow-color: #0d6efd40;
@@ -31,7 +30,7 @@ body {
 
 h1 {
   font-size: 1.75rem;
-  font-weight: bold;
+  font-weight: 700;
   margin: 1.5rem;
   text-align: center;
 }
@@ -68,7 +67,7 @@ button {
 .bold-text {
   color: black;
   font-size: var(--small-paragraph-size);
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .navigation-link {
