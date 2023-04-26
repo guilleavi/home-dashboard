@@ -5,6 +5,10 @@ import styles from "./ErrorMessages.module.css"
 const ErrorMessages = () => {
   const { state } = useContext(ProductContext)
 
+  if (!state.errors.length) {
+    return null
+  }
+
   return (
     <div className="block-container">
       {state.errors.map((error, index) => (
