@@ -1,10 +1,10 @@
-@import "https://fonts.googleapis.com/css?family=Open+Sans";
+@import './fonts';
 @import "./reset";
 
 :root {
   /* colors */
-  --main-color: #0d6efdbf;
-  --secondary-color: #00b7ff;
+  --main-color: #0d6efd;
+  --secondary-color: #007daf;
   --error-color: red;
   --link-color: var(--secondary-color);
   --placeholder-color: #7297a5;
@@ -43,9 +43,8 @@ input {
 }
 
 button {
+  border: var(--border-width) outset lightgray;
   border-radius: var(--border-radius);
-  border-style: outset;
-  border-width: var(--border-width);
 }
 
 .block-container {
@@ -55,7 +54,6 @@ button {
 .paragraph-container {
   margin-bottom: 0.75rem;
 
-  color: gray;
   font-size: var(--tiny-paragraph-size);
 }
 
