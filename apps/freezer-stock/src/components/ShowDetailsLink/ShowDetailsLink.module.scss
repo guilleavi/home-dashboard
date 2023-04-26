@@ -1,13 +1,5 @@
-@import "../../styles/colors";
-@import "../../styles/fonts";
-
-.link-wrapper {
+.link-container {
   margin-bottom: 0.5rem;
-  text-align: right;
-}
 
-.link {
-  color: $link;
-  font-size: $tiny;
-  text-decoration: underline;
+  text-align: right;
 }

@@ -6,9 +6,9 @@ interface SectionProps extends PropsWithChildren {
 }
 
 const CardContainer = ({ title, children }: SectionProps) => (
-  <section>
+  <section className="block-container">
     <header>
-      <h2>{title}</h2>
+      <h2 className={styles["card-header"]}>{title}</h2>
     </header>
     <div className={styles["card"]}>{children}</div>
   </section>

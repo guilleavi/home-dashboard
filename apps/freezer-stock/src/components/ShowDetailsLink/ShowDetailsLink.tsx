@@ -7,9 +7,8 @@ interface ShowDetailsLinkProps extends PropsWithChildren {
 }
 
 const ShowDetailsLink = ({ slug, children }: ShowDetailsLinkProps) => (
-  // TODO: check if I can remove the div, now it is only there to add css
-  <div className={styles["link-wrapper"]}>
-    <Link className={styles["link"]} href={`/details/${slug}`}>
+  <div className={styles["link-container"]}>
+    <Link className="navigation-link" href={`/details/${slug}`}>
       {children}
     </Link>
   </div>

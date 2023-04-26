@@ -118,6 +118,7 @@ module.exports = {
         format: ["PascalCase"],
       },
     ],
+    "@typescript-eslint/no-misused-promises": "off",
     // React
     "react/boolean-prop-naming": ["error", { validateNested: true }],
     "react/button-has-type": "error",

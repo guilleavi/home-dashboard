@@ -1,14 +1,10 @@
-@import "../../styles/fonts";
-
-.container {
+.storage-date-container {
   align-items: baseline;
   display: flex;
   justify-content: space-between;
-  margin: 2rem 1rem;
 }
 
 .datepicker {
-  font-size: $normal;
   text-align: center;
   width: 7.5rem;
 }

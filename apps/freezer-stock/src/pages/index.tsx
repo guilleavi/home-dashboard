@@ -1,3 +1,4 @@
+import ErrorMessages from "@components/ErrorMessages/ErrorMessages"
 import MonthsToFreeze from "@components/MonthsToFreeze/MonthsToFreeze"
 import NextToExpire from "@components/NextToExpire/NextToExpire"
 import SaveButton from "@components/SaveButton/SaveButton"
@@ -38,6 +39,7 @@ const HomePage = () => {
             <StorageDate />
             <UnitsController />
             <SaveButton onShowSpinner={(show) => setShowSpinner(show)} />
+            <ErrorMessages />
           </>
         ) : null}
       </Spinner>

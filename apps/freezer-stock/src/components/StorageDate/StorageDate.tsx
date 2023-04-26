@@ -26,8 +26,10 @@ const StorageDate = () => {
   }
 
   return (
-    <div className={styles["container"]}>
-      <label htmlFor="storage-date-datepicker">Storage Date:</label>
+    <div className={`block-container ${styles["storage-date-container"]}`}>
+      <label htmlFor="storage-date-datepicker">
+        Storage Date:
+      </label>
       <input
         className={styles["datepicker"]}
         id="storage-date-datepicker"

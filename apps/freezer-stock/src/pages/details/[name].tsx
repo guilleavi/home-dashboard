@@ -17,15 +17,13 @@ const DetailsPage = ({
     <PageContainer htmlTitle={`Freezer stock - ${title}`} pageTitle={title}>
       <StockDetails instances={instances} />
       <Link
+        className="navigation-link"
         href={{
           pathname: "/",
           ...(name !== "all" && { query: { name } }),
         }}
       >
-        {/* TODO: remove button, use anchor */}
-        <button className="main-button" type="button">
-          Back
-        </button>
+        Back
       </Link>
     </PageContainer>
   )

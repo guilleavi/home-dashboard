@@ -1,9 +1,28 @@
 @import "https://fonts.googleapis.com/css?family=Open+Sans";
 @import "./reset";
-@import "./colors";
-@import "./fonts";
 
-// TODO: work on styles
+:root {
+  /* colors */
+  --main-color: #0d6efdbf;
+  --secondary-color: #00b7ff;
+  --error-color: red;
+
+  --link-color: var(--secondary-color);
+  --placeholder-color: #7297a5;
+  --shadow-color: #0d6efd40;
+  --thin-border-color: #ced4da;
+
+  /* borders */
+  --border-radius: 5px;
+  --border-width: 2px;
+
+  /* font */
+  --input-font-size: 0.9rem;
+  --link-font-size: 0.75rem;
+  --small-paragraph-size: 0.9rem;
+  --tiny-paragraph-size: 0.8rem;
+}
+
 body {
   font-family: "Open Sans", "Segoe UI", Helvetica, sans-serif;
   text-rendering: optimizelegibility;
@@ -11,46 +30,49 @@ body {
 }
 
 h1 {
-  font-size: $huge;
-  font-weight: $bold;
+  font-size: 1.75rem;
+  font-weight: bold;
   margin: 1.5rem;
   text-align: center;
 }
 
-h2 {
-  font-size: $big;
-  font-weight: $bold;
-  margin-bottom: 0.75rem;
-}
-
-h3 {
-  font-size: $normal;
-}
-
-p {
-  font-size: $small;
-}
-
 input {
-  border: 1px solid $thin-border;
-  border-radius: 0.25rem;
-  line-height: 1.5;
+  font-size: var(--input-font-size);
+
+  border: var(--border-width) solid var(--thin-border-color);
+  border-radius: var(--border-radius);
 }
 
-input:not([type="checkbox"]):focus {
-  border: none;
-  box-shadow: 0 0 0 0.25rem $shadow;
-}
+// input:not([type="checkbox"]):focus {
+//   border: none;
+//   box-shadow: 0 0 0 0.25rem $shadow;
+// }
 
 button {
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   border-style: outset;
-  border-width: 2px;
+  border-width: var(--border-width);
 }
 
-.center-container {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  margin: 2rem;
+.block-container {
+  margin-top: 1rem;
+}
+
+.paragraph-container {
+  margin-bottom: 0.75rem;
+  
+  color: gray;
+  font-size: var(--tiny-paragraph-size);
+}
+
+.bold-text {
+  color: black;
+  font-size: var(--small-paragraph-size);
+  font-weight: bold;
+}
+
+.navigation-link {
+  color: var(--link-color);
+  font-size: var(--link-font-size);
+  text-decoration: underline;
 }

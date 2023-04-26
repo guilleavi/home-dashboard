@@ -11,6 +11,7 @@ export enum ProductActionType {
   UPDATE_PRODUCT = "UPDATE_PRODUCT",
   MERGE_PRODUCT = "MERGE_PRODUCT",
   CLEAR_PRODUCT = "CLEAR_PRODUCT",
+  SET_ERRORS = 'SET_ERRORS'
 }
 
 interface GetProductAction {
@@ -35,8 +36,14 @@ interface ClearProductAction {
   type: ProductActionType.CLEAR_PRODUCT
 }
 
+interface SetErrorsAction {
+  type: ProductActionType.SET_ERRORS
+  payload: Array<string>
+}
+
 export type ProductActions =
   | GetProductAction
   | UpdateProductAction
   | MergeProductAction
   | ClearProductAction
+  | SetErrorsAction

@@ -5,11 +5,13 @@ import { ProductActionType } from "./actions"
 export interface ProductState {
   storagedProduct: ProductSummary
   newProductItem: ProductToSave
+  errors: Array<string>
 }
 
 export const initialState: ProductState = {
   storagedProduct: {} as ProductSummary,
   newProductItem: {} as ProductToSave,
+  errors: []
 }
 
 export const reducer = (
@@ -64,6 +66,12 @@ export const reducer = (
           storageDate: new Date(),
           units: 0,
         },
+        errors: []
+      }
+    case ProductActionType.SET_ERRORS:
+      return {
+        ...state,
+        errors: action.payload
       }
     default:
       console.error("Action not implemented", action)

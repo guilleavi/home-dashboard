@@ -18,12 +18,12 @@ const UnitsController = () => {
   }
 
   return (
-    <div className="center-container">
+    <div className={`block-container ${styles["centered"]}`}>
       <CounterButton
         operation="-"
         onTriggerAction={() => handleUpdateQuantity(-1)}
       />
-      <p className={styles["label"]}>{units}</p>
+      {units}
       <CounterButton
         operation="+"
         onTriggerAction={() => handleUpdateQuantity(1)}

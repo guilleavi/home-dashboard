@@ -51,28 +51,30 @@ const MonthsToFreeze = () => {
   }
 
   return (
-    <p className={styles["container"]}>
-      Max. freeze time:{" "}
-      <span className={styles["months"]}>
-        {editMode === EditAction.EDIT ? (
-          <input
-            className={styles["months-input"]}
-            min="1"
-            type="number"
-            value={monthsToFreezeInputValue}
-            aria-label="How long the product can be freezed"
-            onChange={handleChangeInput}
-          />
-        ) : (
-          <> {monthsToFreezeOriginalValue}</>
-        )}{" "}
-        months{" "}
-      </span>
+    <div className={styles["container"]}>
+      <p className="paragraph-container">
+        Max. freeze time:{" "}
+        <span className="bold-text">
+          {editMode === EditAction.EDIT ? (
+            <input
+              className={styles["months-input"]}
+              min="1"
+              type="number"
+              value={monthsToFreezeInputValue}
+              aria-label="How long the product can be freezed"
+              onChange={handleChangeInput}
+            />
+          ) : (
+            <> {monthsToFreezeOriginalValue}</>
+          )}{" "}
+          months{" "}
+        </span>
+      </p>
       <ActionButton
         action={getOppositeAction(editMode)}
         onTriggerAction={handleTriggerAction}
       />
-    </p>
+    </div>
   )
 }
 

@@ -14,8 +14,14 @@ GET - api/products/instances/[name] - Get all the instances for a specific produ
 PUT - api/products/instances/[name] - Update instace units when they get removed from the freezer <--- TODO: client functionality that uses this endpoint has not been written yet.
 
 ## Stack
-Backend
+Server
 This projects uses NextJS APIs as backend with Prisma as ORM.
 It consumes a MySQL db that is hosted on Google Cloud.
+
+Client
+This project use NextJS with Context as State Management. 
+For the details pages, that needs to fetch information at the init, it's using SSR.
+
+For styling, it's using SCSS Modules.
 
 

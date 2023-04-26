@@ -1,19 +1,11 @@
-- styles - mobile first
+- styles - mobile first *
 - semantic - a11y
-- tests
+- tests: unit and integration tests (Jest, React Testing Library, Cypress)
 - storybook
-- redux toolkit
-
+- redux toolkit *
+- create 404/500 custom pages
 - work on TODOs and FIXMEs
 
-check
-- pages
-- containers
-- components
-
-
-// TODO: general todo, add unit and integration tests
-// TODO: add Jest, React Testing Library and Cypress
-// TODO: add storybook
-// TODO: accessibility
-// TODO: create 404/500 pages
+check components *
+check console warns *
+remove scss, only use css

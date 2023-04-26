@@ -1,15 +1,11 @@
-@import "../../styles/colors";
-@import "../../styles/fonts";
-
 .search-bar {
-  background: url("../../../assets/search_20px.png") no-repeat 0.75rem;
-  background-size: 20px;
-  margin-bottom: 1.5rem;
   padding: 0.375rem 0.75rem 0.375rem 2.5rem;
   width: 100%;
+
+  background: url("../../../assets/search_20px.png") no-repeat 0.75rem;
+  background-size: 20px;
 }
 
 .search-bar::placeholder {
-  color: $placeholder;
-  font-size: $small;
+  color: var(--placeholder-color);
 }
