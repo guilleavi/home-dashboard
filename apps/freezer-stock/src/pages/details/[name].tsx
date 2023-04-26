@@ -29,6 +29,7 @@ const DetailsPage = ({
   )
 }
 
+// TODO: show spinner while the page is loading
 export const getServerSideProps = async (
   context: GetStaticPropsContext<ContextParams>,
 ) => {

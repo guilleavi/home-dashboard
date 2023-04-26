@@ -1,4 +1,3 @@
-- semantic - a11y
 - tests: unit and integration tests (Jest, React Testing Library, Cypress)
 - storybook
 - redux toolkit *
