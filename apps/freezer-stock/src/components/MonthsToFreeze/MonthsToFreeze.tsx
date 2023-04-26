@@ -4,7 +4,7 @@ import type { ReactChangeEvent } from "@custom-types/dom"
 import { EditAction } from "@enums/common"
 import { ProductActionType } from "@state/actions"
 import { useContext, useState } from "react"
-import styles from "./MonthsToFreeze.module.scss"
+import styles from "./MonthsToFreeze.module.css"
 
 const getOppositeAction = (currentAction: EditAction) =>
   currentAction === EditAction.EDIT ? EditAction.UNDO : EditAction.EDIT

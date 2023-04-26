@@ -1,6 +1,6 @@
 import Head from "next/head"
 import { PropsWithChildren } from "react"
-import styles from "./PageContainer.module.scss"
+import styles from "./PageContainer.module.css"
 
 interface PageContainerProps extends PropsWithChildren {
   htmlTitle?: string

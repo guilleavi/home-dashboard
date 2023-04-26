@@ -2,7 +2,7 @@ import CounterButton from "@components/CounterButton/CounterButton"
 import { ProductContext } from "@contexts/ProductProvider"
 import { ProductActionType } from "@state/actions"
 import { useContext } from "react"
-import styles from "./UnitsController.module.scss"
+import styles from "./UnitsController.module.css"
 
 const UnitsController = () => {
   const { state, dispatch } = useContext(ProductContext)

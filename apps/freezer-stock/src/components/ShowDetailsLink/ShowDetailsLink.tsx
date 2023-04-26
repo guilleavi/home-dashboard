@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { PropsWithChildren } from "react"
-import styles from "./ShowDetailsLink.module.scss"
+import styles from "./ShowDetailsLink.module.css"
 
 interface ShowDetailsLinkProps extends PropsWithChildren {
   slug: string

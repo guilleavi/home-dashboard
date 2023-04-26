@@ -6,7 +6,7 @@ import useFetchProduct from "@hooks/useFetchProduct"
 import { ProductActionType } from "@state/actions"
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
-import styles from "./SearchInput.module.scss"
+import styles from "./SearchInput.module.css"
 
 interface SearchInputProps {
   onShowSpinner: (show: boolean) => void

@@ -1,6 +1,6 @@
 import CircularProgress from "@mui/material/CircularProgress"
 import { PropsWithChildren } from "react"
-import styles from "./Spinner.module.scss"
+import styles from "./Spinner.module.css"
 
 interface SpinnerProps extends PropsWithChildren {
   isActive: boolean

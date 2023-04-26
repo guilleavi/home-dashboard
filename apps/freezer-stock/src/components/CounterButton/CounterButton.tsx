@@ -1,4 +1,4 @@
-import styles from "./CounterButton.module.scss"
+import styles from "./CounterButton.module.css"
 
 interface CounterButtonProps {
   operation: string

@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "format": "npx prettier --write ./src",
-    "stylelint": "npx stylelint \"src/**/*.{css,scss}\" --fix",
+    "stylelint": "npx stylelint \"src/**/*.{css}\" --fix",
     "db:generate": "prisma generate",
     "db:push": "prisma db push --skip-generate"
   },
@@ -33,7 +33,6 @@
     "prettier": "^2.8.2",
     "prettier-config-custom": "workspace:*",
     "prisma": "^4.8.1",
-    "sass": "^1.57.1",
     "stylelint": "^14.16.1",
     "stylelint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",

@@ -1,6 +1,6 @@
 import { ProductContext } from "@contexts/ProductProvider"
 import { useContext } from "react"
-import styles from "./ErrorMessages.module.scss"
+import styles from "./ErrorMessages.module.css"
 
 const ErrorMessages = () => {
   const { state } = useContext(ProductContext)

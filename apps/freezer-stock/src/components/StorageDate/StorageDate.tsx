@@ -3,7 +3,7 @@ import type { ReactChangeEvent } from "@custom-types/dom"
 import { ProductActionType } from "@state/actions"
 import { trimDateString } from "@utils/date"
 import { useContext, useState } from "react"
-import styles from "./StorageDate.module.scss"
+import styles from "./StorageDate.module.css"
 
 /* If there is no 'date' arg, it will returns today's date */
 const normalizedDate = (date?: string) =>

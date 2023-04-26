@@ -2,7 +2,7 @@ import { ProductContext } from "@contexts/ProductProvider"
 import { saveProduct } from "@services/products"
 import { ProductActionType } from "@state/actions"
 import { useContext } from "react"
-import styles from "./SaveButton.module.scss"
+import styles from "./SaveButton.module.css"
 
 interface SaveButtonProps {
   onShowSpinner: (show: boolean) => void

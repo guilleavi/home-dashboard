@@ -22,6 +22,6 @@ Client
 This project use NextJS with Context as State Management. 
 For the details pages, that needs to fetch information at the init, it's using SSR.
 
-For styling, it's using SCSS Modules.
+For styling, it's using CSS Modules.
 
 

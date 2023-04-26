@@ -1,5 +1,5 @@
 import { EditAction } from "@enums/common"
-import styles from "./ActionButton.module.scss"
+import styles from "./ActionButton.module.css"
 
 interface ActionButtonProps {
   action: EditAction

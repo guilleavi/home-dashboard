@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ["stylelint-config-standard-scss", "stylelint-config-prettier-scss"],
+  extends: ["stylelint-config-standard", "stylelint-config-standard-scss", "stylelint-config-prettier-scss"],
   ignoreFiles: ["**/*.js", "**/*.json", "**/*.ts", "**/*.tsx"],
   rules: {
     "property-no-vendor-prefix": null,
