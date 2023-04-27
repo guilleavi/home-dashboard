@@ -1,4 +1,8 @@
-import { ProductSummary, ProductToSave, UpdateProductActionPayloads } from "@custom-types/product"
+import {
+  ProductSummary,
+  ProductToSave,
+  UpdateProductActionPayloads,
+} from "@custom-types/product"
 import { createSlice } from "@reduxjs/toolkit"
 import type { PayloadAction } from "@reduxjs/toolkit"
 

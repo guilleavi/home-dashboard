@@ -1,7 +1,6 @@
 import { saveProduct } from "@services/products"
-import { ProductActionType } from "@state/actions"
 import { useAppDispatch, useAppSelector } from "@store/hooks"
-import { cleanUp, merge } from "@store/productSlice"
+import { cleanUp, errors, merge } from "@store/productSlice"
 import styles from "./SaveButton.module.css"
 
 interface SaveButtonProps {
@@ -23,7 +22,7 @@ const SaveButton = ({ onShowSpinner }: SaveButtonProps) => {
 
       if (!hasMonthsToFreeze) {
         errorMessages.push("'Max. freeze time' is mandatory!")
-        dispatch({ type: ProductActionType.SET_ERRORS, payload: errorMessages })
+        dispatch(errors(errorMessages))
         return false
       }
 

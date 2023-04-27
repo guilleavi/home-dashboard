@@ -31,9 +31,6 @@
       "@services/*": [
         "services/*"
       ],
-      "@state/*": [
-        "state/*"
-      ],
       "@store/*": [
         "store/*"
       ],

@@ -2,9 +2,8 @@ import { assertIsString } from "@asserts/primitives"
 import type { ReactKeyboardEvent } from "@custom-types/dom"
 import { Key } from "@enums/common"
 import useFetchProduct from "@hooks/useFetchProduct"
-import { ProductActionType } from "@state/actions"
 import { useAppDispatch } from "@store/hooks"
-import { get } from "@store/productSlice"
+import { cleanUp, get } from "@store/productSlice"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import styles from "./SearchInput.module.css"
@@ -46,9 +45,7 @@ const SearchInput = ({ onShowSpinner }: SearchInputProps) => {
     /* Trigger search and leave the input cleared for a future search */
     if (key === Key.ENTER) {
       onShowSpinner(true)
-      dispatch({
-        type: ProductActionType.CLEAR_PRODUCT,
-      })
+      dispatch(cleanUp())
       setProductToSearch(inputValue)
       setInputValue("")
     }
