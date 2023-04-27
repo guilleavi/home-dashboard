@@ -49,9 +49,12 @@ export const getAllInstances = async () => {
         // TODO: move this repeated logic to util
         const expirationDate = new Date(instance.storageDate)
         expirationDate.setMonth(expirationDate.getMonth() + product.monthsToFreeze)
-        instance.expirationDate = expirationDate
+
+        allProductsDetails.push({
+          ...instance,
+          expirationDate
+        })
       })
-      allProductsDetails.push(...product.instances)
     })
 
     return allProductsDetails
@@ -80,14 +83,20 @@ export const getProductInstances = async (
   })
 
   if (product?.instances.length) {
+    const productDetails: Array<ProductDetails> = []
+
     product.instances.forEach((instance) => {
       // TODO: move this repeated logic to util
       const expirationDate = new Date(instance.storageDate)
       expirationDate.setMonth(expirationDate.getMonth() + product.monthsToFreeze)
-      instance.expirationDate = expirationDate
+
+      productDetails.push({
+        ...instance,
+        expirationDate
+      })
     })
 
-    return product.instances
+    return productDetails
   }
 
   return [] as Array<ProductDetails>
