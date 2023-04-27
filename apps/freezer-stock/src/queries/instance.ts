@@ -1,10 +1,6 @@
 import { ProductWithInstances } from "@custom-types/api"
-import {
-  PrismaClient
-} from "@custom-types/prisma/generated/client"
-import type {
-  ProductDetails
-} from "@custom-types/product"
+import { PrismaClient } from "@custom-types/prisma/generated/client"
+import type { ProductDetails } from "@custom-types/product"
 import { Order } from "@enums/api"
 
 const prisma = new PrismaClient()
@@ -48,11 +44,13 @@ export const getAllInstances = async () => {
       product.instances.forEach((instance) => {
         // TODO: move this repeated logic to util
         const expirationDate = new Date(instance.storageDate)
-        expirationDate.setMonth(expirationDate.getMonth() + product.monthsToFreeze)
+        expirationDate.setMonth(
+          expirationDate.getMonth() + product.monthsToFreeze,
+        )
 
         allProductsDetails.push({
           ...instance,
-          expirationDate
+          expirationDate,
         })
       })
     })
@@ -88,11 +86,13 @@ export const getProductInstances = async (
     product.instances.forEach((instance) => {
       // TODO: move this repeated logic to util
       const expirationDate = new Date(instance.storageDate)
-      expirationDate.setMonth(expirationDate.getMonth() + product.monthsToFreeze)
+      expirationDate.setMonth(
+        expirationDate.getMonth() + product.monthsToFreeze,
+      )
 
       productDetails.push({
         ...instance,
-        expirationDate
+        expirationDate,
       })
     })
 

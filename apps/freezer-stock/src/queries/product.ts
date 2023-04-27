@@ -2,10 +2,7 @@ import {
   PrismaClient,
   ProductInstance,
 } from "@custom-types/prisma/generated/client"
-import type {
-  ProductSummary,
-  ProductToSave
-} from "@custom-types/product"
+import type { ProductSummary, ProductToSave } from "@custom-types/product"
 import { Order } from "@enums/api"
 
 const prisma = new PrismaClient()
@@ -35,18 +32,19 @@ export const getProductWithNextToExpireUnits = async (
     let nextToExpireUnits = 0
 
     if (product.instances.length) {
-
       const oldestStorageDate = product.instances[0].storageDate // asc order
 
       // TODO: move this repeated logic to util
       const expirationDate = new Date(oldestStorageDate)
       /* Expiration Date = Storage Date + How Many Months Can Be Freezed */
-      expirationDate.setMonth(expirationDate.getMonth() + product.monthsToFreeze)
+      expirationDate.setMonth(
+        expirationDate.getMonth() + product.monthsToFreeze,
+      )
       nextToExpireDate = expirationDate
 
       /*
        * Having the oldest instance and filter all the instances
-       * with the same storage to calculate the units 
+       * with the same storage to calculate the units
        * that are going to expire sooner
        */
       nextToExpireUnits = product.instances
