@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `ProductInstance` ADD COLUMN `storagenDate` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3);
