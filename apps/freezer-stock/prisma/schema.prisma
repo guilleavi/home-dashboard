@@ -19,9 +19,9 @@ model Product {
 }
 
 model ProductInstance {
-  instanceId     Int      @id @default(autoincrement())
-  product        Product  @relation(fields: [name], references: [name])
-  name           String
-  units          Int
-  expirationDate DateTime
+  instanceId  Int      @id @default(autoincrement())
+  product     Product  @relation(fields: [name], references: [name])
+  name        String
+  units       Int
+  storageDate DateTime
 }

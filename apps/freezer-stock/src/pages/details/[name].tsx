@@ -1,17 +1,26 @@
-import { getAllInstances, getProductInstances } from "@api/queries"
 import StockDetails from "@components/StockDetails/StockDetails"
 import PageContainer from "@containers/PageContainer/PageContainer"
+import { ProductContext } from "@contexts/ProductProvider"
 import type { ContextParams } from "@custom-types/context"
 import type { ProductDetails } from "@custom-types/product"
+import { getAllInstances, getProductInstances } from "@queries/instance"
+import { ProductActionType } from "@state/actions"
 import { toPascalCase } from "@utils/strings"
 import Link from "next/link"
 import type { GetStaticPropsContext, InferGetStaticPropsType } from "next/types"
+import { useContext, useEffect } from "react"
 
 const DetailsPage = ({
   name,
   instances,
 }: InferGetStaticPropsType<typeof getServerSideProps>) => {
   const title = `${toPascalCase(name)} Stock Details`
+
+  const { dispatch } = useContext(ProductContext)
+
+  useEffect(() => {
+    dispatch({ type: ProductActionType.CLEAR_PRODUCT })
+  }, [dispatch])
 
   return (
     <PageContainer htmlTitle={`Freezer stock - ${title}`} pageTitle={title}>
@@ -20,7 +29,10 @@ const DetailsPage = ({
         className="navigation-link"
         href={{
           pathname: "/",
-          ...(name !== "all" && { query: { name } }),
+          /*
+           * TODO: fix fetch when is back
+           * ...(name !== "all" && { query: { name } }),
+           */
         }}
       >
         Back

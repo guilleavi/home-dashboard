@@ -1,7 +1,7 @@
-import { getProductInstances, updateIntanceUnits } from "@api/queries"
 import { ProductDetailsCustomRequest } from "@custom-types/api"
 import type { ProductDetails } from "@custom-types/product"
 import { HttpMethod, StatusCode } from "@enums/api"
+import { getProductInstances, updateIntanceUnits } from "@queries/instance"
 import type { NextApiResponse } from "next"
 
 const handleProductInstances = async (

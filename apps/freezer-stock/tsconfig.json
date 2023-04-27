@@ -4,9 +4,6 @@
     "sourceMap": true,
     "baseUrl": "src",
     "paths": {
-      "@api/*": [
-        "api/*"
-      ],
       "@asserts/*": [
         "asserts/*"
       ],
@@ -27,6 +24,9 @@
       ],
       "@hooks/*": [
         "hooks/*"
+      ],
+      "@queries/*": [
+        "queries/*"
       ],
       "@services/*": [
         "services/*"
