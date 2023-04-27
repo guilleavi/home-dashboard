@@ -28,7 +28,9 @@ const SearchInput = ({ onShowSpinner }: SearchInputProps) => {
   const fetchedProduct = useFetchProduct(productToSearch)
 
   useEffect(() => {
-    setProductToSearch(queryParamName)
+    if (queryParamName) {
+      setProductToSearch(queryParamName)
+    }
   }, [queryParamName])
 
   useEffect(() => {
