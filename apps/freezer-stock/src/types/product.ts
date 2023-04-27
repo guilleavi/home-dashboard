@@ -49,3 +49,9 @@ export interface UpdateUnitsPayload {
   key: "units"
   value: number
 }
+
+export type UpdateProductActionPayloads =
+  | UpdateNamePayload
+  | UpdateMonthsPayload
+  | UpdateDatePayload
+  | UpdateUnitsPayload

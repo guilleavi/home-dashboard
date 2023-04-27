@@ -1,17 +1,18 @@
 import ActionButton from "@components/ActionButton/ActionButton"
-import { ProductContext } from "@contexts/ProductProvider"
 import type { ReactChangeEvent } from "@custom-types/dom"
 import { EditAction } from "@enums/common"
-import { ProductActionType } from "@state/actions"
-import { useContext, useState } from "react"
+import { useAppDispatch, useAppSelector } from "@store/hooks"
+import { update } from "@store/productSlice"
+import { useState } from "react"
 import styles from "./MonthsToFreeze.module.css"
 
 const getOppositeAction = (currentAction: EditAction) =>
   currentAction === EditAction.EDIT ? EditAction.UNDO : EditAction.EDIT
 
 const MonthsToFreeze = () => {
-  const { state, dispatch } = useContext(ProductContext)
-  const monthsToFreezeOriginalValue = state.storagedProduct.monthsToFreeze
+  const dispatch = useAppDispatch()
+  const { storagedProduct } = useAppSelector((state) => state.product)
+  const monthsToFreezeOriginalValue = storagedProduct.monthsToFreeze
 
   const [monthsToFreezeInputValue, setMonthsToFreezeInputValue] = useState(
     monthsToFreezeOriginalValue,
@@ -25,10 +26,7 @@ const MonthsToFreeze = () => {
     /* Only positive values are valid */
     if (typedNumber > 0) {
       setMonthsToFreezeInputValue(typedNumber)
-      dispatch({
-        type: ProductActionType.UPDATE_PRODUCT,
-        payload: { key: "monthsToFreeze", value: typedNumber },
-      })
+      dispatch(update({ key: "monthsToFreeze", value: typedNumber }))
     }
   }
 
@@ -43,10 +41,9 @@ const MonthsToFreeze = () => {
     /* Only undo the monthsToFreeze value, if it's been changed by the user */
     if (hasMonthsToFreezeBeenUpdated) {
       setMonthsToFreezeInputValue(monthsToFreezeOriginalValue)
-      dispatch({
-        type: ProductActionType.UPDATE_PRODUCT,
-        payload: { key: "monthsToFreeze", value: monthsToFreezeOriginalValue },
-      })
+      dispatch(
+        update({ key: "monthsToFreeze", value: monthsToFreezeOriginalValue }),
+      )
     }
   }
 

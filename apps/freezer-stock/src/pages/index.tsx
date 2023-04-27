@@ -9,15 +9,15 @@ import StorageDate from "@components/StorageDate/StorageDate"
 import UnitsController from "@components/UnitsController/UnitsController"
 import CardContainer from "@containers/CardContainer/CardContainer"
 import PageContainer from "@containers/PageContainer/PageContainer"
-import { ProductContext } from "@contexts/ProductProvider"
+import { useAppSelector } from "@store/hooks"
 import { toPascalCase } from "@utils/strings"
-import { useCallback, useContext, useState } from "react"
+import { useCallback, useState } from "react"
 
 const HomePage = () => {
   const [showSpinner, setShowSpinner] = useState(false)
 
-  const { state } = useContext(ProductContext)
-  const { name, nextToExpireUnits } = state.storagedProduct
+  const { storagedProduct } = useAppSelector((state) => state.product)
+  const { name, nextToExpireUnits } = storagedProduct
 
   /* useCallback avoids SearchInput rerender */
   const handleShowSpinner = useCallback((show: boolean) => {

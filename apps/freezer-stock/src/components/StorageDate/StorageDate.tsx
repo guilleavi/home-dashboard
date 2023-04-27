@@ -1,8 +1,8 @@
-import { ProductContext } from "@contexts/ProductProvider"
 import type { ReactChangeEvent } from "@custom-types/dom"
-import { ProductActionType } from "@state/actions"
+import { useAppDispatch } from "@store/hooks"
+import { update } from "@store/productSlice"
 import { trimDateString } from "@utils/date"
-import { useContext, useState } from "react"
+import { useState } from "react"
 import styles from "./StorageDate.module.css"
 
 /* If there is no 'date' arg, it will returns today's date */
@@ -10,19 +10,18 @@ const normalizedDate = (date?: string) =>
   trimDateString((date ? new Date(date) : new Date()).toISOString())
 
 const StorageDate = () => {
-  const { dispatch } = useContext(ProductContext)
+  const dispatch = useAppDispatch()
 
   const [storageDate, setStorageDate] = useState(normalizedDate())
 
   const handleDatepickerChange = ({ target }: ReactChangeEvent) => {
     setStorageDate(target.value)
-    dispatch({
-      type: ProductActionType.UPDATE_PRODUCT,
-      payload: {
+    dispatch(
+      update({
         key: "storageDate",
         value: trimDateString(normalizedDate(target.value)),
-      },
-    })
+      }),
+    )
   }
 
   return (
