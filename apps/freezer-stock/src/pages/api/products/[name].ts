@@ -1,8 +1,8 @@
-import { getProductWithNextToExpireUnits, saveProduct } from "@api/queries"
 import { assertIsString } from "@asserts/primitives"
 import { ProductToSaveCustomRequest } from "@custom-types/api"
 import type { ProductSummary } from "@custom-types/product"
 import { HttpMethod, StatusCode } from "@enums/api"
+import { getProductWithNextToExpireUnits, saveProduct } from "@queries/product"
 import type { NextApiResponse } from "next"
 
 const handleProduct = async (

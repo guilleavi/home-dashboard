@@ -5,6 +5,11 @@
 - run `pnpm install`
 - run `pnpm run dev --filter freezer-stock`
 
+## To update db with Prisma Schema
+- cd to freezer-stock folder
+- prisma generate
+- prisma migrate dev (make sure that the env file is called .env and not .env.local or other)
+
 ## Endpoints
 
 GET - api/products/[name] - Get product data with the units that are going to expire sooner.
