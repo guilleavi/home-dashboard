@@ -1,6 +1,7 @@
-import { ProductProvider } from "@contexts/ProductProvider"
 import type { AppProps } from "next/app"
 import Head from "next/head"
+import { Provider } from "react-redux"
+import { store } from "store"
 import "../styles/index.css"
 
 const FreezerStockApp = ({ Component, pageProps }: AppProps) => (
@@ -44,9 +45,9 @@ const FreezerStockApp = ({ Component, pageProps }: AppProps) => (
         crossOrigin="anonymous"
       />
     </Head>
-    <ProductProvider>
+    <Provider store={store}>
       <Component {...pageProps} />
-    </ProductProvider>
+    </Provider>
   </>
 )
 

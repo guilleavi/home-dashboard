@@ -1,11 +1,10 @@
-import { ProductContext } from "@contexts/ProductProvider"
+import { useAppSelector } from "@store/hooks"
 import { getDaysToExpire } from "@utils/date"
 import { pluralize, pluralizeToBe } from "@utils/strings"
-import { useContext } from "react"
 
 const NextToExpire = () => {
-  const { state } = useContext(ProductContext)
-  const { name, nextToExpireDate, nextToExpireUnits } = state.storagedProduct
+  const { storagedProduct } = useAppSelector((state) => state.product)
+  const { name, nextToExpireDate, nextToExpireUnits } = storagedProduct
 
   return (
     <p className="paragraph-container">

@@ -1,17 +1,16 @@
-import { ProductContext } from "@contexts/ProductProvider"
-import { useContext } from "react"
+import { useAppSelector } from "@store/hooks"
 import styles from "./ErrorMessages.module.css"
 
 const ErrorMessages = () => {
-  const { state } = useContext(ProductContext)
+  const { errors } = useAppSelector((state) => state.product)
 
-  if (!state.errors.length) {
+  if (!errors.length) {
     return null
   }
 
   return (
     <div className="block-container">
-      {state.errors.map((error, index) => (
+      {errors.map((error, index) => (
         <p key={index} className={styles["error-message"]}>
           {error}
         </p>

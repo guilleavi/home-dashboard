@@ -1,20 +1,18 @@
 import CounterButton from "@components/CounterButton/CounterButton"
-import { ProductContext } from "@contexts/ProductProvider"
-import { ProductActionType } from "@state/actions"
-import { useContext } from "react"
+import { useAppDispatch, useAppSelector } from "@store/hooks"
+import { update } from "@store/productSlice"
 import styles from "./UnitsController.module.css"
 
 const UnitsController = () => {
-  const { state, dispatch } = useContext(ProductContext)
-  const { units = 0 } = state.newProductItem
+  const dispatch = useAppDispatch()
+  const { newProductItem } = useAppSelector((state) => state.product)
+
+  const { units = 0 } = newProductItem
 
   const handleUpdateQuantity = (add: number) => {
     const newQuantity = units + add
     const normalizedNewQuantity = newQuantity < 0 ? 0 : newQuantity
-    dispatch({
-      type: ProductActionType.UPDATE_PRODUCT,
-      payload: { key: "units", value: normalizedNewQuantity },
-    })
+    dispatch(update({ key: "units", value: normalizedNewQuantity }))
   }
 
   return (

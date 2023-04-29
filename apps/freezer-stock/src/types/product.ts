@@ -30,22 +30,28 @@ export class NewProduct implements ProductSummary {
   }
 }
 
-export interface UpdateNamePayload {
+interface UpdateNamePayload {
   key: "name"
   value: string
 }
 
-export interface UpdateMonthsPayload {
+interface UpdateMonthsPayload {
   key: "monthsToFreeze"
   value: number
 }
 
-export interface UpdateDatePayload {
+interface UpdateDatePayload {
   key: "storageDate"
   value: string
 }
 
-export interface UpdateUnitsPayload {
+interface UpdateUnitsPayload {
   key: "units"
   value: number
 }
+
+export type UpdateProductActionPayloads =
+  | UpdateNamePayload
+  | UpdateMonthsPayload
+  | UpdateDatePayload
+  | UpdateUnitsPayload

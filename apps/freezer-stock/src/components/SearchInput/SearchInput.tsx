@@ -1,11 +1,11 @@
 import { assertIsString } from "@asserts/primitives"
-import { ProductContext } from "@contexts/ProductProvider"
 import type { ReactKeyboardEvent } from "@custom-types/dom"
 import { Key } from "@enums/common"
 import useFetchProduct from "@hooks/useFetchProduct"
-import { ProductActionType } from "@state/actions"
+import { useAppDispatch } from "@store/hooks"
+import { cleanUp, get } from "@store/productSlice"
 import { useRouter } from "next/router"
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import styles from "./SearchInput.module.css"
 
 interface SearchInputProps {
@@ -22,7 +22,7 @@ const SearchInput = ({ onShowSpinner }: SearchInputProps) => {
   /* queryParamName type could be string || string[] */
   assertIsString(queryParamName)
 
-  const { dispatch } = useContext(ProductContext)
+  const dispatch = useAppDispatch()
   const [inputValue, setInputValue] = useState("")
   const [productToSearch, setProductToSearch] = useState(queryParamName)
   const fetchedProduct = useFetchProduct(productToSearch)
@@ -35,10 +35,7 @@ const SearchInput = ({ onShowSpinner }: SearchInputProps) => {
 
   useEffect(() => {
     if (fetchedProduct.name) {
-      dispatch({
-        type: ProductActionType.GET_PRODUCT,
-        payload: fetchedProduct,
-      })
+      dispatch(get(fetchedProduct))
       setProductToSearch("")
       onShowSpinner(false)
     }
@@ -48,9 +45,7 @@ const SearchInput = ({ onShowSpinner }: SearchInputProps) => {
     /* Trigger search and leave the input cleared for a future search */
     if (key === Key.ENTER) {
       onShowSpinner(true)
-      dispatch({
-        type: ProductActionType.CLEAR_PRODUCT,
-      })
+      dispatch(cleanUp())
       setProductToSearch(inputValue)
       setInputValue("")
     }
