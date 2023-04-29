@@ -1,11 +1,35 @@
 {
-    "javascript.suggestionActions.enabled": false,
-    "eslint.workingDirectories": [
-        {
-            "pattern": "./apps/*/"
-        },
-        {
-            "pattern": "./packages/*/"
-        }
-    ],
+  "javascript.suggestionActions.enabled": false,
+  "eslint.workingDirectories": [
+    {
+      "pattern": "./apps/*/"
+    },
+    {
+      "pattern": "./packages/*/"
+    }
+  ],
+  "attrsSorter.order": [
+    "class",
+    "className",
+    "id",
+    "name",
+    "data-.+",
+    "ng-.+",
+    "src",
+    "for",
+    "type",
+    "href",
+    "values",
+    "title",
+    "alt",
+    "role",
+    "aria-.+",
+    "$unknown$"
+  ],
+  "editor.formatOnSave": true,
+  "prettier.configPath": "C:\\Users\\guill\\Documents\\MyRepos\\home-dashboard\\packages\\prettier-config-custom\\index.js",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
 }

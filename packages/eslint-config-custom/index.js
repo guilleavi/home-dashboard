@@ -141,6 +141,13 @@ module.exports = {
     "react/jsx-no-bind": ["error", { allowArrowFunctions: true }],
     "react/jsx-no-leaked-render": ["error", { validStrategies: ["ternary"] }],
     "react/jsx-no-useless-fragment": "error",
+    // jsx-a11y
+    "jsx-a11y/no-noninteractive-element-to-interactive-role": [
+      "error",
+      {
+        menu: ["menu", "tablist"],
+      },
+    ],
   },
   settings: {
     react: {
@@ -151,4 +158,4 @@ module.exports = {
       flowVersion: "0.53",
     },
   },
-};
+}

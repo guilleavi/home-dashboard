@@ -3,7 +3,7 @@
 
 :root {
   /* colors */
-  --main-color: #0d6efd;
+  --main-color: #0b77d8; /* good contrast with white text */
   --secondary-color: #007daf;
   --error-color: red;
   --link-color: var(--secondary-color);
@@ -26,6 +26,7 @@ body {
   font-family: "Open Sans", "Segoe UI", Helvetica, sans-serif;
   text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
 }
 
 h1 {
@@ -68,3 +69,7 @@ button {
   font-size: var(--link-font-size);
   text-decoration: underline;
 }
+/* 
+* {
+  border: 1px solid red;
+} */

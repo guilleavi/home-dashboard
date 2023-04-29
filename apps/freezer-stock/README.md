@@ -7,8 +7,8 @@
 
 ## To update db with Prisma Schema
 - cd to freezer-stock folder
-- prisma generate
-- prisma migrate dev (make sure that the env file is called .env and not .env.local or other)
+- run `prisma generate`
+- run `prisma migrate dev` (make sure that the env file is called .env and not .env.local or other)
 
 ## Endpoints
 

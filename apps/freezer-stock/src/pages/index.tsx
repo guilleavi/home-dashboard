@@ -1,14 +1,12 @@
 import ErrorMessages from "@components/ErrorMessages/ErrorMessages"
-import MonthsToFreeze from "@components/MonthsToFreeze/MonthsToFreeze"
-import NextToExpire from "@components/NextToExpire/NextToExpire"
 import SaveButton from "@components/SaveButton/SaveButton"
 import SearchInput from "@components/SearchInput/SearchInput"
 import ShowDetailsLink from "@components/ShowDetailsLink/ShowDetailsLink"
 import Spinner from "@components/Spinner/Spinner"
 import StorageDate from "@components/StorageDate/StorageDate"
 import UnitsController from "@components/UnitsController/UnitsController"
-import CardContainer from "@containers/CardContainer/CardContainer"
 import PageContainer from "@containers/PageContainer/PageContainer"
+import ProductActions from "@components/ProductActions/ProductActions"
 import { useAppSelector } from "@store/hooks"
 import { toPascalCase } from "@utils/strings"
 import { useCallback, useState } from "react"
@@ -32,7 +30,7 @@ const HomePage = () => {
       <Spinner isActive={showSpinner}>
         {name ? (
           <>
-            <CardContainer title={toPascalCase(name)}>
+            {/* <CardContainer title={toPascalCase(name)}>
               <MonthsToFreeze />
               {nextToExpireUnits ? (
                 <>
@@ -40,7 +38,8 @@ const HomePage = () => {
                   <ShowDetailsLink slug={name}>Show Details</ShowDetailsLink>
                 </>
               ) : null}
-            </CardContainer>
+            </CardContainer> */}
+            <ProductActions />
             <StorageDate />
             <UnitsController />
             <SaveButton onShowSpinner={(show) => setShowSpinner(show)} />
